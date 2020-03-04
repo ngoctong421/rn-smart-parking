@@ -4,7 +4,17 @@ import { View, Text, StyleSheet } from "react-native";
 const TicketScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>TicketScreen</Text>
+      <View>
+        <Text>QR Code</Text>
+      </View>
+
+      <View>
+        <Text>Infor</Text>
+      </View>
+
+      <View>
+        <Text>Recent</Text>
+      </View>
     </View>
   );
 };

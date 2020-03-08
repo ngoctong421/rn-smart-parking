@@ -1,6 +1,7 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-
+import { View, Text, StyleSheet, Image, ImageBackground } from "react-native";
+import LinearGradient from 'react-native-linear-gradient';
+import mainbackground from '../assets/mainbackground.png'
 const PaymentScreen = () => {
   return (
     <View style={styles.container}>

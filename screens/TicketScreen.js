@@ -1,173 +1,180 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, ImageBackground } from "react-native";
-import qrcodeticket from '../assets/QRcodeticket.png'
-import mainbackground from '../assets/mainbackground.png'
-import ticketinfo from '../assets/ticket.png'
-import historticket from '../assets/tickin.png'
-const TicketScreen = () => {
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  FlatList
+} from "react-native";
+
+import HistoryTicketItem from "../components/HistoryTicketItem";
+
+import qrcodeticket from "../assets/QRcodeticket.png";
+import ticketinfo from "../assets/ticket.png";
+import history from "../assets/tickin.png";
+
+const dataTemp = [
+  {
+    id: 1,
+    arrival: "2:55 PM",
+    date: "Mar 29, 2020"
+  },
+  {
+    id: 2,
+    arrival: "3:29 PM",
+    date: "Mar 5, 2020"
+  },
+  {
+    id: 3,
+    arrival: "2:10 PM",
+    date: "Feb 21, 2020"
+  },
+  {
+    id: 4,
+    arrival: "9:03 AM",
+    date: "Feb 10, 2020"
+  }
+];
+
+const TicketScreen = props => {
   return (
-    <ImageBackground source={mainbackground} style={styles.backgroundstyle}>
-      <View>
-        <Text style={styles.titlesscreen}>TICKET</Text>
-        <View style={styles.container}>
-          <View>
-            <View style={styles.qrheader}>
-              <Text style={styles.qrtexttitle}>QR CODE TICKET</Text>
-            </View>
-            <View style={styles.codecontainer}>
-              <Image source={qrcodeticket} style={styles.imagestyle}/>
-              <Text style={styles.qrtext}>Click here to show your QR ticket.</Text>
-            </View>
-          </View>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      <Text style={styles.titlestyle}>TICKET</Text>
 
-          <View style={styles.container}>
-            <View style={styles.inforheader}>
-              <Text style={styles.ticketInfotexttitle}>TICKET INFORMATION</Text>
-            </View>
-            <View style={styles.codecontainer}>
-              <Image source={ticketinfo} style={styles.imagestyle}/>
-              <View style={styles.sorttext}>
-              <Text style={styles.ticketInfotext}>Ticket number:</Text>
-              <Text style={styles.ticketInfotext}>Date:</Text>
-              <Text style={styles.ticketInfotext}>Arrival time:</Text>
-              <Text style={styles.ticketInfotext}>Vehicle plate:</Text>
-              </View>
-            </View>
-          </View>
-
-          <View style={styles.container}>
-            <View style={styles.historyheader}>
-              <Text style={styles.historytexttitle}>RECENT HISTORY</Text>
-            </View>
-            <View style={styles.codecontainer}>
-              <Image source={historticket} style={styles.imagestyle}/>
-              <View style={styles.sorttext}>
-                <Text>Chỗ này có nên làm flatlist?</Text>
-              </View>
-            </View>
-          </View>
-
-        </View> 
+      <View style={styles.blockcontainer}>
+        <Text style={styles.qrheader}>QR CODE TICKET</Text>
+        <TouchableOpacity style={styles.detailstyle}>
+          <Image source={qrcodeticket} style={styles.imagestyle} />
+          <Text style={styles.qrtext}>Click here to show your QR ticket</Text>
+        </TouchableOpacity>
       </View>
-    </ImageBackground>
+
+      <View style={styles.blockcontainer}>
+        <Text style={styles.ticketheader}>TICKET INFOMATION</Text>
+        <TouchableOpacity style={styles.detailstyle}>
+          <Image source={ticketinfo} style={styles.imagestyle} />
+          <View>
+            <Text style={styles.tickettext}>Ticket number:</Text>
+            <Text style={styles.tickettext}>Date:</Text>
+            <Text style={styles.tickettext}>Arrival time:</Text>
+            <Text style={styles.tickettext}>Vehicle plate:</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.historycontainer}>
+        <Text style={styles.historyheader}>RECENT HISTORY</Text>
+        <FlatList
+          style={styles.flatstyle}
+          data={dataTemp}
+          keyExtractor={data => data.id.toString()}
+          showsVerticalScrollIndicator={false}
+          scrollEnabled={false}
+          renderItem={({ item }) => {
+            return <HistoryTicketItem item={item} />;
+          }}
+        />
+      </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    //flex: 1,
-    //alignItems: "center",
-    justifyContent: "center",
-    marginVertical : 15
+    flex: 1,
+    backgroundColor: "#a2ecff"
   },
-  backgroundstyle :{
-    resizeMode :'cover',
-    flex: 1
+  titlestyle: {
+    fontSize: 30,
+    fontWeight: "bold",
+    color: "#fff",
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 2 },
+    shadowColor: "#000",
+    elevation: 2,
+    textAlign: "center",
+    marginTop: 32,
+    marginBottom: 16
   },
-  titlesscreen:{
-    fontSize : 30,
-    fontWeight : 'bold',
-    color: '#fff',
-    shadowRadius : 6,
-    shadowColor : '#000',
-    textAlign : 'center',
-    paddingTop : 25,
-    paddingBottom : 5
-  },
-  codecontainer:{
-    marginLeft : 10,
-    marginRight: 10,
-    shadowOpacity : 0.5,
-    shadowRadius: 10,
-    shadowColor: '#000',
-    shadowOffset :{ height: 3, width : 0 },
-    backgroundColor: '#fff',
-    flexDirection: 'row',
-    borderBottomLeftRadius : 20,
-    borderBottomRightRadius : 20,
-    borderTopLeftRadius: 0,
-    borderTopRightRadius : 0,
-    paddingBottom : 10
+  blockcontainer: {
+    shadowRadius: 4,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    elevation: 4,
+    backgroundColor: "#fff",
+    borderRadius: 20,
+    marginVertical: 10,
+    marginHorizontal: 20
   },
   qrheader: {
-    marginLeft : 10,
-    marginRight: 10,
-    borderBottomLeftRadius : 0,
-    borderBottomRightRadius : 0,
     borderTopLeftRadius: 20,
-    borderTopRightRadius : 20,
-    backgroundColor : '#FFF29C'
+    borderTopRightRadius: 20,
+    backgroundColor: "#FFF29C",
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 20,
+    color: "#F8A500",
+    paddingVertical: 8
   },
-  imagestyle:{
-    marginLeft: 20,
-    marginTop : 10,
-    alignItems :'center'
+  detailstyle: {
+    flexDirection: "row",
+    alignItems: "center",
+    margin: 16
   },
-  qrtext:{
-    color : '#F8A500',
-    marginTop: 20,
-    marginLeft : 10,
-    paddingHorizontal : 20,
-    fontWeight : 'bold',
-    fontSize : 15
+  imagestyle: {
+    width: 70,
+    height: 70,
+    marginRight: 20
   },
-  qrtexttitle:{
-    color : '#F8A500',
-    marginTop: 10,
-    marginLeft : 10,
-    paddingBottom : 5,
-    paddingHorizontal : 20,
-    fontWeight : 'bold',
-    fontSize : 20
+  qrtext: {
+    color: "#F8A500",
+    fontWeight: "bold",
+    fontSize: 16
   },
-  ticketInfotexttitle:{
-    color : '#0090FE',
-    marginTop: 10,
-    marginLeft : 10,
-    paddingBottom : 5,
-    paddingHorizontal : 20,
-    fontWeight : 'bold',
-    fontSize : 20
-  },
-  ticketInfotext:{
-    color : '#0090FE',
-    marginTop: 5,
-    marginLeft : 10,
-    paddingHorizontal : 20,
-    fontWeight : 'bold',
-    fontSize : 15,
-  },
-  inforheader:{
-    marginLeft : 10,
-    marginRight: 10,
-    borderBottomLeftRadius : 0,
-    borderBottomRightRadius : 0,
+  ticketheader: {
     borderTopLeftRadius: 20,
-    borderTopRightRadius : 20,
-    backgroundColor : '#2CD4FF'
+    borderTopRightRadius: 20,
+    backgroundColor: "#2CD4FF",
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 20,
+    color: "#0090FE",
+    paddingVertical: 8
   },
-  sorttext:{
-    flexDirection: 'column',
-    textAlign : 'center'
+  tickettext: {
+    color: "#0090FE",
+    fontWeight: "bold",
+    fontSize: 16
   },
-  historyheader:{
-    marginLeft : 10,
-    marginRight: 10,
-    borderBottomLeftRadius : 0,
-    borderBottomRightRadius : 0,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius : 20,
-    backgroundColor : '#9CFFBA'
-  },
-  historytexttitle:{
-    color : '#18B247',
+  historycontainer: {
+    shadowOpacity: 0.5,
+    shadowRadius: 4,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    elevation: 4,
+    backgroundColor: "#fff",
+    borderRadius: 20,
     marginTop: 10,
-    marginLeft : 10,
-    paddingBottom : 5,
-    paddingHorizontal : 20,
-    fontWeight : 'bold',
-    fontSize : 20
+    marginBottom: 32,
+    marginHorizontal: 20
   },
+  historyheader: {
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    backgroundColor: "#9CFFBA",
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 20,
+    color: "#18B247",
+    paddingVertical: 8
+  },
+  flatstyle: {
+    paddingVertical: 6
+  }
 });
 
 export default TicketScreen;

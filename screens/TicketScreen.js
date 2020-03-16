@@ -13,7 +13,6 @@ import HistoryTicketItem from "../components/HistoryTicketItem";
 
 import qrcodeticket from "../assets/QRcodeticket.png";
 import ticketinfo from "../assets/ticket.png";
-import history from "../assets/tickin.png";
 
 const dataTemp = [
   {

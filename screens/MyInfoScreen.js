@@ -1,9 +1,9 @@
 import React from "react";
-import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from "react-native";
 import {LinearGradient} from 'expo-linear-gradient';
 
 import avatar from '../assets/profileavatar.png';
-const MyInfoScreen = () => {
+const MyInfoScreen = props => {
   return (
       <LinearGradient style={{flex: 1}}colors={['#A2ECFF', '#ffffff']}>
         <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
@@ -39,9 +39,12 @@ const MyInfoScreen = () => {
               <Text style={styles.infotext}>17520000@gm.uit.edu.vn</Text>
               </LinearGradient>
 
-              <View style={styles.buttonstyle}>
+              <TouchableOpacity
+                onPress={() => {props.navigation.navigate("EditInfoScreen");}}
+                style={styles.buttonstyle}>
                 <Text style={styles.buttontextstyle}>EDIT</Text>
-              </View>
+              </TouchableOpacity>
+              
           </View>
         </ScrollView>
       </LinearGradient>

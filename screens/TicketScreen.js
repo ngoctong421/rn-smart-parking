@@ -13,6 +13,7 @@ import HistoryTicketItem from "../components/HistoryTicketItem";
 
 import qrcodeticket from "../assets/QRcodeticket.png";
 import ticketinfo from "../assets/ticket.png";
+import { LinearGradient } from "expo-linear-gradient";
 
 const dataTemp = [
   {
@@ -39,6 +40,7 @@ const dataTemp = [
 
 const TicketScreen = props => {
   return (
+    <LinearGradient style={{flex: 1}}colors={['#A2ECFF', '#ffffff']}>
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <Text style={styles.titlestyle}>TICKET</Text>
 
@@ -77,13 +79,13 @@ const TicketScreen = props => {
         />
       </View>
     </ScrollView>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#a2ecff"
+    flex: 1
   },
   titlestyle: {
     fontSize: 30,

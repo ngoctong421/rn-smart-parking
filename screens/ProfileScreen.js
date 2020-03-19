@@ -6,18 +6,31 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  Dimensions,
   StatusBar
 } from "react-native";
 import { MaterialCommunityIcons } from "react-native-vector-icons";
 
+import avatar from '../assets/profileavatar.png';
+import bikepic from '../assets/bikeprofile.png';
+import qrcodepic from '../assets/qrcode.png';
+import infopic from '../assets/yourpro.png'
+import logoutpic from '../assets/logout.png'
+import { LinearGradient } from "expo-linear-gradient";
+const { width} = Dimensions.get('window');
+
+const box_width = width/3;
+const box_height = box_width*1.1;
+
 const ProfileScreen = props => {
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+  <LinearGradient style={{flex: 1}}colors={['#A2ECFF', '#ffffff']}>
+    <ScrollView style={{flex : 1}} showsVerticalScrollIndicator={false}>
       <Text style={styles.titlestyle}>MY PROFILE</Text>
 
       <Image
+        source={avatar}
         style={styles.imagestyle}
-        source={{ uri: "https://pbs.twimg.com/media/Dyl6aEwX4AEkyDe.jpg" }}
       />
 
       <View style={styles.blockcontainer}>
@@ -28,17 +41,13 @@ const ProfileScreen = props => {
             }}
             style={styles.blockstyle}
           >
-            <MaterialCommunityIcons
-              name="folder-account-outline"
-              size={90}
-              color="#a2ecff"
-            />
+            <Image source={infopic} style={styles.iconstyle}/>
             <Text style={styles.textstyle}>YOUR</Text>
             <Text style={styles.textstyle}>INFOMATION</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.blockstyle}>
-            <MaterialCommunityIcons name="qrcode" size={90} color="#a2ecff" />
+            <Image source={qrcodepic} style={styles.iconstyle}/>
             <Text style={styles.textstyle}>YOUR</Text>
             <Text style={styles.textstyle}>QR CODE</Text>
           </TouchableOpacity>
@@ -46,30 +55,23 @@ const ProfileScreen = props => {
 
         <View style={styles.verticalstyle}>
           <TouchableOpacity style={styles.blockstyle}>
-            <MaterialCommunityIcons
-              name="motorbike"
-              size={90}
-              color="#a2ecff"
-            />
+            <Image source={bikepic} style={styles.iconstyle}/>
             <Text style={styles.textstyle}>ABOUT YOUR</Text>
             <Text style={styles.textstyle}>VEHICLES</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.blockstyle}>
-            <MaterialCommunityIcons name="logout" size={90} color="#a2ecff" />
+            <Image source={logoutpic} style={styles.iconstyle}/>
             <Text style={styles.textstyle}>LOG OUT</Text>
           </TouchableOpacity>
         </View>
       </View>
     </ScrollView>
+  </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#a2ecff"
-  },
   titlestyle: {
     fontSize: 30,
     fontWeight: "bold",
@@ -81,11 +83,14 @@ const styles = StyleSheet.create({
     marginBottom: 16
   },
   imagestyle: {
-    width: 120,
-    height: 120,
+    //width: 120,
+    //height: 120,
     alignSelf: "center",
-    borderRadius: 100,
-    marginVertical: 8
+    //borderRadius: 100,
+    //marginVertical: 8
+  },
+  iconstyle:{
+    marginBottom: 5
   },
   blockcontainer: {
     flex: 1,
@@ -101,7 +106,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.4,
     shadowColor: "#000",
     elevation: 8,
-    marginTop: 8,
+    //marginTop: 8,marginH 20 paddingH V : 20
     marginHorizontal: 20,
     marginBottom: 32,
     paddingHorizontal: 20,
@@ -112,22 +117,27 @@ const styles = StyleSheet.create({
   },
   blockstyle: {
     alignItems: "center",
+    height : box_height,
+    width : box_width,
     marginVertical: 10,
     marginHorizontal: 10,
     padding: 10,
     backgroundColor: "#fff",
     shadowRadius: 4,
+    borderRadius : 20,
     shadowOffset: {
       width: 0,
       height: 2
     },
     shadowOpacity: 0.25,
     shadowColor: "#000",
+    justifyContent :'center',
     elevation: 2
   },
   textstyle: {
     fontSize: 18,
-    color: "#0090fe"
+    color: "#0090fe",
+    fontWeight : 'bold'
   }
 });
 

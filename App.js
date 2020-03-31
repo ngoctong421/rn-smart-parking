@@ -1,12 +1,13 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
-import BottomNavigator from "./navigation/BottomNavigator";
+
+import RootStackNavigator from "./navigation/RootStackNavigator";
 
 export default function App() {
   return (
     <NavigationContainer>
-      <BottomNavigator />
+      <RootStackNavigator></RootStackNavigator>
     </NavigationContainer>
   );
 }

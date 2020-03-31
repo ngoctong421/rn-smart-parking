@@ -1,7 +1,8 @@
 import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createStackNavigator, HeaderTitle } from "@react-navigation/stack";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { MaterialCommunityIcons } from "react-native-vector-icons";
+
 import ProfileScreen from "../screens/ProfileScreen";
 import TicketScreen from "../screens/TicketScreen";
 import PaymentScreen from "../screens/PaymentScreen";
@@ -9,52 +10,19 @@ import MyInfoScreen from "../screens/MyInfoScreen";
 import EditInfoScreen from "../screens/EditInfoScreen";
 import ChangePasswordScreen from "../screens/ChangePasswordScreen";
 
-const ProfileStack = createStackNavigator();
-const TicketStack = createStackNavigator();
-const PaymentStack = createStackNavigator();
-
-function ProfileStackScreen() {
-  return (
-    <ProfileStack.Navigator>
-      <ProfileStack.Screen name="ProfileScreen" component={ProfileScreen} />
-      <ProfileStack.Screen name="MyInfoScreen" component={MyInfoScreen} />
-      <ProfileStack.Screen name="EditInfoScreen" component={EditInfoScreen} />
-      <ProfileStack.Screen
-        name="ChangePasswordScreen"
-        component={ChangePasswordScreen}
-      />
-    </ProfileStack.Navigator>
-  );
-}
-
-function TicketStackScreen() {
-  return (
-    <TicketStack.Navigator>
-      <TicketStack.Screen name="TicketScreen" component={TicketScreen} />
-    </TicketStack.Navigator>
-  );
-}
-
-function PaymentStackScreen() {
-  return (
-    <PaymentStack.Navigator>
-      <PaymentStack.Screen name="PaymentScreen" component={PaymentScreen} />
-    </PaymentStack.Navigator>
-  );
-}
-
 const Tab = createMaterialBottomTabNavigator();
 
-export default function BottomNavigator() {
+function BottomTabNavigator() {
   return (
     <Tab.Navigator
-      initialRouteName="ProfileTab"
+      initialRouteName="Profile"
       activeColor="#0090fe"
+      shifting={true}
       barStyle={{ backgroundColor: "#fff" }}
     >
       <Tab.Screen
         name="Profile"
-        component={ProfileStackScreen}
+        component={ProfileScreen}
         options={{
           tabBarLabel: "Profile",
           tabBarIcon: ({ color }) => (
@@ -63,8 +31,8 @@ export default function BottomNavigator() {
         }}
       />
       <Tab.Screen
-        name="TicketTab"
-        component={TicketStackScreen}
+        name="Ticket"
+        component={TicketScreen}
         options={{
           tabBarLabel: "Ticket",
           tabBarIcon: ({ color }) => (
@@ -73,8 +41,8 @@ export default function BottomNavigator() {
         }}
       />
       <Tab.Screen
-        name="PaymentTab"
-        component={PaymentStackScreen}
+        name="Payment"
+        component={PaymentScreen}
         options={{
           tabBarLabel: "Payment",
           tabBarIcon: ({ color }) => (
@@ -83,5 +51,27 @@ export default function BottomNavigator() {
         }}
       />
     </Tab.Navigator>
+  );
+}
+
+const Stack = createStackNavigator();
+
+export default function RootStackNavigator() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerTitle: null,
+        headerTintColor: "#fff",
+        headerTransparent: true
+      }}
+    >
+      <Stack.Screen name="Tab" component={BottomTabNavigator} />
+      <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen name="Ticket" component={TicketScreen} />
+      <Stack.Screen name="Payment" component={PaymentScreen} />
+      <Stack.Screen name="MyInfo" component={MyInfoScreen} />
+      <Stack.Screen name="EditInfo" component={EditInfoScreen} />
+      <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} />
+    </Stack.Navigator>
   );
 }

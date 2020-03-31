@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#CEF5FF",
     marginHorizontal: 16,
     marginVertical: 6,
-    borderRadius: 20
+    borderRadius: 10
   },
   imagecontainer: {
     flexDirection: "row",

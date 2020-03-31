@@ -8,12 +8,12 @@ import {
   TouchableOpacity,
   FlatList
 } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 
 import HistoryTicketItem from "../components/HistoryTicketItem";
 
 import qrcodeticket from "../assets/QRcodeticket.png";
 import ticketinfo from "../assets/ticket.png";
-import { LinearGradient } from "expo-linear-gradient";
 
 const dataTemp = [
   {
@@ -40,66 +40,71 @@ const dataTemp = [
 
 const TicketScreen = props => {
   return (
-    <LinearGradient style={{flex: 1}}colors={['#A2ECFF', '#ffffff']}>
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      <Text style={styles.titlestyle}>TICKET</Text>
+    <LinearGradient style={{ flex: 1 }} colors={["#a2ecff", "#ffffff"]}>
+      <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+        <View style={styles.container}>
+          <Text style={styles.titlestyle}>TICKET</Text>
 
-      <View style={styles.blockcontainer}>
-        <Text style={styles.qrheader}>QR CODE TICKET</Text>
-        <TouchableOpacity style={styles.detailstyle}>
-          <Image source={qrcodeticket} style={styles.imagestyle} />
-          <Text style={styles.qrtext}>Click here to show your QR ticket</Text>
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.blockcontainer}>
-        <Text style={styles.ticketheader}>TICKET INFOMATION</Text>
-        <TouchableOpacity style={styles.detailstyle}>
-          <Image source={ticketinfo} style={styles.imagestyle} />
-          <View>
-            <Text style={styles.tickettext}>Ticket number:</Text>
-            <Text style={styles.tickettext}>Date:</Text>
-            <Text style={styles.tickettext}>Arrival time:</Text>
-            <Text style={styles.tickettext}>Vehicle plate:</Text>
+          <View style={styles.blockcontainer}>
+            <Text style={styles.qrheader}>QR CODE TICKET</Text>
+            <TouchableOpacity style={styles.detailstyle}>
+              <Image source={qrcodeticket} style={styles.imagestyle} />
+              <Text style={styles.qrtext}>
+                Click here to show your QR ticket
+              </Text>
+            </TouchableOpacity>
           </View>
-        </TouchableOpacity>
-      </View>
 
-      <View style={styles.historycontainer}>
-        <Text style={styles.historyheader}>RECENT HISTORY</Text>
-        <FlatList
-          style={styles.flatstyle}
-          data={dataTemp}
-          keyExtractor={data => data.id.toString()}
-          showsVerticalScrollIndicator={false}
-          scrollEnabled={false}
-          renderItem={({ item }) => {
-            return <HistoryTicketItem item={item} />;
-          }}
-        />
-      </View>
-    </ScrollView>
+          <View style={styles.blockcontainer}>
+            <Text style={styles.ticketheader}>TICKET INFOMATION</Text>
+            <TouchableOpacity style={styles.detailstyle}>
+              <Image source={ticketinfo} style={styles.imagestyle} />
+              <View>
+                <Text style={styles.tickettext}>Ticket number:</Text>
+                <Text style={styles.tickettext}>Date:</Text>
+                <Text style={styles.tickettext}>Arrival time:</Text>
+                <Text style={styles.tickettext}>Vehicle plate:</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.historycontainer}>
+            <Text style={styles.historyheader}>RECENT HISTORY</Text>
+            <FlatList
+              style={styles.flatstyle}
+              data={dataTemp}
+              keyExtractor={data => data.id.toString()}
+              showsVerticalScrollIndicator={false}
+              scrollEnabled={false}
+              renderItem={({ item }) => {
+                return <HistoryTicketItem item={item} />;
+              }}
+            />
+          </View>
+        </View>
+      </ScrollView>
     </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    justifyContent: "center",
+    paddingVertical: 60,
+    paddingHorizontal: 8
   },
   titlestyle: {
     fontSize: 30,
     fontWeight: "bold",
     color: "#fff",
     shadowRadius: 6,
-    shadowOffset: { width: 0, height: 2 },
     shadowColor: "#000",
-    elevation: 2,
     textAlign: "center",
-    marginTop: 32,
-    marginBottom: 16
+    marginBottom: 6
   },
   blockcontainer: {
+    flex: 1,
     shadowRadius: 4,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
@@ -108,7 +113,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 20,
     marginVertical: 10,
-    marginHorizontal: 20
+    marginHorizontal: 16
   },
   qrheader: {
     borderTopLeftRadius: 20,
@@ -160,7 +165,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 20,
     marginTop: 10,
-    marginBottom: 32,
     marginHorizontal: 20
   },
   historyheader: {

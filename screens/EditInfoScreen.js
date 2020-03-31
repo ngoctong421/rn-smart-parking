@@ -1,43 +1,78 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity,
-  TextInput, ScrollView, Picker} from "react-native";
-import {LinearGradient} from 'expo-linear-gradient';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  TextInput,
+  ScrollView,
+  Picker
+} from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 
-import avatar from '../assets/profileavatar.png';
+import avatar from "../assets/profileavatar.png";
 
 const EditInfoScreen = props => {
-  const [idnumber] = React.useState('17520000');
-  const [email] = React.useState('17520000@gm.uit.edu.vn');
+  const [selectedValue, setSelectedValue] = useState("");
+
+  const [inputData, setInputData] = useState({
+    idnumber: "",
+    email: ""
+  });
+
+  const { idnumber, email } = inputData;
+
+  const handleOnChange = key => text => {
+    setInputData({ ...inputData, [key]: text });
+  };
+
   return (
-    <LinearGradient style={{flex: 1}}colors={['#A2ECFF', '#ffffff']}>
-      <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
+    <LinearGradient style={{ flex: 1 }} colors={["#a2ecff", "#ffffff"]}>
+      <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
         <View style={styles.container}>
           <Text style={styles.titlestyle}>EDIT PROFILE</Text>
 
-          <Image source={avatar}/>
+          <Image source={avatar} style={styles.imagestyle} />
 
           <Text style={styles.usernametext}>JennyLinkay</Text>
 
           <Text style={styles.titleinfotext}>POSITION :</Text>
-          <Picker style={styles.inputstyle} mode="dropdown" itemStyle={{paddingLeft: 10}}>
-            <Picker.Item label="Teacher" value="teacher"/>
-            <Picker.Item label="Student" value="Student"/>
-          </Picker>
+          <View style={styles.pickerstyle}>
+            <Picker
+              itemStyle={{ paddingLeft: 10, fontSize: 20, fontWeight: "bold" }}
+              mode="dialog"
+              selectedValue={selectedValue}
+              onValueChange={itemValue => setSelectedValue(itemValue)}
+            >
+              <Picker.Item label="Teacher" value="teacher" />
+              <Picker.Item label="Student" value="student" />
+            </Picker>
+          </View>
 
           <Text style={styles.titleinfotext}>ID NUMBER :</Text>
-          <TextInput style={styles.inputstyle}
-            onChangeText={text => idnumber(text)}
-            value={idnumber}/>
+          <TextInput
+            style={styles.inputstyle}
+            value={idnumber}
+            keyboardType={"number-pad"}
+            autoCapitalize="none"
+            autoCorrect={false}
+            onChangeText={handleOnChange("idnumber")}
+          />
 
           <Text style={styles.titleinfotext}>EMAIL :</Text>
-          <TextInput style={styles.inputstyle}
-            onChangeText={text => email(text)}
-            value={email}/>
+          <TextInput
+            style={styles.inputstyle}
+            value={email}
+            keyboardType="email-address"
+            autoCapitalize="none"
+            autoCorrect={false}
+            onChangeText={handleOnChange("email")}
+          />
 
           <TouchableOpacity style={styles.buttonstyle}>
             <Text style={styles.buttontextstyle}>CONFIRM</Text>
           </TouchableOpacity>
-
         </View>
       </ScrollView>
     </LinearGradient>
@@ -45,10 +80,11 @@ const EditInfoScreen = props => {
 };
 
 const styles = StyleSheet.create({
-  container : {
+  container: {
     flex: 1,
-    alignItems: 'center', 
-    justifyContent: 'center'
+    justifyContent: "center",
+    paddingVertical: 60,
+    paddingHorizontal: 8
   },
   titlestyle: {
     fontSize: 30,
@@ -57,54 +93,79 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     shadowColor: "#000",
     textAlign: "center",
-    marginTop: 32,
     marginBottom: 16
   },
-  usernametext:{
+  imagestyle: {
+    //width: 120,
+    //height: 120,
+    alignSelf: "center"
+    //borderRadius: 100,
+    //marginVertical: 8
+  },
+  usernametext: {
     paddingTop: 10,
-    color: '#6B6B6B',
+    color: "#6b6b6b",
     paddingBottom: 10,
-    fontSize : 25,
-    fontWeight: 'bold'
+    textAlign: "center",
+    fontSize: 26,
+    fontWeight: "bold"
   },
-  titleinfotext:{
-    alignSelf : 'flex-start',
-    paddingLeft: 55,
-    color: '#6B6B6B',
-    fontSize: 15,
-    fontWeight : 'bold',
-    paddingBottom: 2
+  titleinfotext: {
+    alignSelf: "flex-start",
+    paddingLeft: 56,
+    color: "#6b6b6b",
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 10
   },
-  inputstyle:{
-    alignSelf: 'stretch',
-    shadowColor: '#000',
+  pickerstyle: {
+    shadowColor: "#000",
     shadowRadius: 4,
-    paddingHorizontal : 20,
+    paddingHorizontal: 10,
+    paddingVertical: 2,
     marginHorizontal: 40,
     shadowOffset: {
       width: 0,
       height: 2
     },
     elevation: 2,
-    borderRadius: 20,
-    padding: 3,
-    marginBottom: 10,
-    color: '#6B6B6B',
-    backgroundColor : '#ffffff',
-    fontSize: 15
+    borderRadius: 16,
+    marginBottom: 12,
+    color: "#6b6b6b",
+    backgroundColor: "#ffffff",
+    fontSize: 20
   },
-  buttonstyle:{
+  inputstyle: {
+    shadowColor: "#000",
+    shadowRadius: 4,
+    paddingHorizontal: 20,
+    marginHorizontal: 40,
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    elevation: 2,
+    borderRadius: 16,
+    paddingVertical: 12,
+    marginBottom: 12,
+    color: "#6b6b6b",
+    backgroundColor: "#ffffff",
+    fontSize: 20
+  },
+  buttonstyle: {
     marginRight: 40,
-    backgroundColor: '#FFE888',
-    alignSelf :'flex-end',
+    backgroundColor: "#ffe888",
+    alignSelf: "flex-end",
     paddingHorizontal: 40,
     paddingVertical: 10,
-    borderRadius : 20
+    borderRadius: 20,
+    marginTop: 6
   },
-  buttontextstyle:{
-    fontWeight : 'bold',
-    fontSize : 20,
-    color: '#FFB31D'
+  buttontextstyle: {
+    fontWeight: "bold",
+    fontSize: 20,
+    color: "#ffb31d"
   }
 });
+
 export default EditInfoScreen;

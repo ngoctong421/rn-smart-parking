@@ -50,7 +50,7 @@ const TicketScreen = props => {
             <TouchableOpacity style={styles.detailstyle}>
               <Image source={qrcodeticket} style={styles.imagestyle} />
               <Text style={styles.qrtext}>
-                Click here to show your QR ticket
+                Show your QR ticket.
               </Text>
             </TouchableOpacity>
           </View>

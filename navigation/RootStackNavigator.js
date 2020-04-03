@@ -9,6 +9,11 @@ import PaymentScreen from "../screens/PaymentScreen";
 import MyInfoScreen from "../screens/MyInfoScreen";
 import EditInfoScreen from "../screens/EditInfoScreen";
 import ChangePasswordScreen from "../screens/ChangePasswordScreen";
+import WelcomeScreen from "../screens/WelcomeScreen";
+import SignUpScreen from "../screens/SignUpScreen";
+import LoginScreen from "../screens/LoginScreen";
+import ForgetPasswordScreen from "../screens/ForgetPasswordScreen";
+import ResetPasswordScreen from "../screens/ResetPasswordScreen";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -59,6 +64,7 @@ const Stack = createStackNavigator();
 export default function RootStackNavigator() {
   return (
     <Stack.Navigator
+      initialRouteName="Welcome"
       screenOptions={{
         headerTitle: null,
         headerTintColor: "#fff",
@@ -72,6 +78,11 @@ export default function RootStackNavigator() {
       <Stack.Screen name="MyInfo" component={MyInfoScreen} />
       <Stack.Screen name="EditInfo" component={EditInfoScreen} />
       <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} />
+      <Stack.Screen name="Welcome" component={WelcomeScreen} />
+      <Stack.Screen name="SignUp" component={SignUpScreen} />
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="ForgetPassword" component={ForgetPasswordScreen} />
+      <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
     </Stack.Navigator>
   );
 }

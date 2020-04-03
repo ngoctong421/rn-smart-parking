@@ -40,13 +40,12 @@ const EditInfoScreen = props => {
           <Text style={styles.titleinfotext}>POSITION :</Text>
           <View style={styles.pickerstyle}>
             <Picker
-              itemStyle={{ paddingLeft: 10, fontSize: 20, fontWeight: "bold" }}
               mode="dialog"
               selectedValue={selectedValue}
               onValueChange={itemValue => setSelectedValue(itemValue)}
             >
-              <Picker.Item label="Teacher" value="teacher" />
-              <Picker.Item label="Student" value="student" />
+              <Picker.Item label="Teacher" value="teacher" color="#6b6b6b" />
+              <Picker.Item label="Student" value="student" color="#6b6b6b" />
             </Picker>
           </View>
 
@@ -83,15 +82,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    paddingVertical: 60,
-    paddingHorizontal: 8
+    paddingTop: 60,
+    paddingBottom: 40
   },
   titlestyle: {
-    fontSize: 30,
+    fontSize: 26,
     fontWeight: "bold",
     color: "#fff",
-    shadowRadius: 6,
-    shadowColor: "#000",
     textAlign: "center",
     marginBottom: 16
   },
@@ -107,21 +104,21 @@ const styles = StyleSheet.create({
     color: "#6b6b6b",
     paddingBottom: 10,
     textAlign: "center",
-    fontSize: 26,
+    fontSize: 22,
     fontWeight: "bold"
   },
   titleinfotext: {
     alignSelf: "flex-start",
-    paddingLeft: 56,
+    paddingLeft: 54,
     color: "#6b6b6b",
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "bold",
     marginBottom: 10
   },
   pickerstyle: {
     shadowColor: "#000",
     shadowRadius: 4,
-    paddingHorizontal: 10,
+    paddingLeft: 10,
     paddingVertical: 2,
     marginHorizontal: 40,
     shadowOffset: {
@@ -131,9 +128,8 @@ const styles = StyleSheet.create({
     elevation: 2,
     borderRadius: 16,
     marginBottom: 12,
-    color: "#6b6b6b",
     backgroundColor: "#ffffff",
-    fontSize: 20
+    fontSize: 16
   },
   inputstyle: {
     shadowColor: "#000",
@@ -148,22 +144,22 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     paddingVertical: 12,
     marginBottom: 12,
-    color: "#6b6b6b",
     backgroundColor: "#ffffff",
-    fontSize: 20
+    fontSize: 16,
+    color: "#6b6b6b"
   },
   buttonstyle: {
     marginRight: 40,
     backgroundColor: "#ffe888",
     alignSelf: "flex-end",
-    paddingHorizontal: 40,
+    paddingHorizontal: 30,
     paddingVertical: 10,
     borderRadius: 20,
     marginTop: 6
   },
   buttontextstyle: {
     fontWeight: "bold",
-    fontSize: 20,
+    fontSize: 18,
     color: "#ffb31d"
   }
 });

@@ -61,10 +61,10 @@ const MyInfoScreen = props => {
             <Text
               style={{
                 color: "#0090fe",
-                paddingRight: 40,
+                paddingRight: 34,
                 fontWeight: "bold",
-                fontSize: 15,
-                paddingBottom: 10
+                fontSize: 16,
+                paddingBottom: 16
               }}
             >
               Change password
@@ -99,11 +99,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    paddingVertical: 60,
-    paddingHorizontal: 8
+    paddingVertical: 60
   },
   titlestyle: {
-    fontSize: 30,
+    fontSize: 26,
     fontWeight: "bold",
     color: "#fff",
     shadowRadius: 6,
@@ -123,49 +122,47 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     color: "#0090fe",
     paddingBottom: 10,
-    fontSize: 26,
+    fontSize: 22,
     fontWeight: "bold"
   },
   infoboxstyle: {
-    alignSelf: "stretch",
     shadowColor: "#000",
     shadowRadius: 4,
     paddingHorizontal: 10,
-    marginHorizontal: 36,
+    marginHorizontal: 34,
     shadowOffset: {
       width: 0,
       height: 2
     },
     elevation: 2,
     borderRadius: 20,
-    padding: 4,
-    marginBottom: 15
+    marginBottom: 16
   },
   infoitemtextstyle: {
     paddingTop: 6,
     color: "#0090fe",
-    fontSize: 16,
+    fontSize: 14,
     paddingLeft: 10,
     fontWeight: "bold"
   },
   infotext: {
     color: "#0090fe",
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: "bold",
     textAlign: "center",
     paddingBottom: 10
   },
   buttonstyle: {
-    marginRight: 40,
+    marginRight: 34,
     backgroundColor: "#ffe888",
     alignSelf: "flex-end",
-    paddingHorizontal: 40,
+    paddingHorizontal: 30,
     paddingVertical: 10,
     borderRadius: 20
   },
   buttontextstyle: {
     fontWeight: "bold",
-    fontSize: 20,
+    fontSize: 18,
     color: "#ffb31d"
   }
 });

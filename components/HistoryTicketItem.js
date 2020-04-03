@@ -34,9 +34,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 16
   },
   imagestyle: {
-    width: 70,
-    height: 70,
-    marginRight: 20
+    width: 60,
+    height: 60,
+    marginRight: 14
   },
   textstyle: {
     color: "#0090FE",

@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
-import avatar from "../assets/profileavatar.png";
+import passwordlogo from "../assets/resetpasslogo.png";
 
 const ChangePasswordScreen = () => {
   const [inputData, setInputData] = useState({
@@ -29,7 +29,7 @@ const ChangePasswordScreen = () => {
     <LinearGradient style={{ flex: 1 }} colors={["#a2ecff", "#ffffff"]}>
       <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
         <View style={styles.container}>
-          <Image source={avatar} style={styles.imagestyle} />
+          <Image source={passwordlogo} style={styles.imagestyle} />
 
           <Text style={styles.titlestyle}>Change Password</Text>
 
@@ -76,29 +76,28 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    paddingVertical: 60,
-    paddingHorizontal: 8
+    paddingTop: 60,
+    paddingBottom: 40
   },
   imagestyle: {
     //width: 120,
     //height: 120,
     alignSelf: "center",
     //borderRadius: 100,
-    marginTop: 50,
-    marginBottom: 10
+    marginTop: 40,
+    marginBottom: 20
   },
   titlestyle: {
     textAlign: "center",
-    fontSize: 30,
+    fontSize: 26,
     color: "#b53333",
-    marginBottom: 16
+    marginBottom: 14
   },
   titleinfotext: {
     fontSize: 16,
     color: "#b53333",
-    paddingLeft: 50,
-    paddingBottom: 2,
-    marginBottom: 8
+    marginLeft: 50,
+    marginBottom: 6
   },
   inputstyle: {
     shadowColor: "#000",
@@ -121,7 +120,7 @@ const styles = StyleSheet.create({
     marginRight: 40,
     backgroundColor: "#ffe888",
     alignSelf: "flex-end",
-    paddingHorizontal: 40,
+    paddingHorizontal: 30,
     paddingVertical: 10,
     borderRadius: 20,
     marginTop: 6

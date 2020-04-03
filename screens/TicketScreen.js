@@ -6,7 +6,8 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
-  FlatList
+  FlatList,
+  VirtualizedList
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
@@ -49,9 +50,7 @@ const TicketScreen = props => {
             <Text style={styles.qrheader}>QR CODE TICKET</Text>
             <TouchableOpacity style={styles.detailstyle}>
               <Image source={qrcodeticket} style={styles.imagestyle} />
-              <Text style={styles.qrtext}>
-                Show your QR ticket.
-              </Text>
+              <Text style={styles.qrtext}>Show your QR ticket</Text>
             </TouchableOpacity>
           </View>
 
@@ -60,9 +59,9 @@ const TicketScreen = props => {
             <TouchableOpacity style={styles.detailstyle}>
               <Image source={ticketinfo} style={styles.imagestyle} />
               <View>
-                <Text style={styles.tickettext}>Ticket number:</Text>
-                <Text style={styles.tickettext}>Date:</Text>
-                <Text style={styles.tickettext}>Arrival time:</Text>
+                <Text style={styles.tickettext}>Ticket number: 101</Text>
+                <Text style={styles.tickettext}>Date: Mar 29, 2020</Text>
+                <Text style={styles.tickettext}>Arrival time: 1:13 PM</Text>
                 <Text style={styles.tickettext}>Vehicle plate:</Text>
               </View>
             </TouchableOpacity>
@@ -74,8 +73,10 @@ const TicketScreen = props => {
               style={styles.flatstyle}
               data={dataTemp}
               keyExtractor={data => data.id.toString()}
-              showsVerticalScrollIndicator={false}
-              scrollEnabled={false}
+              showsHorizontalScrollIndicator={false}
+              horizontal
+              scrollEnabled={true}
+              nestedScrollEnabled={true}
               renderItem={({ item }) => {
                 return <HistoryTicketItem item={item} />;
               }}
@@ -91,15 +92,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    paddingVertical: 60,
-    paddingHorizontal: 8
+    paddingTop: 60,
+    paddingBottom: 40
   },
   titlestyle: {
-    fontSize: 30,
+    fontSize: 26,
     fontWeight: "bold",
     color: "#fff",
-    shadowRadius: 6,
-    shadowColor: "#000",
     textAlign: "center",
     marginBottom: 6
   },
@@ -113,45 +112,45 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 20,
     marginVertical: 10,
-    marginHorizontal: 16
+    marginHorizontal: 24
   },
   qrheader: {
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    backgroundColor: "#FFF29C",
+    backgroundColor: "#fff29c",
     textAlign: "center",
     fontWeight: "bold",
-    fontSize: 20,
-    color: "#F8A500",
+    fontSize: 18,
+    color: "#f8a500",
     paddingVertical: 8
   },
   detailstyle: {
     flexDirection: "row",
     alignItems: "center",
-    margin: 16
+    margin: 14
   },
   imagestyle: {
-    width: 70,
-    height: 70,
-    marginRight: 20
+    width: 60,
+    height: 60,
+    marginRight: 14
   },
   qrtext: {
-    color: "#F8A500",
+    color: "#f8a500",
     fontWeight: "bold",
     fontSize: 16
   },
   ticketheader: {
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    backgroundColor: "#2CD4FF",
+    backgroundColor: "#2cd4ff",
     textAlign: "center",
     fontWeight: "bold",
-    fontSize: 20,
-    color: "#0090FE",
+    fontSize: 18,
+    color: "#0090fe",
     paddingVertical: 8
   },
   tickettext: {
-    color: "#0090FE",
+    color: "#0090fe",
     fontWeight: "bold",
     fontSize: 16
   },
@@ -165,16 +164,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 20,
     marginTop: 10,
-    marginHorizontal: 20
+    marginHorizontal: 24
   },
   historyheader: {
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    backgroundColor: "#9CFFBA",
+    backgroundColor: "#9cffba",
     textAlign: "center",
     fontWeight: "bold",
-    fontSize: 20,
-    color: "#18B247",
+    fontSize: 18,
+    color: "#18b247",
     paddingVertical: 8
   },
   flatstyle: {

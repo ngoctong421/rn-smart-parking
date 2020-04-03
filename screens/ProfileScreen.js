@@ -16,10 +16,8 @@ import qrcodepic from "../assets/qrcode.png";
 import infopic from "../assets/yourpro.png";
 import logoutpic from "../assets/logout.png";
 
-const { width } = Dimensions.get("window");
-
-const box_width = width / 3;
-const box_height = box_width * 1.1;
+const box_width = Dimensions.get("window").width / 3;
+const box_height = (box_width * 4) / 3;
 
 const ProfileScreen = props => {
   return (
@@ -31,7 +29,7 @@ const ProfileScreen = props => {
           <Image source={avatar} style={styles.imagestyle} />
 
           <View style={styles.blockcontainer}>
-            <View style={styles.verticalstyle}>
+            <View style={styles.horizontalstyle}>
               <TouchableOpacity
                 onPress={() => {
                   props.navigation.navigate("MyInfo");
@@ -44,17 +42,17 @@ const ProfileScreen = props => {
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.blockstyle}>
-                <Image source={qrcodepic} style={styles.iconstyle} />
-                <Text style={styles.textstyle}>YOUR</Text>
-                <Text style={styles.textstyle}>QR CODE</Text>
-              </TouchableOpacity>
-            </View>
-
-            <View style={styles.verticalstyle}>
-              <TouchableOpacity style={styles.blockstyle}>
                 <Image source={bikepic} style={styles.iconstyle} />
                 <Text style={styles.textstyle}>ABOUT YOUR</Text>
                 <Text style={styles.textstyle}>VEHICLES</Text>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.horizontalstyle}>
+              <TouchableOpacity style={styles.blockstyle}>
+                <Image source={qrcodepic} style={styles.iconstyle} />
+                <Text style={styles.textstyle}>YOUR</Text>
+                <Text style={styles.textstyle}>QR CODE</Text>
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.blockstyle}>
@@ -73,15 +71,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    paddingVertical: 60,
-    paddingHorizontal: 8
+    paddingTop: 60,
+    paddingBottom: 40
   },
   titlestyle: {
-    fontSize: 30,
+    fontSize: 26,
     fontWeight: "bold",
     color: "#fff",
-    shadowRadius: 6,
-    shadowColor: "#000",
     textAlign: "center",
     marginBottom: 16
   },
@@ -94,8 +90,6 @@ const styles = StyleSheet.create({
   },
   blockcontainer: {
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
     borderRadius: 20,
     backgroundColor: "#fff",
     shadowRadius: 6,
@@ -106,19 +100,19 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.4,
     shadowColor: "#000",
     elevation: 8,
-    marginHorizontal: 16,
-    paddingHorizontal: 20,
-    paddingVertical: 20
+    marginHorizontal: 24,
+    paddingVertical: 10
   },
-  verticalstyle: {
-    alignItems: "center"
+  horizontalstyle: {
+    justifyContent: "space-between",
+    flexDirection: "row",
+    marginHorizontal: 20,
+    marginVertical: 8
   },
   blockstyle: {
     alignItems: "center",
     height: box_height,
     width: box_width,
-    marginVertical: 10,
-    marginHorizontal: 10,
     padding: 10,
     backgroundColor: "#fff",
     shadowRadius: 4,
@@ -133,10 +127,10 @@ const styles = StyleSheet.create({
     elevation: 2
   },
   iconstyle: {
-    marginBottom: 5
+    marginBottom: 6
   },
   textstyle: {
-    fontSize: 15,
+    fontSize: 16,
     color: "#0090fe",
     fontWeight: "bold"
   }

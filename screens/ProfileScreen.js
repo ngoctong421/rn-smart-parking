@@ -41,7 +41,11 @@ const ProfileScreen = props => {
                 <Text style={styles.textstyle}>INFOMATION</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.blockstyle}>
+              <TouchableOpacity style={styles.blockstyle}
+                onPress={() => {
+                props.navigation.navigate("Vehicle");
+              }}
+              >
                 <Image source={bikepic} style={styles.iconstyle} />
                 <Text style={styles.textstyle}>ABOUT YOUR</Text>
                 <Text style={styles.textstyle}>VEHICLES</Text>
@@ -49,7 +53,11 @@ const ProfileScreen = props => {
             </View>
 
             <View style={styles.horizontalstyle}>
-              <TouchableOpacity style={styles.blockstyle}>
+              <TouchableOpacity style={styles.blockstyle}
+                onPress={() => {
+                props.navigation.navigate("QRInden");
+              }}
+              >
                 <Image source={qrcodepic} style={styles.iconstyle} />
                 <Text style={styles.textstyle}>YOUR</Text>
                 <Text style={styles.textstyle}>QR CODE</Text>

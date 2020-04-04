@@ -14,6 +14,10 @@ import SignUpScreen from "../screens/SignUpScreen";
 import LoginScreen from "../screens/LoginScreen";
 import ForgetPasswordScreen from "../screens/ForgetPasswordScreen";
 import ResetPasswordScreen from "../screens/ResetPasswordScreen";
+import QRCodeScreen from "../screens/QRCodeScreen";
+import QRTicketScreen from "../screens/QRTicketScreen";
+import VehiclesScreen from "../screens/VehiclesScreen";
+import AddVehicleScreen from "../screens/AddVehicleScreen";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -83,6 +87,10 @@ export default function RootStackNavigator() {
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="ForgetPassword" component={ForgetPasswordScreen} />
       <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
+      <Stack.Screen name="QRInden" component={QRCodeScreen} />
+      <Stack.Screen name="QRTicket" component={QRTicketScreen}/>
+      <Stack.Screen name="Vehicle" component={VehiclesScreen}/>
+      <Stack.Screen name="AddVehicle" component={AddVehicleScreen}/>
     </Stack.Navigator>
   );
 }

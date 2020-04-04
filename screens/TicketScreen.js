@@ -48,7 +48,11 @@ const TicketScreen = props => {
 
           <View style={styles.blockcontainer}>
             <Text style={styles.qrheader}>QR CODE TICKET</Text>
-            <TouchableOpacity style={styles.detailstyle}>
+            <TouchableOpacity style={styles.detailstyle}
+              onPress={() => {
+              props.navigation.navigate("QRTicket");
+            }}
+            >
               <Image source={qrcodeticket} style={styles.imagestyle} />
               <Text style={styles.qrtext}>Show your QR ticket</Text>
             </TouchableOpacity>

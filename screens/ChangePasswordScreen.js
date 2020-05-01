@@ -15,11 +15,10 @@ import passwordlogo from "../assets/resetpasslogo.png";
 const ChangePasswordScreen = () => {
   const [inputData, setInputData] = useState({
     currentPassword: "",
-    newPassword: "",
-    passwordConfirm: ""
+    newPassword: ""
   });
 
-  const { currentPassword, newPassword, passwordConfirm } = inputData;
+  const { currentPassword, newPassword } = inputData;
 
   const handleOnChange = key => text => {
     setInputData({ ...inputData, [key]: text });
@@ -51,16 +50,6 @@ const ChangePasswordScreen = () => {
             autoCorrect={false}
             secureTextEntry={true}
             onChangeText={handleOnChange("newPassword")}
-          />
-
-          <Text style={styles.titleinfotext}>Confirm New Password</Text>
-          <TextInput
-            style={styles.inputstyle}
-            value={passwordConfirm}
-            autoCapitalize="none"
-            autoCorrect={false}
-            secureTextEntry={true}
-            onChangeText={handleOnChange("passwordConfirm")}
           />
 
           <TouchableOpacity style={styles.buttonstyle}>

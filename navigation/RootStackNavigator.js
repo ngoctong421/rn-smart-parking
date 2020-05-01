@@ -1,23 +1,23 @@
-import React from "react";
-import { createStackNavigator, HeaderTitle } from "@react-navigation/stack";
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import { MaterialCommunityIcons } from "react-native-vector-icons";
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { MaterialCommunityIcons } from 'react-native-vector-icons';
 
-import ProfileScreen from "../screens/ProfileScreen";
-import TicketScreen from "../screens/TicketScreen";
-import PaymentScreen from "../screens/PaymentScreen";
-import MyInfoScreen from "../screens/MyInfoScreen";
-import EditInfoScreen from "../screens/EditInfoScreen";
-import ChangePasswordScreen from "../screens/ChangePasswordScreen";
-import WelcomeScreen from "../screens/WelcomeScreen";
-import SignUpScreen from "../screens/SignUpScreen";
-import LoginScreen from "../screens/LoginScreen";
-import ForgetPasswordScreen from "../screens/ForgetPasswordScreen";
-import ResetPasswordScreen from "../screens/ResetPasswordScreen";
-import QRCodeScreen from "../screens/QRCodeScreen";
-import QRTicketScreen from "../screens/QRTicketScreen";
-import VehiclesScreen from "../screens/VehiclesScreen";
-import AddVehicleScreen from "../screens/AddVehicleScreen";
+import ProfileScreen from '../screens/ProfileScreen';
+import TicketScreen from '../screens/TicketScreen';
+import PaymentScreen from '../screens/PaymentScreen';
+import MyInfoScreen from '../screens/MyInfoScreen';
+import EditInfoScreen from '../screens/EditInfoScreen';
+import ChangePasswordScreen from '../screens/ChangePasswordScreen';
+import WelcomeScreen from '../screens/WelcomeScreen';
+import SignUpScreen from '../screens/SignUpScreen';
+import LoginScreen from '../screens/LoginScreen';
+import ForgetPasswordScreen from '../screens/ForgetPasswordScreen';
+import ResetPasswordScreen from '../screens/ResetPasswordScreen';
+import QRCodeScreen from '../screens/QRCodeScreen';
+import QRTicketScreen from '../screens/QRTicketScreen';
+import VehiclesScreen from '../screens/VehiclesScreen';
+import AddVehicleScreen from '../screens/AddVehicleScreen';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -27,36 +27,36 @@ function BottomTabNavigator() {
       initialRouteName="Profile"
       activeColor="#0090fe"
       shifting={true}
-      barStyle={{ backgroundColor: "#fff" }}
+      barStyle={{ backgroundColor: '#fff' }}
     >
       <Tab.Screen
         name="Profile"
         component={ProfileScreen}
         options={{
-          tabBarLabel: "Profile",
+          tabBarLabel: 'Profile',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="account" color={color} size={26} />
-          )
+          ),
         }}
       />
       <Tab.Screen
         name="Ticket"
         component={TicketScreen}
         options={{
-          tabBarLabel: "Ticket",
+          tabBarLabel: 'Ticket',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="ticket" color={color} size={26} />
-          )
+          ),
         }}
       />
       <Tab.Screen
         name="Payment"
         component={PaymentScreen}
         options={{
-          tabBarLabel: "Payment",
+          tabBarLabel: 'Payment',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="wallet" color={color} size={26} />
-          )
+          ),
         }}
       />
     </Tab.Navigator>
@@ -71,8 +71,8 @@ export default function RootStackNavigator() {
       initialRouteName="Welcome"
       screenOptions={{
         headerTitle: null,
-        headerTintColor: "#fff",
-        headerTransparent: true
+        headerTintColor: '#fff',
+        headerTransparent: true,
       }}
     >
       <Stack.Screen name="Tab" component={BottomTabNavigator} />
@@ -88,9 +88,9 @@ export default function RootStackNavigator() {
       <Stack.Screen name="ForgetPassword" component={ForgetPasswordScreen} />
       <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
       <Stack.Screen name="QRInden" component={QRCodeScreen} />
-      <Stack.Screen name="QRTicket" component={QRTicketScreen}/>
-      <Stack.Screen name="Vehicle" component={VehiclesScreen}/>
-      <Stack.Screen name="AddVehicle" component={AddVehicleScreen}/>
+      <Stack.Screen name="QRTicket" component={QRTicketScreen} />
+      <Stack.Screen name="Vehicle" component={VehiclesScreen} />
+      <Stack.Screen name="AddVehicle" component={AddVehicleScreen} />
     </Stack.Navigator>
   );
 }

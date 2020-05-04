@@ -10,8 +10,10 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 
-import trimData from '../utils/trimData';
 import { Context as AuthContext } from '../context/authContext';
+
+import trimData from '../utils/trimData';
+import { navigate, navigateReplace } from '../utils/navigationRef';
 
 import banner from '../assets/welcomebanner.png';
 
@@ -33,7 +35,7 @@ const LoginScreen = (props) => {
     const cleanData = trimData(inputData);
     setInputData(cleanData);
     Keyboard.dismiss();
-    signIn(cleanData);
+    signIn({ email, password });
   };
 
   return (
@@ -73,7 +75,7 @@ const LoginScreen = (props) => {
 
           <TouchableOpacity
             onPress={() => {
-              props.navigation.navigate('ForgetPassword');
+              navigate('ForgetPassword');
             }}
           >
             <Text style={styles.maintext}>CLICK HERE!</Text>

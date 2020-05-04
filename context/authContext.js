@@ -1,8 +1,9 @@
 import { AsyncStorage } from 'react-native';
+
 import contextFactory from './contextFactory';
+
 import apiHelper from '../utils/apiHelper';
-import { navigateReplace } from '../utils/navigationRef';
-import axios from 'axios';
+import { navigate, navigateReplace } from '../utils/navigationRef';
 
 const authReducer = (state, action) => {
   switch (action.type) {
@@ -10,13 +11,6 @@ const authReducer = (state, action) => {
       return { ...state, loading: true };
     case 'LOGIN_SUCCESS':
     case 'SIGNUP_SUCCESS':
-      return {
-        ...state,
-        token: action.payload,
-        error: '',
-        isSignIn: true,
-        loading: false,
-      };
     case 'SET_AUTH_ERROR':
       return { ...state, error: action.payload, loading: false };
     case 'CLEAR_AUTH_ERROR':
@@ -48,8 +42,6 @@ const authReducer = (state, action) => {
 const signIn = (dispatch) => {
   return async ({ email, password }) => {
     try {
-      console.log({ email, password });
-
       if (!email || !password) {
         throw new Error('Please enter email and password!');
       }
@@ -59,11 +51,7 @@ const signIn = (dispatch) => {
         password,
       });
 
-      console.log(data);
-
       await AsyncStorage.setItem('token', data.user.token);
-
-      console.log(token);
 
       dispatch({ type: 'LOGIN_SUCCESS', payload: data });
 
@@ -72,9 +60,7 @@ const signIn = (dispatch) => {
       const payload = error.response
         ? error.response.data.message
         : error.message;
-
-      console.log(`error: ${payload}`);
-
+        
       dispatch({ type: 'SET_AUTH_ERROR', payload });
     }
   };

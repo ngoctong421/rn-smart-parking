@@ -1,26 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   Image,
   TouchableOpacity,
-  TextInput
-} from "react-native";
+  TextInput,
+  Keyboard,
+} from 'react-native';
 
-import passwordlogo from "../assets/resetpasslogo.png";
+import { Context as AuthContext } from '../context/authContext';
 
-const ResetPasswordScreen = props => {
+import trimData from '../utils/trimData';
+import { navigate, navigateReplace } from '../utils/navigationRef';
+
+import passwordlogo from '../assets/resetpasslogo.png';
+
+const ResetPasswordScreen = (props) => {
   const [inputData, setInputData] = useState({
-    newPassword: "",
-    confirmPassword: "",
-    verifyCode: ""
+    newpass: '',
+    confirm: '',
+    verify: '',
   });
 
-  const { newPassword, confirmPassword, verifyCode } = inputData;
+  const { newpass, confirm, verify } = inputData;
 
-  const handleOnChange = key => text => {
+  const handleOnChange = (key) => (text) => {
     setInputData({ ...inputData, [key]: text });
+  };
+
+  const { resetPassword } = useContext(AuthContext);
+
+  const handleOnSubmit = () => {
+    const cleanData = trimData(inputData);
+    setInputData(cleanData);
+    Keyboard.dismiss();
+    resetPassword({ newpass, confirm, verify });
   };
 
   return (
@@ -32,33 +47,33 @@ const ResetPasswordScreen = props => {
       <Text style={styles.textinfo}>New Password :</Text>
       <TextInput
         style={styles.inputstyle}
-        value={newPassword}
+        value={newpass}
         autoCapitalize="none"
         secureTextEntry={true}
         autoCorrect={false}
-        onChangeText={handleOnChange("newPassword")}
+        onChangeText={handleOnChange('newpass')}
       />
 
       <Text style={styles.textinfo}>Re-enter New Password :</Text>
       <TextInput
         style={styles.inputstyle}
-        value={confirmPassword}
+        value={confirm}
         autoCapitalize="none"
         secureTextEntry={true}
         autoCorrect={false}
-        onChangeText={handleOnChange("confirmPassword")}
+        onChangeText={handleOnChange('confirm')}
       />
 
       <Text style={styles.textinfo}>Verification Code :</Text>
       <TextInput
         style={styles.inputstyle}
-        value={verifyCode}
+        value={verify}
         autoCapitalize="none"
         autoCorrect={false}
-        onChangeText={handleOnChange("verifyCode")}
+        onChangeText={handleOnChange('verify')}
       />
 
-      <TouchableOpacity style={styles.buttonstyle}>
+      <TouchableOpacity style={styles.buttonstyle} onPress={handleOnSubmit}>
         <Text style={styles.buttontext}>CONFIRM</Text>
       </TouchableOpacity>
     </View>
@@ -68,55 +83,55 @@ const ResetPasswordScreen = props => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    backgroundColor: "#a2ecff"
+    justifyContent: 'center',
+    backgroundColor: '#a2ecff',
   },
   imagestyle: {
-    alignSelf: "center",
-    marginBottom: 16
+    alignSelf: 'center',
+    marginBottom: 16,
   },
   titlestyle: {
-    color: "#6b6b6b",
-    textAlign: "center",
+    color: '#6b6b6b',
+    textAlign: 'center',
     fontSize: 26,
-    fontWeight: "bold",
-    marginBottom: 16
+    fontWeight: 'bold',
+    marginBottom: 16,
   },
   textinfo: {
-    color: "#6b6b6b",
+    color: '#6b6b6b',
     fontSize: 16,
     marginLeft: 50,
-    marginBottom: 4
+    marginBottom: 4,
   },
   inputstyle: {
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     borderRadius: 16,
     marginHorizontal: 36,
     paddingVertical: 12,
     paddingHorizontal: 20,
     fontSize: 16,
     marginBottom: 10,
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowRadius: 4,
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
-    elevation: 2
+    elevation: 2,
   },
   buttonstyle: {
-    backgroundColor: "#ffe888",
+    backgroundColor: '#ffe888',
     marginHorizontal: 36,
     borderRadius: 16,
-    marginTop: 16
+    marginTop: 16,
   },
   buttontext: {
-    color: "#ffb31d",
+    color: '#ffb31d',
     paddingVertical: 12,
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: 18,
-    fontWeight: "bold"
-  }
+    fontWeight: 'bold',
+  },
 });
 
 export default ResetPasswordScreen;

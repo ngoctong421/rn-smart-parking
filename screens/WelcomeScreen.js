@@ -1,18 +1,20 @@
-import React from "react";
+import React from 'react';
 import {
   View,
   Text,
   StyleSheet,
   Image,
   TouchableOpacity,
-  Dimensions
-} from "react-native";
+  Dimensions,
+} from 'react-native';
 
-import mainlogo from "../assets/mainlogo.png";
+import { navigate, navigateReplace } from '../utils/navigationRef';
 
-const button_width = (Dimensions.get("window").width / 3) * 2;
+import mainlogo from '../assets/mainlogo.png';
 
-const WelcomeScreen = props => {
+const button_width = (Dimensions.get('window').width / 3) * 2;
+
+const WelcomeScreen = () => {
   return (
     <View style={styles.container}>
       <Image source={mainlogo} style={styles.iconstyle} />
@@ -24,7 +26,7 @@ const WelcomeScreen = props => {
       <TouchableOpacity
         style={styles.buttonstyle}
         onPress={() => {
-          props.navigation.navigate("SignUp");
+          navigate('SignUp');
         }}
       >
         <Text style={styles.buttontext}>REGISTER</Text>
@@ -33,7 +35,7 @@ const WelcomeScreen = props => {
       <TouchableOpacity
         style={styles.buttonstyle}
         onPress={() => {
-          props.navigation.navigate("Login");
+          navigate('Login');
         }}
       >
         <Text style={styles.buttontext}>SIGN IN</Text>
@@ -45,34 +47,34 @@ const WelcomeScreen = props => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#9bebff"
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#9bebff',
   },
   iconstyle: {},
   subtext: {
-    color: "#fff",
-    fontWeight: "bold",
-    fontSize: 14
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 14,
   },
   maintext: {
-    color: "#fff",
-    fontWeight: "bold",
-    fontSize: 26
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 26,
   },
   buttonstyle: {
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     width: button_width,
     borderRadius: 24,
-    marginVertical: 4
+    marginVertical: 4,
   },
   buttontext: {
-    color: "#9bc3ff",
-    fontWeight: "bold",
+    color: '#9bc3ff',
+    fontWeight: 'bold',
     fontSize: 26,
-    textAlign: "center",
-    paddingVertical: 8
-  }
+    textAlign: 'center',
+    paddingVertical: 8,
+  },
 });
 
 export default WelcomeScreen;

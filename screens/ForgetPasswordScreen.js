@@ -6,11 +6,12 @@ import {
   Image,
   TouchableOpacity,
   TextInput,
-  Keyboard,
+  ToastAndroid,
 } from 'react-native';
 
 import { Context as AuthContext } from '../context/authContext';
 
+import LoadingComponent from '../components/LoadingComponent';
 import trimData from '../utils/trimData';
 import { navigate, navigateReplace } from '../utils/navigationRef';
 
@@ -27,17 +28,33 @@ const ForgetPasswordScreen = (props) => {
     setInputData({ ...inputData, [key]: text });
   };
 
-  const { forgotPassword } = useContext(AuthContext);
+  const {
+    forgotPassword,
+    clearError,
+    setLoading,
+    isSignIn,
+    token,
+    error,
+    loading,
+  } = useContext(AuthContext);
 
   const handleOnSubmit = () => {
     const cleanData = trimData(inputData);
     setInputData(cleanData);
-    Keyboard.dismiss();
+    clearError();
+    setLoading();
     forgotPassword({ email });
   };
 
+  if (error !== '' && error) {
+    ToastAndroid.show(error, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+    clearError();
+  }
+
   return (
     <View style={styles.container}>
+      {loading && <LoadingComponent />}
+
       <Image source={passwordlogo} style={styles.imagestyle} />
 
       <Text style={styles.titlestyle}>Forget Password</Text>
@@ -46,7 +63,6 @@ const ForgetPasswordScreen = (props) => {
       <TextInput
         style={styles.inputstyle}
         value={email}
-        keyboardType="email-address"
         autoCapitalize="none"
         autoCorrect={false}
         onChangeText={handleOnChange('email')}

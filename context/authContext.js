@@ -3,35 +3,56 @@ import { AsyncStorage } from 'react-native';
 import contextFactory from './contextFactory';
 
 import apiHelper from '../utils/apiHelper';
-import { navigate, navigateReplace } from '../utils/navigationRef';
+import { navigate, navigateReplace, navigatePop } from '../utils/navigationRef';
 
 const authReducer = (state, action) => {
   switch (action.type) {
     case 'SET_LOADING':
-      return { ...state, loading: true };
+      return {
+        ...state,
+        loading: true,
+      };
     case 'LOGIN_SUCCESS':
+      console.log('Login');
+      return {
+        ...state,
+        isSignIn: true,
+        token: action.payload,
+        error: '',
+        loading: false,
+      };
     case 'SIGNUP_SUCCESS':
+      console.log('Signup');
+      return {
+        ...state,
+        error: '',
+        loading: false,
+      };
     case 'SET_AUTH_ERROR':
-      return { ...state, error: action.payload, loading: false };
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+      };
     case 'CLEAR_AUTH_ERROR':
       return { ...state, error: '', loading: false };
     case 'TRY_LOGIN_FAIL':
       return { ...state, loading: false };
     case 'RESET_PASSWORD':
+      console.log('Reset Password');
     case 'UPDATE_PASSWORD':
+      console.log('Update Password');
       return {
         ...state,
         error: '',
-        token: '',
         loading: false,
-        isSignIn: false,
       };
     case 'LOG_OUT':
+      console.log('Logout');
       return {
         ...state,
-        error: '',
-        token: '',
         isSignIn: false,
+        error: '',
         loading: false,
       };
     default:
@@ -43,7 +64,7 @@ const signIn = (dispatch) => {
   return async ({ email, password }) => {
     try {
       if (!email || !password) {
-        throw new Error('Please enter email and password!');
+        throw new Error('Please enter your email and password!');
       }
 
       const { data } = await apiHelper.post('/users/login', {
@@ -53,14 +74,19 @@ const signIn = (dispatch) => {
 
       await AsyncStorage.setItem('token', data.user.token);
 
-      dispatch({ type: 'LOGIN_SUCCESS', payload: data });
+      dispatch({ type: 'LOGIN_SUCCESS', payload: data.user.token });
 
-      navigateReplace('Tab');
+      navigateReplace('Tab', {
+        screen: 'Profile',
+        params: {
+          userId: data.user._id,
+        },
+      });
     } catch (error) {
       const payload = error.response
         ? error.response.data.message
         : error.message;
-        
+
       dispatch({ type: 'SET_AUTH_ERROR', payload });
     }
   };
@@ -94,8 +120,6 @@ const signUp = (dispatch) => async ({
       ? error.response.data.message
       : error.message;
 
-    console.log(error, payload);
-
     dispatch({ type: 'SET_AUTH_ERROR', payload });
   }
 };
@@ -120,26 +144,24 @@ const signOut = (dispatch) => async () => {
 
   dispatch({ type: 'LOG_OUT' });
 
-  navigateReplace('Welcome');
+  navigateReplace('Login');
 };
 
 const forgotPassword = (dispatch) => async ({ email }) => {
   try {
     if (!email) {
-      throw new Error('Please enter email!');
+      throw new Error('Please enter your email!');
     }
 
     await apiHelper.post('/users/forgotpassword', {
       email,
     });
 
-    navigateReplace('ResetPassword');
+    navigateReplace('ResetPassword', { email });
   } catch (error) {
     const payload = error.response
       ? error.response.data.message
       : error.message;
-
-    console.log(error, payload);
 
     dispatch({ type: 'SET_AUTH_ERROR', payload });
   }
@@ -149,13 +171,19 @@ const setLoading = (dispatch) => async () => {
   dispatch({ type: 'SET_LOADING' });
 };
 
-const resetPassword = (dispatch) => async ({ newpass, confirm, verify }) => {
+const resetPassword = (dispatch) => async ({
+  email,
+  newpass,
+  confirm,
+  verify,
+}) => {
   try {
-    if (!newpass || !confirm || !verify) {
+    if (!email || !newpass || !confirm || !verify) {
       throw new Error('Please enter all required fields!');
     }
 
     await apiHelper.post(`/users/forgotpasswordcheck`, {
+      email,
       newpass,
       confirm,
       verify,
@@ -169,30 +197,29 @@ const resetPassword = (dispatch) => async ({ newpass, confirm, verify }) => {
       ? error.response.data.message
       : error.message;
 
-    console.log(error, payload);
-
     dispatch({ type: 'SET_AUTH_ERROR', payload });
   }
 };
 
-const updatePassword = (dispatch) => async ({ oldpass, newpass }) => {
+const updatePassword = (dispatch) => async ({ email, oldpass, newpass }) => {
   try {
-    if (!passwordCurrent || !password || !passwordConfirm) {
-      throw new Error('Please enter password and and new password!');
+    if (!email || !oldpass || !newpass) {
+      throw new Error('Please enter all required fields!');
     }
 
     await apiHelper.post(`/users/changepass`, {
+      email,
       oldpass,
       newpass,
     });
 
     dispatch({ type: 'UPDATE_PASSWORD' });
+
+    navigate('MyInfo');
   } catch (error) {
     const payload = error.response
       ? error.response.data.message
       : error.message;
-
-    console.log(error, payload);
 
     dispatch({ type: 'SET_AUTH_ERROR', payload });
   }

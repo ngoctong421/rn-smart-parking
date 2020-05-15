@@ -6,17 +6,20 @@ import {
   Image,
   TouchableOpacity,
   TextInput,
-  Keyboard,
+  ToastAndroid,
 } from 'react-native';
 
 import { Context as AuthContext } from '../context/authContext';
 
+import LoadingComponent from '../components/LoadingComponent';
 import trimData from '../utils/trimData';
 import { navigate, navigateReplace } from '../utils/navigationRef';
 
 import passwordlogo from '../assets/resetpasslogo.png';
 
 const ResetPasswordScreen = (props) => {
+  const { email } = props.route.params;
+
   const [inputData, setInputData] = useState({
     newpass: '',
     confirm: '',
@@ -29,14 +32,28 @@ const ResetPasswordScreen = (props) => {
     setInputData({ ...inputData, [key]: text });
   };
 
-  const { resetPassword } = useContext(AuthContext);
+  const {
+    resetPassword,
+    clearError,
+    setLoading,
+    isSignIn,
+    token,
+    error,
+    loading,
+  } = useContext(AuthContext);
 
   const handleOnSubmit = () => {
     const cleanData = trimData(inputData);
     setInputData(cleanData);
-    Keyboard.dismiss();
-    resetPassword({ newpass, confirm, verify });
+    clearError();
+    setLoading();
+    resetPassword({ email, newpass, confirm, verify });
   };
+
+  if (error !== '' && error) {
+    ToastAndroid.show(error, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+    clearError();
+  }
 
   return (
     <View style={styles.container}>

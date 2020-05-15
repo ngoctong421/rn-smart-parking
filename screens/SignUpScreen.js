@@ -8,11 +8,12 @@ import {
   Image,
   TextInput,
   Picker,
-  Keyboard,
+  ToastAndroid,
 } from 'react-native';
 
 import { Context as AuthContext } from '../context/authContext';
 
+import LoadingComponent from '../components/LoadingComponent';
 import trimData from '../utils/trimData';
 import { navigate, navigateReplace } from '../utils/navigationRef';
 
@@ -32,20 +33,36 @@ const SignUpScreen = () => {
     setInputData({ ...inputData, [key]: text });
   };
 
-  const [position, setPosition] = useState('');
+  const [position, setPosition] = useState('student');
 
-  const { signUp } = useContext(AuthContext);
+  const {
+    signUp,
+    clearError,
+    setLoading,
+    isSignIn,
+    token,
+    error,
+    loading,
+  } = useContext(AuthContext);
 
   const handleOnSubmit = () => {
     const cleanData = trimData(inputData);
     setInputData(cleanData);
-    Keyboard.dismiss();
+    clearError();
+    setLoading();
     signUp({ username, password, position, ID, email });
   };
+
+  if (error !== '' && error) {
+    ToastAndroid.show(error, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+    clearError();
+  }
 
   return (
     <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
       <View style={styles.container}>
+        {loading && <LoadingComponent />}
+
         <Text style={styles.titlestyle}>LET'S GET STARTED!</Text>
 
         <Image source={avatar} style={styles.imagestyle} />
@@ -106,6 +123,17 @@ const SignUpScreen = () => {
         <TouchableOpacity style={styles.buttonstyle} onPress={handleOnSubmit}>
           <Text style={styles.buttontext}>SIGN ME UP!</Text>
         </TouchableOpacity>
+
+        <View style={styles.logincontainer}>
+          <Text>Already have an account?</Text>
+          <TouchableOpacity
+            onPress={() => {
+              navigateReplace('Login');
+            }}
+          >
+            <Text style={styles.loginbutton}>Login here!</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </ScrollView>
   );
@@ -185,6 +213,15 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     fontSize: 26,
     fontWeight: 'bold',
+  },
+  logincontainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 10,
+  },
+  loginbutton: {
+    color: '#0090fe',
+    marginLeft: 5,
   },
 });
 

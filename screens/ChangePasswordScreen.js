@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from 'react';
 import {
   View,
   Text,
@@ -6,57 +6,106 @@ import {
   ScrollView,
   Image,
   TextInput,
-  TouchableOpacity
-} from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+  TouchableOpacity,
+  ToastAndroid,
+} from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
-import passwordlogo from "../assets/resetpasslogo.png";
+import { Context as AuthContext } from '../context/authContext';
+import { Context as UserContext } from '../context/userContext';
 
-const ChangePasswordScreen = () => {
+import LoadingComponent from '../components/LoadingComponent';
+import trimData from '../utils/trimData';
+import { navigate, navigateReplace } from '../utils/navigationRef';
+
+import passwordlogo from '../assets/resetpasslogo.png';
+
+const ChangePasswordScreen = (props) => {
+  const { userId } = props.route.params;
+
+  const {
+    updatePassword,
+    clearError,
+    setLoading,
+    isSignIn,
+    token,
+    error,
+    loading,
+  } = useContext(AuthContext);
+
+  const { getMe, setAppLoading, clearUser, user, appLoading } = useContext(
+    UserContext
+  );
+
   const [inputData, setInputData] = useState({
-    currentPassword: "",
-    newPassword: ""
+    email: user.email,
+    oldpass: '',
+    newpass: '',
   });
 
-  const { currentPassword, newPassword } = inputData;
+  const { email, oldpass, newpass } = inputData;
 
-  const handleOnChange = key => text => {
+  const handleOnChange = (key) => (text) => {
     setInputData({ ...inputData, [key]: text });
   };
 
+  const handleOnSubmit = () => {
+    const cleanData = trimData(inputData);
+    setInputData(cleanData);
+    clearError();
+    setLoading();
+    updatePassword({ email, oldpass, newpass });
+  };
+
+  if (error !== '' && error) {
+    ToastAndroid.show(error, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+    clearError();
+  }
+
   return (
-    <LinearGradient style={{ flex: 1 }} colors={["#a2ecff", "#ffffff"]}>
-      <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+    <LinearGradient style={{ flex: 1 }} colors={['#a2ecff', '#ffffff']}>
+      <View style={{ flex: 1 }}>
+        {loading && <LoadingComponent />}
+
         <View style={styles.container}>
           <Image source={passwordlogo} style={styles.imagestyle} />
 
           <Text style={styles.titlestyle}>Change Password</Text>
 
+          <Text style={styles.titleinfotext}>Your email</Text>
+          <TextInput
+            style={styles.inputstyle}
+            value={email}
+            autoCapitalize="none"
+            autoCorrect={false}
+            onChangeText={handleOnChange('email')}
+          />
+
           <Text style={styles.titleinfotext}>Current Password</Text>
           <TextInput
             style={styles.inputstyle}
-            value={currentPassword}
+            value={oldpass}
             autoCapitalize="none"
             autoCorrect={false}
             secureTextEntry={true}
-            onChangeText={handleOnChange("currentPassword")}
+            onChangeText={handleOnChange('oldpass')}
           />
 
           <Text style={styles.titleinfotext}>New Password</Text>
           <TextInput
             style={styles.inputstyle}
-            value={newPassword}
+            value={newpass}
             autoCapitalize="none"
             autoCorrect={false}
             secureTextEntry={true}
-            onChangeText={handleOnChange("newPassword")}
+            onChangeText={handleOnChange('newpass')}
           />
 
-          <TouchableOpacity style={styles.buttonstyle}>
+          <TouchableOpacity style={styles.buttonstyle} onPress={handleOnSubmit}>
             <Text style={styles.buttontextstyle}>CHANGE</Text>
           </TouchableOpacity>
         </View>
-      </ScrollView>
+      </View>
     </LinearGradient>
   );
 };
@@ -64,61 +113,61 @@ const ChangePasswordScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     paddingTop: 60,
-    paddingBottom: 40
+    paddingBottom: 40,
   },
   imagestyle: {
     //width: 120,
     //height: 120,
-    alignSelf: "center",
+    alignSelf: 'center',
     //borderRadius: 100,
     marginTop: 40,
-    marginBottom: 20
+    marginBottom: 20,
   },
   titlestyle: {
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: 26,
-    color: "#b53333",
-    marginBottom: 14
+    color: '#b53333',
+    marginBottom: 14,
   },
   titleinfotext: {
     fontSize: 16,
-    color: "#b53333",
+    color: '#b53333',
     marginLeft: 50,
-    marginBottom: 6
+    marginBottom: 6,
   },
   inputstyle: {
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowRadius: 4,
     paddingHorizontal: 20,
     marginHorizontal: 40,
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     elevation: 2,
     borderRadius: 20,
     paddingVertical: 10,
     marginBottom: 12,
-    color: "#6b6b6b",
-    backgroundColor: "#ffffff",
-    fontSize: 20
+    color: '#6b6b6b',
+    backgroundColor: '#ffffff',
+    fontSize: 20,
   },
   buttonstyle: {
     marginRight: 40,
-    backgroundColor: "#ffe888",
-    alignSelf: "flex-end",
+    backgroundColor: '#ffe888',
+    alignSelf: 'flex-end',
     paddingHorizontal: 30,
     paddingVertical: 10,
     borderRadius: 20,
-    marginTop: 6
+    marginTop: 6,
   },
   buttontextstyle: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 20,
-    color: "#ffb31d"
-  }
+    color: '#ffb31d',
+  },
 });
 
 export default ChangePasswordScreen;

@@ -26,7 +26,7 @@ const WelcomeScreen = () => {
       <TouchableOpacity
         style={styles.buttonstyle}
         onPress={() => {
-          navigate('SignUp');
+          navigateReplace('SignUp');
         }}
       >
         <Text style={styles.buttontext}>REGISTER</Text>
@@ -35,7 +35,7 @@ const WelcomeScreen = () => {
       <TouchableOpacity
         style={styles.buttonstyle}
         onPress={() => {
-          navigate('Login');
+          navigateReplace('Login');
         }}
       >
         <Text style={styles.buttontext}>SIGN IN</Text>

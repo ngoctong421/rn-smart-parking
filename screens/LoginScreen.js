@@ -6,12 +6,12 @@ import {
   Image,
   TouchableOpacity,
   TextInput,
-  Keyboard,
-  TouchableWithoutFeedback,
+  ToastAndroid,
 } from 'react-native';
 
 import { Context as AuthContext } from '../context/authContext';
 
+import LoadingComponent from '../components/LoadingComponent';
 import trimData from '../utils/trimData';
 import { navigate, navigateReplace } from '../utils/navigationRef';
 
@@ -29,60 +29,86 @@ const LoginScreen = (props) => {
     setInputData({ ...inputData, [key]: text });
   };
 
-  const { signIn } = useContext(AuthContext);
+  const {
+    signIn,
+    clearError,
+    setLoading,
+    isSignIn,
+    token,
+    error,
+    loading,
+  } = useContext(AuthContext);
 
   const handleOnSubmit = () => {
     const cleanData = trimData(inputData);
     setInputData(cleanData);
-    Keyboard.dismiss();
+    clearError();
+    setLoading();
     signIn({ email, password });
   };
 
+  if (error !== '' && error) {
+    ToastAndroid.show(error, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+    clearError();
+  }
+
   return (
-    <TouchableWithoutFeedback>
-      <View style={styles.container}>
-        <Image source={banner} style={styles.imagestyle} />
+    <View style={styles.container}>
+      {loading && <LoadingComponent />}
 
-        <View style={styles.blockcontainer}>
-          <Text style={styles.maintitle}>WELCOME BACK!</Text>
+      <Image source={banner} style={styles.imagestyle} />
 
-          <Text style={styles.subtitle}>LONG TIME NO SEE!</Text>
+      <View style={styles.blockcontainer}>
+        <Text style={styles.maintitle}>WELCOME BACK!</Text>
 
-          <Text style={styles.textinfo}>Email :</Text>
-          <TextInput
-            style={styles.inputstyle}
-            value={email}
-            autoCapitalize="none"
-            autoCorrect={false}
-            onChangeText={handleOnChange('email')}
-          />
+        <Text style={styles.subtitle}>LONG TIME NO SEE!</Text>
 
-          <Text style={styles.textinfo}>Password :</Text>
-          <TextInput
-            style={styles.inputstyle}
-            value={password}
-            autoCapitalize="none"
-            autoCorrect={false}
-            secureTextEntry={true}
-            onChangeText={handleOnChange('password')}
-          />
+        <Text style={styles.textinfo}>Email :</Text>
+        <TextInput
+          style={styles.inputstyle}
+          value={email}
+          autoCapitalize="none"
+          autoCorrect={false}
+          onChangeText={handleOnChange('email')}
+        />
 
-          <TouchableOpacity style={styles.buttonstyle} onPress={handleOnSubmit}>
-            <Text style={styles.buttontext}>LOG IN</Text>
-          </TouchableOpacity>
+        <Text style={styles.textinfo}>Password :</Text>
+        <TextInput
+          style={styles.inputstyle}
+          value={password}
+          autoCapitalize="none"
+          autoCorrect={false}
+          secureTextEntry={true}
+          onChangeText={handleOnChange('password')}
+        />
 
-          <Text style={styles.subtext}>Do not remember your password?</Text>
+        <TouchableOpacity style={styles.buttonstyle} onPress={handleOnSubmit}>
+          <Text style={styles.buttontext}>LOG IN</Text>
+        </TouchableOpacity>
 
+        <View style={styles.textcontainer}>
+          <Text>Forgot your password?</Text>
           <TouchableOpacity
             onPress={() => {
-              navigate('ForgetPassword');
+              navigateReplace('ForgetPassword');
             }}
           >
-            <Text style={styles.maintext}>CLICK HERE!</Text>
+            <Text style={styles.maintext}>Click here!</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.textcontainer}>
+          <Text>Don't have an account?</Text>
+          <TouchableOpacity
+            onPress={() => {
+              navigateReplace('SignUp');
+            }}
+          >
+            <Text style={styles.subtext}>Sign up here!</Text>
           </TouchableOpacity>
         </View>
       </View>
-    </TouchableWithoutFeedback>
+    </View>
   );
 };
 
@@ -158,10 +184,17 @@ const styles = StyleSheet.create({
   subtext: {
     color: '#0090fe',
     textAlign: 'center',
+    marginLeft: 5,
   },
   maintext: {
     color: '#ff6d6d',
     textAlign: 'center',
+    marginLeft: 5,
+  },
+  textcontainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginVertical: 2,
   },
 });
 

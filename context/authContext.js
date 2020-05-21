@@ -72,14 +72,14 @@ const signIn = (dispatch) => {
         password,
       });
 
-      await AsyncStorage.setItem('token', data.user.token);
+      await AsyncStorage.setItem('token', data.token);
 
-      dispatch({ type: 'LOGIN_SUCCESS', payload: data.user.token });
+      dispatch({ type: 'LOGIN_SUCCESS', payload: data.token });
 
       navigateReplace('Tab', {
         screen: 'Profile',
         params: {
-          userId: data.user._id,
+          userId: data._id,
         },
       });
     } catch (error) {
@@ -201,16 +201,16 @@ const resetPassword = (dispatch) => async ({
   }
 };
 
-const updatePassword = (dispatch) => async ({ email, oldpass, newpass }) => {
+const updatePassword = (dispatch) => async ({userId, oldpass, newpass , reenterpass}) => {
   try {
-    if (!email || !oldpass || !newpass) {
+    if ( !reenterpass || !oldpass || !newpass) {
       throw new Error('Please enter all required fields!');
     }
 
-    await apiHelper.post(`/users/changepass`, {
-      email,
+    await apiHelper.post(`/users/changepass/${userId}`, {
       oldpass,
       newpass,
+      reenterpass,
     });
 
     dispatch({ type: 'UPDATE_PASSWORD' });

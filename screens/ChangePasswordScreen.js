@@ -38,12 +38,12 @@ const ChangePasswordScreen = (props) => {
   );
 
   const [inputData, setInputData] = useState({
-    email: user.email,
     oldpass: '',
     newpass: '',
+    reenterpass: '',
   });
 
-  const { email, oldpass, newpass } = inputData;
+  const { oldpass, newpass, reenterpass } = inputData;
 
   const handleOnChange = (key) => (text) => {
     setInputData({ ...inputData, [key]: text });
@@ -54,7 +54,7 @@ const ChangePasswordScreen = (props) => {
     setInputData(cleanData);
     clearError();
     setLoading();
-    updatePassword({ email, oldpass, newpass });
+    updatePassword({ userId, oldpass, newpass, reenterpass });
   };
 
   if (error !== '' && error) {
@@ -71,15 +71,6 @@ const ChangePasswordScreen = (props) => {
           <Image source={passwordlogo} style={styles.imagestyle} />
 
           <Text style={styles.titlestyle}>Change Password</Text>
-
-          <Text style={styles.titleinfotext}>Your email</Text>
-          <TextInput
-            style={styles.inputstyle}
-            value={email}
-            autoCapitalize="none"
-            autoCorrect={false}
-            onChangeText={handleOnChange('email')}
-          />
 
           <Text style={styles.titleinfotext}>Current Password</Text>
           <TextInput
@@ -99,6 +90,16 @@ const ChangePasswordScreen = (props) => {
             autoCorrect={false}
             secureTextEntry={true}
             onChangeText={handleOnChange('newpass')}
+          />
+
+          <Text style={styles.titleinfotext}>Re-enter New Password</Text>
+          <TextInput
+            style={styles.inputstyle}
+            value={reenterpass}
+            autoCapitalize="none"
+            autoCorrect={false}
+            secureTextEntry={true}
+            onChangeText={handleOnChange('reenterpass')}
           />
 
           <TouchableOpacity style={styles.buttonstyle} onPress={handleOnSubmit}>

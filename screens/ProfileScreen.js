@@ -85,7 +85,7 @@ const ProfileScreen = (props) => {
               <TouchableOpacity
                 style={styles.blockstyle}
                 onPress={() => {
-                  navigate('QRInden');
+                  navigate('QRInden', { userId });
                 }}
               >
                 <Image source={qrcodepic} style={styles.iconstyle} />

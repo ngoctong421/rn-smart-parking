@@ -9,7 +9,7 @@ import vp from '../assets/vp.png';
 const BankItem = ({ item, isLoading }) => {
   return (
     <TouchableOpacity
-      onPress={() => navigateReplace('TopUp', { sourceId: item._id })}
+      onPress={() => navigateReplace('WithDraw', { sourceId: item._id })}
     >
       <ContentLoader active title={false} loading={isLoading} avatar pRows={1}>
         <View style={styles.boxstyle}>

@@ -1,7 +1,7 @@
-import React from "react";
-import { View, TouchableOpacity, Text, Image, StyleSheet } from "react-native";
+import React from 'react';
+import { View, TouchableOpacity, Text, Image, StyleSheet } from 'react-native';
 
-import history from '../assets/tickin.png'
+import history from '../assets/tickin.png';
 
 const HistoryTicketItem = ({ item }) => {
   return (
@@ -22,35 +22,35 @@ const HistoryTicketItem = ({ item }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#CEF5FF",
+    backgroundColor: '#CEF5FF',
     marginHorizontal: 16,
     marginVertical: 6,
-    borderRadius: 10
+    borderRadius: 10,
   },
   imagecontainer: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginTop: 16,
-    marginHorizontal: 16
+    marginHorizontal: 16,
   },
   imagestyle: {
     width: 60,
     height: 60,
-    marginRight: 14
+    marginRight: 14,
   },
   textstyle: {
-    color: "#0090FE",
-    fontWeight: "bold",
-    fontSize: 16
+    color: '#0090FE',
+    fontWeight: 'bold',
+    fontSize: 16,
   },
   datestyle: {
-    textAlign: "center",
-    color: "#0090FE",
-    fontWeight: "bold",
+    textAlign: 'center',
+    color: '#0090FE',
+    fontWeight: 'bold',
     fontSize: 16,
     marginTop: 6,
-    marginBottom: 14
-  }
+    marginBottom: 14,
+  },
 });
 
 export default HistoryTicketItem;

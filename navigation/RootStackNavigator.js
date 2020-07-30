@@ -18,10 +18,12 @@ import QRCodeScreen from '../screens/QRCodeScreen';
 import QRTicketScreen from '../screens/QRTicketScreen';
 import VehiclesScreen from '../screens/VehiclesScreen';
 import AddVehicleScreen from '../screens/AddVehicleScreen';
-import AddMoneysourceScreen from "../screens/AddMoneysourceScreen";
-import ActivedPaymentScreen from "../screens/ActivedPaymentScreen";
-import TopUpScreen from "../screens/TopUpScreen";
-import WithdrawScreen from "../screens/WithdrawScreen";
+import AddMoneySourceScreen from '../screens/AddMoneySourceScreen';
+import ActivedPaymentScreen from '../screens/ActivedPaymentScreen';
+import ChooseTopUp from '../screens/ChooseTopUp';
+import TopUpScreen from '../screens/TopUpScreen';
+import WithdDrawScreen from '../screens/WithDrawScreen';
+import ChooseWithDraw from '../screens/ChooseWithDraw';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -55,7 +57,7 @@ function BottomTabNavigator() {
       />
       <Tab.Screen
         name="Payment"
-        component={PaymentScreen}
+        component={ActivedPaymentScreen}
         options={{
           tabBarLabel: 'Payment',
           tabBarIcon: ({ color }) => (
@@ -95,10 +97,12 @@ export default function RootStackNavigator() {
       <Stack.Screen name="QRTicket" component={QRTicketScreen} />
       <Stack.Screen name="Vehicle" component={VehiclesScreen} />
       <Stack.Screen name="AddVehicle" component={AddVehicleScreen} />
-      <Stack.Screen name="AddMoney" component={AddMoneysourceScreen}/>
-      <Stack.Screen name="ActivedPayment" component={ActivedPaymentScreen}/>
-      <Stack.Screen name="TopUp" component={TopUpScreen}/>
-      <Stack.Screen name="Withdraw" component={WithdrawScreen}/>
+      <Stack.Screen name="AddMoney" component={AddMoneySourceScreen} />
+      <Stack.Screen name="ActivedPayment" component={ActivedPaymentScreen} />
+      <Stack.Screen name="ChooseTopUp" component={ChooseTopUp} />
+      <Stack.Screen name="ChooseWithDraw" component={ChooseWithDraw} />
+      <Stack.Screen name="TopUp" component={TopUpScreen} />
+      <Stack.Screen name="WithDraw" component={WithdDrawScreen} />
     </Stack.Navigator>
   );
 }

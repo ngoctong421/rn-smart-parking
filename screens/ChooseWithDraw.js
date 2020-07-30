@@ -5,20 +5,23 @@ import {
   ScrollView,
   TouchableOpacity,
   StyleSheet,
+  Image,
+  FlatList,
+  Dimensions,
   TextInput,
-  ToastAndroid,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
+import { Context as AuthContext } from '../context/authContext';
 import { Context as UserContext } from '../context/userContext';
 
 import LoadingComponent from '../components/LoadingComponent';
-import trimData from '../utils/trimData';
 import { navigate, navigateReplace } from '../utils/navigationRef';
 
-const WithDrawScreen = (props) => {
-  const { sourceId } = props.route.params;
+import MoneySourceComponent from '../components/MoneySourceComponentWD';
+import BankItem from '../components/BankItemWD';
 
+const ChooseWithDraw = (props) => {
   const [inputData, setInputData] = useState({
     amount: '',
   });
@@ -32,36 +35,30 @@ const WithDrawScreen = (props) => {
   const {
     getMe,
     getMoneySource,
-    topUp,
-    withDraw,
     setAppLoading,
-    clearError,
+    clearUser,
     user,
     moneysource,
-    error,
     appLoading,
   } = useContext(UserContext);
 
-  const handleOnSubmit = () => {
-    const cleanData = trimData(inputData);
-    setInputData(cleanData);
-    clearError();
-    setAppLoading();
-    withDraw({ sourceId, amount });
-  };
-
-  if (error !== '' && error) {
-    ToastAndroid.show(error, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
-    clearError();
-  }
+  const dataTemp = [
+    {
+      id: 1,
+      cardnumber: '010101010311',
+    },
+    {
+      id: 2,
+      cardnumber: '291291313131',
+    },
+  ];
 
   return (
     <LinearGradient style={{ flex: 1 }} colors={['#a2ecff', '#ffffff']}>
       <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
-        {appLoading && <LoadingComponent />}
-
         <View style={styles.container}>
           <Text style={styles.titlestyle}>WITHDRAW</Text>
+
           <LinearGradient
             style={styles.paymentboxstyle}
             colors={['#FFED78', '#ffffff']}
@@ -73,18 +70,9 @@ const WithDrawScreen = (props) => {
               <Text style={styles.balance}>{user.balance} VNĐ</Text>
             </View>
           </LinearGradient>
-          <Text style={styles.recentext}>Withdraw value:</Text>
-          <TextInput
-            style={styles.inputstyle}
-            value={amount}
-            autoCapitalize="none"
-            keyboardType={'number-pad'}
-            autoCorrect={false}
-            onChangeText={handleOnChange('amount')}
-          />
-          <TouchableOpacity style={styles.buttonstyle} onPress={handleOnSubmit}>
-            <Text style={styles.buttontext}>CONFIRM</Text>
-          </TouchableOpacity>
+
+          <Text style={styles.recentext}>Choose your money source:</Text>
+          <MoneySourceComponent />
         </View>
       </ScrollView>
     </LinearGradient>
@@ -179,6 +167,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     fontSize: 20,
   },
+  flatstyle: {
+    alignSelf: 'stretch',
+    marginHorizontal: 45,
+    borderRadius: 10,
+  },
 });
 
-export default WithDrawScreen;
+export default ChooseWithDraw;

@@ -38,7 +38,6 @@ const ChooseTopUp = (props) => {
     setAppLoading,
     clearUser,
     user,
-    moneysource,
     appLoading,
   } = useContext(UserContext);
 

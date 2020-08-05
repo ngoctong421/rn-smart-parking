@@ -15,6 +15,7 @@ import { Context as AuthContext } from '../context/authContext';
 import { Context as UserContext } from '../context/userContext';
 
 import LoadingComponent from '../components/LoadingComponent';
+import apiHelper from '../utils/apiHelper';
 import { navigate, navigateReplace } from '../utils/navigationRef';
 
 import RecentActItem from '../components/RecentActItem';
@@ -37,7 +38,6 @@ const ActivedPaymentScreen = (props) => {
       amount: '-50.000 ',
     },
   ];
-  const [items, setItems] = useState([]);
 
   const {
     getMe,
@@ -46,18 +46,25 @@ const ActivedPaymentScreen = (props) => {
     setAppLoading,
     clearUser,
     user,
-    moneysource,
     history,
     appLoading,
   } = useContext(UserContext);
 
+  const userId = user._id;
+
+  const [items, setItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const fetchData = async () => {
+    const { data } = await apiHelper.get(`/users/history/${userId}`);
+    setItems(data.transaction);
+    setIsLoading(false);
+  };
+
   useEffect(() => {
-    if (!history) {
-      const userId = user._id;
-      getHistory({ userId });
-      setItems(history);
-    }
-  }, [history]);
+    setIsLoading(true);
+    fetchData();
+  }, []);
 
   return (
     <LinearGradient style={{ flex: 1 }} colors={['#a2ecff', '#ffffff']}>
@@ -125,12 +132,13 @@ const ActivedPaymentScreen = (props) => {
             style={styles.flatstyle}
             data={items}
             keyExtractor={(item) => item._id}
+            initialNumToRender={3}
             showsHorizontalScrollIndicator={false}
             horizontal={false}
             scrollEnabled={false}
             nestedScrollEnabled={false}
             renderItem={({ item }) => {
-              return <RecentActItem item={item} />;
+              return <RecentActItem item={item} isLoading={isLoading} />;
             }}
           />
         </View>

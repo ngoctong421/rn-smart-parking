@@ -1,16 +1,21 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, Image, StyleSheet } from 'react-native';
+import ContentLoader from '@sarmad1995/react-native-content-loader';
 
-const RecentActItem = ({ item }) => {
+const RecentActItem = ({ item, isLoading }) => {
+  const date = new Date(item.createdAt).toDateString();
+
   return (
     <TouchableOpacity>
-      <View style={styles.boxstyle}>
-        <View style={{ alignItems: 'center', padding: 10 }}>
-          <Text style={styles.normaltext}>DATE:</Text>
-          <Text style={styles.normaltext}>{item.createdAt}</Text>
+      <ContentLoader active title={false} loading={isLoading} avatar pRows={1}>
+        <View style={styles.boxstyle}>
+          <View style={{ alignItems: 'center', padding: 10 }}>
+            <Text style={styles.normaltext}>DATE:</Text>
+            <Text style={styles.normaltext}>{date}</Text>
+          </View>
+          <Text style={styles.amounttext}>{item.amount} VND</Text>
         </View>
-        <Text style={styles.amounttext}>{item.amount} VND</Text>
-      </View>
+      </ContentLoader>
     </TouchableOpacity>
   );
 };

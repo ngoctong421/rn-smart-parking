@@ -77,6 +77,7 @@ const TopUpScreen = (props) => {
               <Text style={styles.balance}>{user.balance} VNĐ</Text>
             </View>
           </LinearGradient>
+
           <Text style={styles.recentext}>Add top-up value:</Text>
           <TextInput
             style={styles.inputstyle}

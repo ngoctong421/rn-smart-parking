@@ -20,11 +20,8 @@ const userReducer = (state, action) => {
       return { ...state, user: action.payload, appLoading: false };
     case 'GET_MONEYSOURCE':
       console.log('Get moneysource');
-      return { ...state, moneysource: action.payload, appLoading: false };
     case 'CREATE_MONEYSOURCE':
       console.log('Create moneysource');
-      let moneysource = [...state.moneysource, action.payload];
-      return { ...state, moneysource: moneysource, appLoading: false };
     case 'GET_HISTORY':
       console.log('Get history');
       return { ...state, history: action.payload, appLoading: false };
@@ -231,7 +228,6 @@ export const { Provider, Context } = contextFactory(
   },
   {
     user: null,
-    moneysource: null,
     history: null,
     error: '',
     appLoading: false,

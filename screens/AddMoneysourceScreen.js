@@ -7,9 +7,10 @@ import {
   StyleSheet,
   TextInput,
   Image,
-  Picker,
   ToastAndroid,
 } from 'react-native';
+
+import {Picker} from '@react-native-community/picker';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import { Context as AuthContext } from '../context/authContext';

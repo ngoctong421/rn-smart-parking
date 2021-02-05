@@ -18,11 +18,11 @@ import QRCodeScreen from '../screens/QRCodeScreen';
 import QRTicketScreen from '../screens/QRTicketScreen';
 import VehiclesScreen from '../screens/VehiclesScreen';
 import AddVehicleScreen from '../screens/AddVehicleScreen';
-import AddMoneySourceScreen from '../screens/AddMoneySourceScreen';
+import AddMoneySourceScreen from '../screens/AddMoneysourceScreen';
 import ActivedPaymentScreen from '../screens/ActivedPaymentScreen';
 import ChooseTopUp from '../screens/ChooseTopUp';
 import TopUpScreen from '../screens/TopUpScreen';
-import WithdDrawScreen from '../screens/WithDrawScreen';
+import WithdDrawScreen from '../screens/WithdrawScreen';
 import ChooseWithDraw from '../screens/ChooseWithDraw';
 
 const Tab = createMaterialBottomTabNavigator();

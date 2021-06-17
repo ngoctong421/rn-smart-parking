@@ -7,14 +7,14 @@ import {
   ScrollView,
   Dimensions,
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import{ LinearGradient } from 'expo-linear-gradient';
 import QRCode from 'react-native-qrcode-svg';
 
 import { Context as AuthContext } from '../context/authContext';
 import { Context as UserContext } from '../context/userContext';
 
 import LoadingComponent from '../components/LoadingComponent';
-import { navigate, navigateReplace } from '../utils/navigationRef';
+import { navigate, navigateReplace } from '../utils/navigationRef'; 
 
 import qrcodebar from '../assets/qrcodebar.png';
 import qrcodeimg from '../assets/yourqrcode.png';

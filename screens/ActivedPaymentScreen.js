@@ -128,7 +128,7 @@ const ActivedPaymentScreen = (props) => {
 
           <Text style={styles.recentext}>Recent activities</Text>
 
-          <FlatList
+          {/* <FlatList
             style={styles.flatstyle}
             data={items}
             keyExtractor={(item) => item._id}
@@ -140,7 +140,7 @@ const ActivedPaymentScreen = (props) => {
             renderItem={({ item }) => {
               return <RecentActItem item={item} isLoading={isLoading} />;
             }}
-          />
+          /> */}
         </View>
       </ScrollView>
     </LinearGradient>

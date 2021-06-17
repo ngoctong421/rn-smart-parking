@@ -56,7 +56,7 @@ const LoginScreen = (props) => {
     <View style={styles.container}>
       {loading && <LoadingComponent />}
 
-      <Image source={banner} style={styles.imagestyle} />
+      {/* <Image source={banner} style={styles.imagestyle} /> */}
 
       <View style={styles.blockcontainer}>
         <Text style={styles.maintitle}>WELCOME BACK!</Text>

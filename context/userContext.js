@@ -96,11 +96,32 @@ const updateMe = (dispatch) => async ({
   }
 };
 
+const changePlate = (dispatch) => async ({ userId, plate }) => {
+  try {
+    if (!userId || !plate) {
+      throw new Error ('Please tell us your information')
+    }
+    const { data } = await apiHelper.post(`/users/${userId}/updateuser`, {
+      plate
+    })
+
+    dispatch({ type: 'UPDATE_ME', payload: data.user })
+    navigate('Vehicle')
+  } catch (error) {
+    const payload = error.response
+    ? error.response.data.message
+    : error.message
+
+    dispatch({ type: 'SET_USER_ERROR', payload })
+  }
+}
+
 const getMoneySource = (dispatch) => async ({ userId }) => {
   try {
     const { data } = await apiHelper.get(`/users/moneysource/${userId}`);
 
     dispatch({ type: 'GET_MONEYSOURCE', payload: data.moneySource });
+    navigate('MyInfo');
   } catch (error) {
     const payload = error.response
       ? error.response.data.message
@@ -225,6 +246,7 @@ export const { Provider, Context } = contextFactory(
     clearError,
     setAppLoading,
     clearUser,
+    changePlate
   },
   {
     user: null,

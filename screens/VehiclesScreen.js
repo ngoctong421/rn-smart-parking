@@ -10,28 +10,32 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 
 import bikes from '../assets/bikes.png';
+
+import { Context as UserContext } from '../context/userContext';
+import { useContext } from 'react';
+
 const VehiclesScreen = (props) => {
+  const { userId } = props.route.params
+
+  const { user } = useContext(UserContext)
+
   return (
     <LinearGradient style={{ flex: 1 }} colors={['#a2ecff', '#ffffff']}>
       <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
         <View style={styles.container}>
           <Text style={styles.titlestyle}>VEHICLES</Text>
-          <Text style={styles.subtext}>MANAGING ALL OF YOUR VEHICLES</Text>
+          <Text style={styles.subtext}>MANAGING YOUR VEHICLES</Text>
           <View style={styles.blockcontainer}>
             <Image source={bikes} />
-            <Text style={styles.platetextstyle}>29-Z1 208.74</Text>
-          </View>
-          <View style={styles.blockcontainer}>
-            <Image source={bikes} />
-            <Text style={styles.platetextstyle}>21-Z2 225.99</Text>
+            <Text style={styles.platetextstyle}>{user.plate}</Text>
           </View>
           <TouchableOpacity
             style={styles.buttonstyle}
             onPress={() => {
-              props.navigation.navigate('AddVehicle');
+              props.navigation.navigate('ChangeVehicle', { userId });
             }}
           >
-            <Text style={styles.buttontext}>ADD MORE</Text>
+            <Text style={styles.buttontext}>CHANGE</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -42,9 +46,9 @@ const VehiclesScreen = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 60,
-    paddingBottom: 40,
+    height: 600
   },
   titlestyle: {
     fontSize: 26,
@@ -69,6 +73,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
     marginBottom: 10,
     padding: 20,
+    height: 150,
     shadowColor: '#000000',
     shadowRadius: 5,
     shadowOpacity: 0.3,

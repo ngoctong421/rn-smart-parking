@@ -72,7 +72,7 @@ const ProfileScreen = (props) => {
               <TouchableOpacity
                 style={styles.blockstyle}
                 onPress={() => {
-                  props.navigation.navigate('Vehicle');
+                  navigate('Vehicle', { userId });
                 }}
               >
                 <Image source={bikepic} style={styles.iconstyle} />

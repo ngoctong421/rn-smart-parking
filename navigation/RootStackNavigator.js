@@ -17,7 +17,7 @@ import ResetPasswordScreen from '../screens/ResetPasswordScreen';
 import QRCodeScreen from '../screens/QRCodeScreen';
 import QRTicketScreen from '../screens/QRTicketScreen';
 import VehiclesScreen from '../screens/VehiclesScreen';
-import AddVehicleScreen from '../screens/AddVehicleScreen';
+import ChangeVehicleScreen from '../screens/ChangeVehicleScreen';
 import AddMoneySourceScreen from '../screens/AddMoneysourceScreen';
 import ActivedPaymentScreen from '../screens/ActivedPaymentScreen';
 import ChooseTopUp from '../screens/ChooseTopUp';
@@ -96,7 +96,7 @@ export default function RootStackNavigator() {
       <Stack.Screen name="QRInden" component={QRCodeScreen} />
       <Stack.Screen name="QRTicket" component={QRTicketScreen} />
       <Stack.Screen name="Vehicle" component={VehiclesScreen} />
-      <Stack.Screen name="AddVehicle" component={AddVehicleScreen} />
+      <Stack.Screen name="ChangeVehicle" component={ChangeVehicleScreen} />
       <Stack.Screen name="AddMoney" component={AddMoneySourceScreen} />
       <Stack.Screen name="ActivedPayment" component={ActivedPaymentScreen} />
       <Stack.Screen name="ChooseTopUp" component={ChooseTopUp} />

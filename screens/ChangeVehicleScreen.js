@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   Text,
   View,
@@ -10,21 +10,59 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
+import LoadingComponent from '../components/LoadingComponent';
+
+import { Context as AuthContext } from '../context/authContext';
+import { Context as UserContext } from '../context/userContext';
+
 import bikes from '../assets/bikes.png';
+import trimData from '../utils/trimData';
 
 const AddVehicleScreen = (props) => {
+  const { userId } = props.route.params
+
+  const {
+    clearError,
+    setLoading,
+    isSignIn,
+    token,
+    error,
+    loading,
+  } = useContext(AuthContext);
+
+  const {
+    getMe,
+    updateMe,
+    setAppLoading,
+    clearUser,
+    user,
+    appLoading,
+    changePlate
+  } = useContext(UserContext);
+
   const [inputData, setInputData] = useState({
     plateNumber: '',
   });
 
   const { plateNumber } = inputData;
+
   const handleOnChange = (key) => (text) => {
     setInputData({ ...inputData, [key]: text });
   };
 
+  const handleOnSubmit = () => {
+    const cleanData = trimData(inputData)
+    setInputData(cleanData)
+    clearError()
+    setAppLoading()
+    changePlate({ userId, plate: plateNumber });
+  }
+
   return (
     <LinearGradient style={{ flex: 1 }} colors={['#a2ecff', '#ffffff']}>
       <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+        {appLoading && <LoadingComponent />}
+        
         <View style={styles.container}>
           <Text style={styles.titlestyle}>ADD VEHICLE</Text>
           <Text style={styles.subtext}>
@@ -44,7 +82,7 @@ const AddVehicleScreen = (props) => {
             onChangeText={handleOnChange('plateNumber')}
           />
 
-          <TouchableOpacity style={styles.buttonstyle}>
+          <TouchableOpacity style={styles.buttonstyle} onPress={handleOnSubmit}>
             <Text style={styles.buttontext}>ADD</Text>
           </TouchableOpacity>
         </View>

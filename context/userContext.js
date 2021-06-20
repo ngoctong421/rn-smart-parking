@@ -15,6 +15,13 @@ const userReducer = (state, action) => {
         error: '',
         appLoading: false,
       };
+    case 'GET_TICKET':
+      console.log('Get tickets')
+      return {
+        ...state,
+        ticketList: action.payload,
+        appLoading: false
+      }
     case 'UPDATE_ME':
       console.log('Update user');
       return { ...state, user: action.payload, appLoading: false };
@@ -159,6 +166,20 @@ const createMoneySource = (dispatch) => async ({
   }
 };
 
+const getAllTickets = (dispatch) => async (userId) => {
+  try {
+    const { data } = await apiHelper.get(`tickets/${userId}/gettickets`)
+
+    dispatch({ type: 'GET_TICKET', payload: data.tickets })
+  } catch (error) {
+    const payload = error.response
+      ? error.response.data.message
+      : error.message;
+
+    dispatch({ type: 'SET_USER_ERROR', payload });
+  }
+}
+
 const getHistory = (dispatch) => async ({ userId }) => {
   try {
     const { data } = await apiHelper.get(`/users/history/${userId}`);
@@ -246,10 +267,12 @@ export const { Provider, Context } = contextFactory(
     clearError,
     setAppLoading,
     clearUser,
-    changePlate
+    changePlate,
+    getAllTickets
   },
   {
     user: null,
+    ticketList: [],
     history: null,
     error: '',
     appLoading: false,

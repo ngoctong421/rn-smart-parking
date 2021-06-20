@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Text,
   Image,
@@ -25,6 +25,10 @@ const box_width = Dimensions.get('window').width / 2;
 const QRCodeScreen = (props) => {
   const { userId } = props.route.params;
 
+  const {
+    user
+  } = useContext(UserContext);
+
   return (
     <LinearGradient style={{ flex: 1 }} colors={['#FFEEA4', '#ffffff']}>
       <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
@@ -36,7 +40,7 @@ const QRCodeScreen = (props) => {
 
           <View style={styles.qrbackground}>
             <QRCode
-              value={userId}
+              value={`${user.plate}-${user.ID}`}
               size={(Dimensions.get('window').width / 5) * 3}
             />
           </View>

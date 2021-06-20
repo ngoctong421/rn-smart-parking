@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Text,
   Image,
@@ -9,13 +9,18 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
+import { Context as UserContext } from '../context/userContext'
+
 import ticket from '../assets/packin.png';
 import heretk from '../assets/here.png';
 import qrcodeimg from '../assets/yourqrcode.png';
+import QRCode from 'react-native-qrcode-svg';
 
 const box_width = Dimensions.get('window').width / 2;
 
 const QRTicketScreen = (props) => {
+  const { user, ticketList } = useContext(UserContext)
+
   return (
     <LinearGradient style={{ flex: 1 }} colors={['#FFEE97', '#ffffff']}>
       <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
@@ -23,7 +28,12 @@ const QRTicketScreen = (props) => {
         <View style={styles.container}>
           <Text style={styles.titlestyle}>HERE IS YOUR TICKET</Text>
           <Text style={styles.subtext}>YOUR OWN OR CODE!HOW COOL IS THIS!</Text>
-          <Image source={qrcodeimg} style={{ marginBottom: 10 }} />
+          <View style={styles.qrbackground}>
+            <QRCode
+              value={`${user.plate}-${user.ID}-${ticketList[0].randomCheck}`}
+              size={(Dimensions.get('window').width / 5) * 3}
+            />
+          </View>
           <Text style={styles.note}>
             Scan this as a ticket on the device at the checkout.
           </Text>

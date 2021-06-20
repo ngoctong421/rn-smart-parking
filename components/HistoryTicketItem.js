@@ -2,20 +2,21 @@ import React from 'react';
 import { View, TouchableOpacity, Text, Image, StyleSheet } from 'react-native';
 
 import history from '../assets/tickin.png';
+import { convertToDate, convertToTime } from '../utils/formatDateTime';
 
-const HistoryTicketItem = ({ item }) => {
+const HistoryTicketItem = ({ item, user }) => {
   return (
     <TouchableOpacity style={styles.container}>
       <View style={styles.imagecontainer}>
         <Image source={history} style={styles.imagestyle} />
         <View>
-          <Text style={styles.textstyle}>Ticket number: {item.id}</Text>
-          <Text style={styles.textstyle}>Arrival time: {item.arrival}</Text>
-          <Text style={styles.textstyle}>Vehicle plate:</Text>
+          <Text style={styles.tickettext}>Ticket Id: {`****${item._id.slice(-4)}`}</Text>
+          <Text style={styles.tickettext}>Arrival time: {convertToTime(item.createdAt)}</Text>
+          <Text style={styles.tickettext}>Vehicle plate: {user && user?.plate}</Text>
         </View>
       </View>
 
-      <Text style={styles.datestyle}>DATE: {item.date}</Text>
+      <Text style={styles.datestyle}>DATE: {convertToDate(item.createdAt)}</Text>
     </TouchableOpacity>
   );
 };

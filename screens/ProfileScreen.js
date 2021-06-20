@@ -38,7 +38,7 @@ const ProfileScreen = (props) => {
     loading,
   } = useContext(AuthContext);
 
-  const { getMe, setAppLoading, clearUser, user, appLoading } = useContext(
+  const { getMe, getAllTickets, setAppLoading, clearUser, user, ticketList, appLoading } = useContext(
     UserContext
   );
 
@@ -46,7 +46,11 @@ const ProfileScreen = (props) => {
     if (!user) {
       getMe(userId);
     }
-  }, [user]);
+
+    if (ticketList.length == 0) {
+      getAllTickets(userId)
+    }
+  }, [user, ticketList]);
 
   return (
     <LinearGradient style={{ flex: 1 }} colors={['#a2ecff', '#ffffff']}>

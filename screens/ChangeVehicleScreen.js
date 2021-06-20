@@ -41,7 +41,7 @@ const AddVehicleScreen = (props) => {
   } = useContext(UserContext);
 
   const [inputData, setInputData] = useState({
-    plateNumber: '',
+    plateNumber: user.plate,
   });
 
   const { plateNumber } = inputData;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
   View,
   Text,
@@ -12,44 +12,38 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 
 import HistoryTicketItem from '../components/HistoryTicketItem';
+import loadingComponent from '../components/LoadingComponent';
+
+import { Context as AuthContext } from '../context/authContext'
+import { Context as UserContext } from '../context/userContext'
 
 import qrcodeticket from '../assets/QRcodeticket.png';
 import ticketinfo from '../assets/ticket.png';
-
-const dataTemp = [
-  {
-    id: 1,
-    arrival: '2:55 PM',
-    date: 'Mar 29, 2020',
-  },
-  {
-    id: 2,
-    arrival: '3:29 PM',
-    date: 'Mar 5, 2020',
-  },
-  {
-    id: 3,
-    arrival: '2:10 PM',
-    date: 'Feb 21, 2020',
-  },
-  {
-    id: 4,
-    arrival: '9:03 AM',
-    date: 'Feb 10, 2020',
-  },
-];
+import LoadingComponent from '../components/LoadingComponent';
+import { convertToDate, convertToTime } from '../utils/formatDateTime';
 
 const TicketScreen = (props) => {
+  const { user, ticketList, appLoading, setAppLoading } = useContext(UserContext)
+
+  const getOutdatedTicket = (tickets) => {
+    let outdatedTicket = [...tickets]
+    outdatedTicket = outdatedTicket.slice(1)
+    return outdatedTicket
+  }
+
   return (
     <LinearGradient style={{ flex: 1 }} colors={['#a2ecff', '#ffffff']}>
       <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
         <View style={styles.container}>
+          { appLoading && <LoadingComponent />}
+
           <Text style={styles.titlestyle}>TICKET</Text>
 
           <View style={styles.blockcontainer}>
             <Text style={styles.qrheader}>QR CODE TICKET</Text>
             <TouchableOpacity
               style={styles.detailstyle}
+              disabled={!user?.parkingStatus}
               onPress={() => {
                 props.navigation.navigate('QRTicket');
               }}
@@ -63,12 +57,20 @@ const TicketScreen = (props) => {
             <Text style={styles.ticketheader}>TICKET INFOMATION</Text>
             <TouchableOpacity style={styles.detailstyle}>
               <Image source={ticketinfo} style={styles.imagestyle} />
-              <View>
-                <Text style={styles.tickettext}>Ticket number: 101</Text>
-                <Text style={styles.tickettext}>Date: Mar 29, 2020</Text>
-                <Text style={styles.tickettext}>Arrival time: 1:13 PM</Text>
-                <Text style={styles.tickettext}>Vehicle plate:</Text>
-              </View>
+              {
+                user?.parkingStatus ? (
+                  <View>
+                    <Text style={styles.tickettext}>Ticket Id: {ticketList && `****${ticketList[0]?._id.slice(-4)}`}</Text>
+                    <Text style={styles.tickettext}>Date: {ticketList && convertToDate(ticketList[0]?.createdAt)}</Text>
+                    <Text style={styles.tickettext}>Arrival time: { ticketList && convertToTime(ticketList[0].createdAt)}</Text>
+                    <Text style={styles.tickettext}>Vehicle plate: {user && user?.plate}</Text>
+                  </View>
+                ) : (
+                  <View>
+                    <Text style={styles.tickettext}>No ticket for you</Text>
+                  </View>
+                )
+              }
             </TouchableOpacity>
           </View>
 
@@ -76,14 +78,14 @@ const TicketScreen = (props) => {
             <Text style={styles.historyheader}>RECENT HISTORY</Text>
             <FlatList
               style={styles.flatstyle}
-              data={dataTemp}
-              keyExtractor={(data) => data.id.toString()}
+              data={getOutdatedTicket(ticketList)}
+              keyExtractor={(data) => data._id.toString()}
               showsHorizontalScrollIndicator={false}
               horizontal
               scrollEnabled={true}
               nestedScrollEnabled={true}
               renderItem={({ item }) => {
-                return <HistoryTicketItem item={item} />;
+                return <HistoryTicketItem item={item} user={user} />;
               }}
             />
           </View>

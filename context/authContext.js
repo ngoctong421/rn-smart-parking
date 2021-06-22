@@ -98,9 +98,10 @@ const signUp = (dispatch) => async ({
   position,
   ID,
   email,
+  plate
 }) => {
   try {
-    if (!username || !password || !position || !ID || !email) {
+    if (!username || !password || !position || !ID || !email || !plate) {
       throw new Error('Please enter all required fields!');
     }
 
@@ -110,6 +111,7 @@ const signUp = (dispatch) => async ({
       position,
       ID,
       email,
+      plate
     });
 
     dispatch({ type: 'SIGNUP_SUCCESS', payload: data });

@@ -56,7 +56,7 @@ const userReducer = (state, action) => {
     default:
       return state;
   }
-};
+}
 
 const getMe = (dispatch) => async (userId) => {
   try {

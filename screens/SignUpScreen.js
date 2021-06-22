@@ -10,6 +10,7 @@ import {
   Picker,
   ToastAndroid,
 } from 'react-native';
+import Tooltip from 'react-native-walkthrough-tooltip'
 
 import { Context as AuthContext } from '../context/authContext';
 
@@ -18,6 +19,7 @@ import trimData from '../utils/trimData';
 import { navigate, navigateReplace } from '../utils/navigationRef';
 
 import avatar from '../assets/profileavatar.png';
+import { TouchableHighlight } from 'react-native-gesture-handler';
 
 const SignUpScreen = () => {
   const [inputData, setInputData] = useState({
@@ -25,9 +27,10 @@ const SignUpScreen = () => {
     password: '',
     ID: '',
     email: '',
+    plate: ''
   });
 
-  const { username, password, ID, email } = inputData;
+  const { username, password, ID, email, plate } = inputData;
 
   const handleOnChange = (key) => (text) => {
     setInputData({ ...inputData, [key]: text });
@@ -50,7 +53,7 @@ const SignUpScreen = () => {
     setInputData(cleanData);
     clearError();
     setLoading();
-    signUp({ username, password, position, ID, email });
+    signUp({ username, password, position, ID, email, plate });
   };
 
   if (error !== '' && error) {
@@ -117,6 +120,15 @@ const SignUpScreen = () => {
             autoCapitalize="none"
             autoCorrect={false}
             onChangeText={handleOnChange('email')}
+          />
+
+          <Text style={styles.textinfo}>Plate :</Text>
+          <TextInput
+            style={styles.inputstyle}
+            value={plate}
+            autoCapitalize="none"
+            autoCorrect={false}
+            onChangeText={handleOnChange('plate')}
           />
         </View>
 

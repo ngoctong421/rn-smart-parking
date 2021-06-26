@@ -22,6 +22,8 @@ import qrcodepic from '../assets/qrcode.png';
 import infopic from '../assets/yourpro.png';
 import logoutpic from '../assets/logout.png';
 
+import socket from '../socketIo'
+
 const box_width = Dimensions.get('window').width / 3;
 const box_height = (box_width * 4) / 3;
 
@@ -38,9 +40,23 @@ const ProfileScreen = (props) => {
     loading,
   } = useContext(AuthContext);
 
-  const { getMe, getAllTickets, setAppLoading, clearUser, user, ticketList, appLoading } = useContext(
+  const { getMe, getAllTickets, setAppLoading, setUser, setTickets, clearUser, user, ticketList, appLoading } = useContext(
     UserContext
   );
+
+  const updateApp = (user, ticketList) => {
+    setUser(user)
+    setTickets(ticketList)
+  }
+
+  useEffect(() => {
+    socket.on("updateApp", updateApp)
+
+    // return () => {
+    //   socket.disconnect()
+    //   socket.off()
+    // }
+  }, [])
 
   useEffect(() => {
     if (!user) {

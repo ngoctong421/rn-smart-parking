@@ -72,6 +72,14 @@ const getMe = (dispatch) => async (userId) => {
   }
 };
 
+const setUser = (dispatch) => (user) => {
+  dispatch({ type: 'GET_ME', payload: user });
+};
+
+const setTickets = (dispatch) => async (tickets) => {
+  dispatch({ type: 'GET_TICKET', payload: tickets })
+};
+
 const updateMe = (dispatch) => async ({
   userId,
   username,
@@ -268,7 +276,9 @@ export const { Provider, Context } = contextFactory(
     setAppLoading,
     clearUser,
     changePlate,
-    getAllTickets
+    getAllTickets,
+    setUser,
+    setTickets
   },
   {
     user: null,

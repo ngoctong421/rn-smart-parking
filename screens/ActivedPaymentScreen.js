@@ -56,6 +56,7 @@ const ActivedPaymentScreen = (props) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchData = async () => {
+    console.log('GET TRANSACTION')
     const { data } = await apiHelper.get(`/users/history/${userId}`);
     setItems(data.transaction);
     setIsLoading(false);
@@ -128,7 +129,7 @@ const ActivedPaymentScreen = (props) => {
 
           <Text style={styles.recentext}>Recent activities</Text>
 
-          {/* <FlatList
+          <FlatList
             style={styles.flatstyle}
             data={items}
             keyExtractor={(item) => item._id}
@@ -140,7 +141,7 @@ const ActivedPaymentScreen = (props) => {
             renderItem={({ item }) => {
               return <RecentActItem item={item} isLoading={isLoading} />;
             }}
-          /> */}
+          />
         </View>
       </ScrollView>
     </LinearGradient>

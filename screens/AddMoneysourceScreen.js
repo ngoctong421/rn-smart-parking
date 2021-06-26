@@ -8,9 +8,9 @@ import {
   TextInput,
   Image,
   ToastAndroid,
+  Picker
 } from 'react-native';
 
-import { Picker } from '@react-native-picker/picker'
 import { LinearGradient } from 'expo-linear-gradient';
 
 import { Context as AuthContext } from '../context/authContext';
@@ -84,14 +84,14 @@ const AddMoneysourceScreen = (props) => {
 
           <Text style={styles.normaltextStyle}>Bank:</Text>
           <View style={styles.pickerstyle}>
-            {/* <Picker
+            <Picker
               mode="dialog"
               selectedValue={bank}
               onValueChange={(itemValue) => selectedBank(itemValue)}
             >
               <Picker.Item label="Vietcombank" value="VCB" color="#0090fe" />
               <Picker.Item label="BIDV" value="BIDV" color="#0090fe" />
-            </Picker> */}
+            </Picker>
           </View>
 
           <Text style={styles.normaltextStyle}>Valid From: </Text>

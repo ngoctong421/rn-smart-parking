@@ -3,7 +3,6 @@
     "name": "smart Parking",
     "slug": "rn-smartParking",
     "privacy": "public",
-    "sdkVersion": "38.0.0",
     "platforms": [
       "ios",
       "android",

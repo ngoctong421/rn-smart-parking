@@ -58,7 +58,7 @@ const ProfileScreen = (props) => {
         <View style={styles.container}>
           <Text style={styles.titlestyle}>MY PROFILE</Text>
 
-          <Image source={avatar} style={styles.imagestyle} />
+          {/* <Image source={avatar} style={styles.imagestyle} /> */}
 
           <View style={styles.blockcontainer}>
             <View style={styles.horizontalstyle}>
@@ -119,26 +119,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    paddingTop: 60,
-    paddingBottom: 40,
+    paddingTop: '40%',
+    paddingBottom: 40
   },
   titlestyle: {
-    fontSize: 26,
+    fontSize: 23,
     fontWeight: 'bold',
     color: '#fff',
     textAlign: 'center',
     marginBottom: 16,
   },
   imagestyle: {
-    //width: 120,
-    //height: 120,
     alignSelf: 'center',
-    //borderRadius: 100,
-    //marginVertical: 8
   },
   blockcontainer: {
     flex: 1,
-    borderRadius: 20,
+    borderRadius: 30,
     backgroundColor: '#fff',
     shadowRadius: 6,
     shadowOffset: {
@@ -147,7 +143,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.4,
     shadowColor: '#000',
-    elevation: 8,
+    elevation: 1,
     marginHorizontal: 24,
     paddingVertical: 10,
   },
@@ -163,8 +159,8 @@ const styles = StyleSheet.create({
     width: box_width,
     padding: 10,
     backgroundColor: '#fff',
-    shadowRadius: 4,
     borderRadius: 20,
+    shadowRadius: 4,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -172,13 +168,13 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowColor: '#000',
     justifyContent: 'center',
-    elevation: 2,
+    elevation: 1,
   },
   iconstyle: {
-    marginBottom: 6,
+    marginBottom: 6
   },
   textstyle: {
-    fontSize: 16,
+    fontSize: 13,
     color: '#0090fe',
     fontWeight: 'bold',
   },

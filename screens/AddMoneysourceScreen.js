@@ -82,7 +82,7 @@ const AddMoneysourceScreen = (props) => {
             onChangeText={handleOnChange('cardnumber')}
           />
 
-          <Text style={styles.normaltextStyle}>Bank:</Text>
+          <Text style={styles.normaltextStyle}>Bank</Text>
           <View style={styles.pickerstyle}>
             <Picker
               mode="dialog"
@@ -94,7 +94,7 @@ const AddMoneysourceScreen = (props) => {
             </Picker>
           </View>
 
-          <Text style={styles.normaltextStyle}>Valid From: </Text>
+          <Text style={styles.normaltextStyle}>Valid From</Text>
           <TextInput
             style={styles.inputstyle}
             value={validfrom}
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
   titlestyle: {
-    fontSize: 26,
+    fontSize: 23,
     fontWeight: 'bold',
     color: '#FFFFFF',
     textAlign: 'center',
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
   normaltextStyle: {
     color: '#0090FE',
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 16,
     paddingBottom: 10,
     marginLeft: 50,
     alignSelf: 'flex-start',
@@ -163,13 +163,13 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     },
-    elevation: 2,
+    elevation: 1,
     borderRadius: 20,
     paddingVertical: 10,
     marginBottom: 12,
     color: '#6b6b6b',
     backgroundColor: '#ffffff',
-    fontSize: 20,
+    fontSize: 16,
   },
   buttonstyle: {
     backgroundColor: '#ffe888',
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
     color: '#ffb31d',
     paddingVertical: 12,
     textAlign: 'center',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
     paddingHorizontal: 20,
   },
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
       height: 2,
     },
     alignSelf: 'stretch',
-    elevation: 2,
+    elevation: 1,
     marginBottom: 10,
     marginHorizontal: 40,
   },

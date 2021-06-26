@@ -11,12 +11,12 @@ const HistoryTicketItem = ({ item, user }) => {
         <Image source={history} style={styles.imagestyle} />
         <View>
           <Text style={styles.tickettext}>Ticket Id: {`****${item._id.slice(-4)}`}</Text>
+          <Text style={styles.tickettext}>Date: {convertToDate(item.createdAt)}</Text>
           <Text style={styles.tickettext}>Arrival time: {convertToTime(item.createdAt)}</Text>
           <Text style={styles.tickettext}>Vehicle plate: {user && user?.plate}</Text>
         </View>
       </View>
-
-      <Text style={styles.datestyle}>DATE: {convertToDate(item.createdAt)}</Text>
+      <Text style={styles.datestyle}></Text>
     </TouchableOpacity>
   );
 };
@@ -42,15 +42,14 @@ const styles = StyleSheet.create({
   textstyle: {
     color: '#0090FE',
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 14,
   },
   datestyle: {
     textAlign: 'center',
     color: '#0090FE',
     fontWeight: 'bold',
-    fontSize: 16,
-    marginTop: 6,
-    marginBottom: 14,
+    fontSize: 14,
+    marginBottom: 2,
   },
 });
 

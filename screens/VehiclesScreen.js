@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     height: 600
   },
   titlestyle: {
-    fontSize: 26,
+    fontSize: 23,
     fontWeight: 'bold',
     color: '#FFFFFF',
     textAlign: 'center',
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   subtext: {
     color: '#0090FE',
     fontWeight: 'bold',
-    fontSize: 14,
+    fontSize: 13,
     marginBottom: 15,
   },
   blockcontainer: {
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     color: '#ffb31d',
     paddingVertical: 12,
     textAlign: 'center',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
     paddingHorizontal: 20,
   },

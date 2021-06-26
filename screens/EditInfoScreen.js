@@ -77,9 +77,9 @@ const EditInfoScreen = (props) => {
 
           <Text style={styles.titlestyle}>EDIT PROFILE</Text>
 
-          <Image source={avatar} style={styles.imagestyle} />
+          {/* <Image source={avatar} style={styles.imagestyle} /> */}
 
-          <Text style={styles.titleinfotext}>USERNAME :</Text>
+          <Text style={styles.titleinfotext}>USERNAME</Text>
           <TextInput
             style={styles.inputstyle}
             value={username}
@@ -88,7 +88,7 @@ const EditInfoScreen = (props) => {
             onChangeText={handleOnChange('username')}
           />
 
-          <Text style={styles.titleinfotext}>POSITION :</Text>
+          <Text style={styles.titleinfotext}>POSITION</Text>
           <View style={styles.pickerstyle}>
             <Picker
               mode="dialog"
@@ -100,7 +100,7 @@ const EditInfoScreen = (props) => {
             </Picker>
           </View>
 
-          <Text style={styles.titleinfotext}>ID NUMBER :</Text>
+          <Text style={styles.titleinfotext}>ID NUMBER</Text>
           <TextInput
             style={styles.inputstyle}
             value={ID}
@@ -110,7 +110,7 @@ const EditInfoScreen = (props) => {
             onChangeText={handleOnChange('ID')}
           />
 
-          <Text style={styles.titleinfotext}>EMAIL :</Text>
+          <Text style={styles.titleinfotext}>EMAIL</Text>
           <TextInput
             style={styles.inputstyle}
             value={email}
@@ -133,11 +133,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    paddingTop: 60,
+    paddingTop: '40%',
     paddingBottom: 40,
   },
   titlestyle: {
-    fontSize: 26,
+    fontSize: 23,
     fontWeight: 'bold',
     color: '#fff',
     textAlign: 'center',
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
   },
   buttontextstyle: {
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 16,
     color: '#ffb31d',
   },
 });

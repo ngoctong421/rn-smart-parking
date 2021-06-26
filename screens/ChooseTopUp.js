@@ -65,12 +65,12 @@ const ChooseTopUp = (props) => {
             end={{ x: 1, y: 0.25 }}
           >
             <View>
-              <Text style={styles.subtext}>YOUR BALANCE:</Text>
+              <Text style={styles.subtext}>YOUR BALANCE</Text>
               <Text style={styles.balance}>{user.balance} VNĐ</Text>
             </View>
           </LinearGradient>
 
-          <Text style={styles.recentext}>Choose your money source:</Text>
+          <Text style={styles.recentext}>Choose your money source</Text>
           <MoneySourceComponent />
         </View>
       </ScrollView>
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
   titlestyle: {
-    fontSize: 26,
+    fontSize: 23,
     fontWeight: 'bold',
     color: '#FFFFFF',
     textAlign: 'center',
@@ -112,11 +112,11 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.2,
     shadowColor: '#000',
-    elevation: 2,
+    elevation: 1,
     marginBottom: 10,
   },
   balance: {
-    fontSize: 25,
+    fontSize: 22,
     color: '#FE5D00',
     fontWeight: 'bold',
     alignSelf: 'center',
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     },
-    elevation: 2,
+    elevation: 1,
     borderRadius: 20,
     paddingVertical: 10,
     marginBottom: 12,

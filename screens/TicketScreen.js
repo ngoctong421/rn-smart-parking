@@ -6,8 +6,7 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
-  FlatList,
-  VirtualizedList,
+  FlatList
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -99,11 +98,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    paddingTop: 60,
+    paddingTop: '25%',
     paddingBottom: 40,
   },
   titlestyle: {
-    fontSize: 26,
+    fontSize: 23,
     fontWeight: 'bold',
     color: '#fff',
     textAlign: 'center',
@@ -115,7 +114,7 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
-    elevation: 4,
+    elevation: 1,
     backgroundColor: '#fff',
     borderRadius: 20,
     marginVertical: 10,
@@ -127,7 +126,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff29c',
     textAlign: 'center',
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 16,
     color: '#f8a500',
     paddingVertical: 8,
   },
@@ -137,14 +136,14 @@ const styles = StyleSheet.create({
     margin: 14,
   },
   imagestyle: {
-    width: 60,
-    height: 60,
+    width: 50,
+    height: 50,
     marginRight: 14,
   },
   qrtext: {
     color: '#f8a500',
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 14,
   },
   ticketheader: {
     borderTopLeftRadius: 20,
@@ -152,14 +151,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#2cd4ff',
     textAlign: 'center',
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 16,
     color: '#0090fe',
     paddingVertical: 8,
   },
   tickettext: {
     color: '#0090fe',
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 14,
   },
   historycontainer: {
     shadowOpacity: 0.5,
@@ -167,7 +166,7 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
-    elevation: 4,
+    elevation: 1,
     backgroundColor: '#fff',
     borderRadius: 20,
     marginTop: 10,
@@ -179,7 +178,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#9cffba',
     textAlign: 'center',
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 16,
     color: '#18b247',
     paddingVertical: 8,
   },

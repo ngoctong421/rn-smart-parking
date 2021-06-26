@@ -42,17 +42,6 @@ const ChooseWithDraw = (props) => {
     appLoading,
   } = useContext(UserContext);
 
-  const dataTemp = [
-    {
-      id: 1,
-      cardnumber: '010101010311',
-    },
-    {
-      id: 2,
-      cardnumber: '291291313131',
-    },
-  ];
-
   return (
     <LinearGradient style={{ flex: 1 }} colors={['#a2ecff', '#ffffff']}>
       <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
@@ -66,12 +55,12 @@ const ChooseWithDraw = (props) => {
             end={{ x: 1, y: 0.25 }}
           >
             <View>
-              <Text style={styles.subtext}>YOUR BALANCE:</Text>
+              <Text style={styles.subtext}>YOUR BALANCE</Text>
               <Text style={styles.balance}>{user.balance} VNĐ</Text>
             </View>
           </LinearGradient>
 
-          <Text style={styles.recentext}>Choose your money source:</Text>
+          <Text style={styles.recentext}>Choose your money source</Text>
           <MoneySourceComponent />
         </View>
       </ScrollView>
@@ -87,7 +76,7 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
   titlestyle: {
-    fontSize: 26,
+    fontSize: 23,
     fontWeight: 'bold',
     color: '#FFFFFF',
     textAlign: 'center',
@@ -117,7 +106,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   balance: {
-    fontSize: 25,
+    fontSize: 23,
     color: '#FE5D00',
     fontWeight: 'bold',
     alignSelf: 'center',

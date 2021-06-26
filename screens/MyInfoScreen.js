@@ -30,7 +30,7 @@ const MyInfoScreen = (props) => {
         <View style={styles.container}>
           <Text style={styles.titlestyle}>MY INFORMATION</Text>
 
-          <Image source={avatar} style={styles.imagestyle} />
+          {/* <Image source={avatar} style={styles.imagestyle} /> */}
 
           <LinearGradient
             style={styles.infoboxstyle}
@@ -38,7 +38,7 @@ const MyInfoScreen = (props) => {
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
           >
-            <Text style={styles.infoitemtextstyle}>USERNAME :</Text>
+            <Text style={styles.infoitemtextstyle}>USERNAME</Text>
             <Text style={styles.infotext}>{user.username}</Text>
           </LinearGradient>
 
@@ -48,7 +48,7 @@ const MyInfoScreen = (props) => {
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
           >
-            <Text style={styles.infoitemtextstyle}>POSITION :</Text>
+            <Text style={styles.infoitemtextstyle}>POSITION</Text>
             <Text style={styles.infotext}>{user.position.toUpperCase()}</Text>
           </LinearGradient>
 
@@ -58,7 +58,7 @@ const MyInfoScreen = (props) => {
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
           >
-            <Text style={styles.infoitemtextstyle}>ID NUMBER :</Text>
+            <Text style={styles.infoitemtextstyle}>ID NUMBER</Text>
             <Text style={styles.infotext}>{user.ID}</Text>
           </LinearGradient>
 
@@ -68,7 +68,7 @@ const MyInfoScreen = (props) => {
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
           >
-            <Text style={styles.infoitemtextstyle}>PASSWORD :</Text>
+            <Text style={styles.infoitemtextstyle}>PASSWORD</Text>
             <Text style={styles.infotext}>********</Text>
           </LinearGradient>
 
@@ -97,7 +97,7 @@ const MyInfoScreen = (props) => {
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
           >
-            <Text style={styles.infoitemtextstyle}>EMAIL :</Text>
+            <Text style={styles.infoitemtextstyle}>EMAIL</Text>
             <Text style={styles.infotext}>{user.email}</Text>
           </LinearGradient>
 
@@ -119,10 +119,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    paddingTop: '40%',
     paddingVertical: 60,
   },
   titlestyle: {
-    fontSize: 26,
+    fontSize: 23,
     fontWeight: 'bold',
     color: '#fff',
     shadowRadius: 6,
@@ -175,7 +176,7 @@ const styles = StyleSheet.create({
   },
   buttontextstyle: {
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 16,
     color: '#ffb31d',
   },
 });

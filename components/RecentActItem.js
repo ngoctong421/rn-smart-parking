@@ -10,7 +10,6 @@ const RecentActItem = ({ item, isLoading }) => {
       <ContentLoader active title={false} loading={isLoading} avatar pRows={1}>
         <View style={styles.boxstyle}>
           <View style={{ alignItems: 'center', padding: 10 }}>
-            <Text style={styles.normaltext}>DATE:</Text>
             <Text style={styles.normaltext}>{date}</Text>
           </View>
           <Text style={styles.amounttext}>{item.amount} VND</Text>
@@ -24,12 +23,13 @@ const styles = StyleSheet.create({
     color: '#0090FE',
     fontWeight: 'bold',
     justifyContent: 'center',
+    fontSize: 14
   },
   amounttext: {
     color: '#06FF16',
     fontWeight: 'bold',
     paddingHorizontal: 60,
-    fontSize: 18,
+    fontSize: 14,
   },
   boxstyle: {
     flexDirection: 'row',

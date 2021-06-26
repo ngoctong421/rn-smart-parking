@@ -8,6 +8,7 @@ import {
   Image,
   FlatList,
   Dimensions,
+  SafeAreaView
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -26,19 +27,6 @@ import withdraw from '../assets/wd.png';
 const screenwidth = Dimensions.get('window').width;
 
 const ActivedPaymentScreen = (props) => {
-  const dataTemp = [
-    {
-      id: 1,
-      date: 'Mar 29, 2020',
-      amount: '+50.000 ',
-    },
-    {
-      id: 2,
-      date: 'Mar 5, 2020',
-      amount: '-50.000 ',
-    },
-  ];
-
   const {
     getMe,
     getMoneySource,
@@ -79,20 +67,8 @@ const ActivedPaymentScreen = (props) => {
             end={{ x: 1, y: 0.25 }}
           >
             <View>
-              <Text style={styles.subtext}>YOUR BALANCE:</Text>
+              <Text style={styles.subtext}>YOUR BALANCE</Text>
               <Text style={styles.balance}>{user.balance} VNĐ</Text>
-            </View>
-          </LinearGradient>
-
-          <LinearGradient
-            style={styles.paymentboxstyle}
-            colors={['#FFED78', '#ffffff']}
-            start={{ x: 0, y: 0.75 }}
-            end={{ x: 1, y: 0.25 }}
-          >
-            <View>
-              <Text style={styles.subtext}>YOUR BILL:</Text>
-              <Text style={styles.balance}>3000 VNĐ</Text>
             </View>
           </LinearGradient>
 
@@ -128,20 +104,29 @@ const ActivedPaymentScreen = (props) => {
           </View>
 
           <Text style={styles.recentext}>Recent activities</Text>
-
-          <FlatList
-            style={styles.flatstyle}
-            data={items}
-            keyExtractor={(item) => item._id}
-            initialNumToRender={3}
-            showsHorizontalScrollIndicator={false}
-            horizontal={false}
-            scrollEnabled={false}
-            nestedScrollEnabled={false}
-            renderItem={({ item }) => {
-              return <RecentActItem item={item} isLoading={isLoading} />;
-            }}
-          />
+          <SafeAreaView style={{flex: 1}}>
+            <FlatList
+              style={styles.flatstyle}
+              data={items}
+              renderItem={({ item }) => {
+                return <RecentActItem item={item} isLoading={isLoading} />;
+              }}
+              keyExtractor={(item) => item._id}
+            />
+            {/* <FlatList
+              style={styles.flatstyle}
+              data={items}
+              keyExtractor={(item) => item._id}
+              initialNumToRender={3}
+              showsHorizontalScrollIndicator={false}
+              horizontal={false}
+              scrollEnabled={false}
+              nestedScrollEnabled={false}
+              renderItem={({ item }) => {
+                return <RecentActItem item={item} isLoading={isLoading} />;
+              }}
+            /> */}
+          </SafeAreaView>
         </View>
       </ScrollView>
     </LinearGradient>
@@ -155,7 +140,7 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
   titlestyle: {
-    fontSize: 26,
+    fontSize: 23,
     fontWeight: 'bold',
     color: '#FFFFFF',
     textAlign: 'center',
@@ -202,7 +187,7 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     paddingVertical: 12,
     textAlign: 'center',
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: 'bold',
     paddingHorizontal: 20,
   },
@@ -218,11 +203,11 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.2,
     shadowColor: '#000',
-    elevation: 2,
+    elevation: 1,
     marginBottom: 10,
   },
   balance: {
-    fontSize: 25,
+    fontSize: 22,
     color: '#FE5D00',
     fontWeight: 'bold',
     alignSelf: 'center',

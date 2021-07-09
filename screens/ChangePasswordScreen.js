@@ -29,7 +29,7 @@ const ChangePasswordScreen = (props) => {
     setLoading,
     isSignIn,
     token,
-    error,
+    authError,
     loading,
   } = useContext(AuthContext);
 
@@ -57,8 +57,8 @@ const ChangePasswordScreen = (props) => {
     updatePassword({ userId, oldpass, newpass, reenterpass });
   };
 
-  if (error !== '' && error) {
-    ToastAndroid.show(error, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+  if (authError !== '' && authError) {
+    ToastAndroid.show(authError, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
     clearError();
   }
 

@@ -18,24 +18,24 @@ const authReducer = (state, action) => {
         ...state,
         isSignIn: true,
         token: action.payload,
-        error: '',
+        authError: '',
         loading: false,
       };
     case 'SIGNUP_SUCCESS':
       console.log('Signup');
       return {
         ...state,
-        error: '',
+        authError: '',
         loading: false,
       };
     case 'SET_AUTH_ERROR':
       return {
         ...state,
-        error: action.payload,
+        authError: action.payload,
         loading: false,
       };
     case 'CLEAR_AUTH_ERROR':
-      return { ...state, error: '', loading: false };
+      return { ...state, authError: '', loading: false };
     case 'TRY_LOGIN_FAIL':
       return { ...state, loading: false };
     case 'RESET_PASSWORD':
@@ -44,7 +44,7 @@ const authReducer = (state, action) => {
       console.log('Update Password');
       return {
         ...state,
-        error: '',
+        authError: '',
         loading: false,
       };
     case 'LOG_OUT':
@@ -52,7 +52,7 @@ const authReducer = (state, action) => {
       return {
         ...state,
         isSignIn: false,
-        error: '',
+        authError: '',
         loading: false,
       };
     default:
@@ -240,5 +240,5 @@ export const { Provider, Context } = contextFactory(
     resetPassword,
     updatePassword,
   },
-  { isSignIn: false, token: null, error: '', loading: false }
+  { isSignIn: false, token: null, authError: '', loading: false }
 );

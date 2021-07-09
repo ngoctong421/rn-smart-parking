@@ -39,7 +39,7 @@ const ResetPasswordScreen = (props) => {
     setLoading,
     isSignIn,
     token,
-    error,
+    authError,
     loading,
   } = useContext(AuthContext);
 
@@ -51,8 +51,8 @@ const ResetPasswordScreen = (props) => {
     resetPassword({ email, newpass, confirm, verify });
   };
 
-  if (error !== '' && error) {
-    ToastAndroid.show(error, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+  if (authError !== '' && authError) {
+    ToastAndroid.show(authError, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
     clearError();
   }
 

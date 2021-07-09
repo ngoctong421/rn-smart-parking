@@ -12,33 +12,21 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import { Context as AuthContext } from '../context/authContext';
 import { Context as UserContext } from '../context/userContext';
 
 import LoadingComponent from '../components/LoadingComponent';
 import trimData from '../utils/trimData';
-import { navigate, navigateReplace } from '../utils/navigationRef';
-
-import avatar from '../assets/profileavatar.png';
+import { useEffect } from 'react/cjs/react.development';
 
 const EditInfoScreen = (props) => {
   const { userId } = props.route.params;
 
   const {
-    clearError,
-    setLoading,
-    isSignIn,
-    token,
-    error,
-    loading,
-  } = useContext(AuthContext);
-
-  const {
-    getMe,
     updateMe,
     setAppLoading,
-    clearUser,
     user,
+    error,
+    clearError,
     appLoading,
   } = useContext(UserContext);
 
@@ -61,13 +49,15 @@ const EditInfoScreen = (props) => {
     setInputData(cleanData);
     clearError();
     setAppLoading();
-    updateMe({ userId, username, position, ID, email });
+    updateMe({ userId, ...cleanData, position });
   };
 
-  if (error !== '' && error) {
-    ToastAndroid.show(error, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
-    clearError();
-  }
+  useEffect(() => {
+    if (error !== '' && error) {
+      ToastAndroid.show(error, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+      clearError();
+    }
+  }, [error])
 
   return (
     <LinearGradient style={{ flex: 1 }} colors={['#a2ecff', '#ffffff']}>
@@ -76,8 +66,6 @@ const EditInfoScreen = (props) => {
           {appLoading && <LoadingComponent />}
 
           <Text style={styles.titlestyle}>EDIT PROFILE</Text>
-
-          {/* <Image source={avatar} style={styles.imagestyle} /> */}
 
           <Text style={styles.titleinfotext}>USERNAME</Text>
           <TextInput
@@ -144,11 +132,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   imagestyle: {
-    //width: 120,
-    //height: 120,
-    alignSelf: 'center',
-    //borderRadius: 100,
-    //marginVertical: 8
+    alignSelf: 'center'
   },
   titleinfotext: {
     alignSelf: 'flex-start',

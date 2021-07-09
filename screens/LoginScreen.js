@@ -35,7 +35,7 @@ const LoginScreen = (props) => {
     signIn,
     clearError,
     setLoading,
-    error,
+    authError,
     loading,
   } = useContext(AuthContext);
 
@@ -48,11 +48,11 @@ const LoginScreen = (props) => {
   };
 
   useEffect(() => {
-    if (error !== '' && error) {
-      ToastAndroid.show(error, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+    if (authError !== '' && authError) {
+      ToastAndroid.show(authError, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
       clearError();
     }
-  }, [error])
+  }, [authError])
 
   return (
     <View style={styles.container}>

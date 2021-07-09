@@ -5,7 +5,6 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  Image,
   TextInput,
   Picker,
   ToastAndroid,
@@ -40,9 +39,7 @@ const SignUpScreen = () => {
     signUp,
     clearError,
     setLoading,
-    isSignIn,
-    token,
-    error,
+    authError,
     loading,
   } = useContext(AuthContext);
 
@@ -55,11 +52,11 @@ const SignUpScreen = () => {
   };
 
   useEffect(() => {
-    if (error !== '' && error) {
-      ToastAndroid.show(error, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+    if (authError !== '' && authError) {
+      ToastAndroid.show(authError, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
       clearError();
     }
-  }, [error])
+  }, [authError])
 
   return (
     <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>

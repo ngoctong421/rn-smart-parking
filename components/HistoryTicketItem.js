@@ -13,7 +13,7 @@ const HistoryTicketItem = ({ item, user }) => {
           <Text style={styles.tickettext}>Ticket Id: {`****${item._id.slice(-4)}`}</Text>
           <Text style={styles.tickettext}>Date: {convertToDate(item.createdAt)}</Text>
           <Text style={styles.tickettext}>Arrival time: {convertToTime(item.createdAt)}</Text>
-          <Text style={styles.tickettext}>Vehicle plate: {user && user?.plate}</Text>
+          <Text style={styles.tickettext}>Vehicle plate: {item.plate}</Text>
         </View>
       </View>
       <Text style={styles.datestyle}></Text>

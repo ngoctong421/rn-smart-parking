@@ -13,17 +13,10 @@ import { Context as UserContext } from '../context/userContext';
 import BankItem from '../components/BankItem';
 
 import apiHelper from '../utils/apiHelper';
-import { navigate, navigateReplace } from '../utils/navigationRef';
 
 const MoneySourceComponent = (props) => {
   const {
-    getMe,
-    createMoneySource,
-    clearError,
-    setAppLoading,
-    user,
-    error,
-    appLoading,
+    user
   } = useContext(UserContext);
 
   const userId = user._id;

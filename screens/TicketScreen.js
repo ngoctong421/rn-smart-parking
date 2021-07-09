@@ -11,9 +11,7 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 
 import HistoryTicketItem from '../components/HistoryTicketItem';
-import loadingComponent from '../components/LoadingComponent';
 
-import { Context as AuthContext } from '../context/authContext'
 import { Context as UserContext } from '../context/userContext'
 
 import qrcodeticket from '../assets/QRcodeticket.png';
@@ -59,10 +57,10 @@ const TicketScreen = (props) => {
               {
                 user?.parkingStatus ? (
                   <View>
-                    <Text style={styles.tickettext}>Ticket Id: {ticketList && `****${ticketList[0]?._id.slice(-4)}`}</Text>
-                    <Text style={styles.tickettext}>Date: {ticketList && convertToDate(ticketList[0]?.createdAt)}</Text>
+                    <Text style={styles.tickettext}>Ticket Id: { ticketList && `****${ticketList[0]?._id.slice(-4)}`}</Text>
+                    <Text style={styles.tickettext}>Date: { ticketList && convertToDate(ticketList[0]?.createdAt)}</Text>
                     <Text style={styles.tickettext}>Arrival time: { ticketList && convertToTime(ticketList[0].createdAt)}</Text>
-                    <Text style={styles.tickettext}>Vehicle plate: {user && user?.plate}</Text>
+                    <Text style={styles.tickettext}>Vehicle plate: { ticketList && ticketList[0]?.plate}</Text>
                   </View>
                 ) : (
                   <View>
@@ -75,18 +73,26 @@ const TicketScreen = (props) => {
 
           <View style={styles.historycontainer}>
             <Text style={styles.historyheader}>RECENT HISTORY</Text>
-            <FlatList
-              style={styles.flatstyle}
-              data={getOutdatedTicket(ticketList)}
-              keyExtractor={(data) => data._id.toString()}
-              showsHorizontalScrollIndicator={false}
-              horizontal
-              scrollEnabled={true}
-              nestedScrollEnabled={true}
-              renderItem={({ item }) => {
-                return <HistoryTicketItem item={item} user={user} />;
-              }}
-            />
+            {
+              getOutdatedTicket(ticketList).length > 0 ? (
+                <FlatList
+                  style={styles.flatstyle}
+                  data={getOutdatedTicket(ticketList)}
+                  keyExtractor={(data) => data._id.toString()}
+                  showsHorizontalScrollIndicator={false}
+                  horizontal
+                  scrollEnabled={true}
+                  nestedScrollEnabled={true}
+                  renderItem={({ item }) => {
+                    return <HistoryTicketItem item={item} user={user} />;
+                  }}
+                />
+              ) : (
+                <View style={styles.nohistorylist}>
+                    <Text style={styles.tickettext}>No last tickets</Text>
+                </View>
+              )
+            }
           </View>
         </View>
       </ScrollView>
@@ -134,6 +140,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     margin: 14,
+  },
+  nohistorylist: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 30,
   },
   imagestyle: {
     width: 50,

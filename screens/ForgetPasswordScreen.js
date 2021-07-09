@@ -59,7 +59,7 @@ const ForgetPasswordScreen = (props) => {
 
       <Text style={styles.titlestyle}>Forget Password</Text>
 
-      <Text style={styles.textinfo}>Email :</Text>
+      <Text style={styles.textinfo}>Email</Text>
       <TextInput
         style={styles.inputstyle}
         value={email}

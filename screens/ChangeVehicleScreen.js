@@ -72,7 +72,7 @@ const AddVehicleScreen = (props) => {
             <Image source={bikes} />
           </View>
           <Text style={styles.normaltextStyle}>
-            VEHICLE REGISTRATION NUMBER :
+            VEHICLE REGISTRATION NUMBER
           </Text>
           <TextInput
             style={styles.inputstyle}
@@ -83,7 +83,7 @@ const AddVehicleScreen = (props) => {
           />
 
           <TouchableOpacity style={styles.buttonstyle} onPress={handleOnSubmit}>
-            <Text style={styles.buttontext}>ADD</Text>
+            <Text style={styles.buttontext}>CHANGE</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

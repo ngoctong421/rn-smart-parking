@@ -15,7 +15,9 @@ import LoadingComponent from '../components/LoadingComponent';
 import trimData from '../utils/trimData';
 import { navigate, navigateReplace } from '../utils/navigationRef';
 
-import banner from '../assets/welcomebanner.png';
+import mainlogo from '../assets/mainlogo.png';
+import { useEffect } from 'react/cjs/react.development';
+
 
 const LoginScreen = (props) => {
   const [inputData, setInputData] = useState({
@@ -33,8 +35,6 @@ const LoginScreen = (props) => {
     signIn,
     clearError,
     setLoading,
-    isSignIn,
-    token,
     error,
     loading,
   } = useContext(AuthContext);
@@ -47,23 +47,25 @@ const LoginScreen = (props) => {
     signIn({ email, password });
   };
 
-  if (error !== '' && error) {
-    ToastAndroid.show(error, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
-    clearError();
-  }
+  useEffect(() => {
+    if (error !== '' && error) {
+      ToastAndroid.show(error, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+      clearError();
+    }
+  }, [error])
 
   return (
     <View style={styles.container}>
       {loading && <LoadingComponent />}
 
-      {/* <Image source={banner} style={styles.imagestyle} /> */}
+      <Image source={mainlogo} style={styles.imagestyle} />
 
       <View style={styles.blockcontainer}>
         <Text style={styles.maintitle}>WELCOME BACK!</Text>
 
         <Text style={styles.subtitle}>LONG TIME NO SEE!</Text>
 
-        <Text style={styles.textinfo}>Email :</Text>
+        <Text style={styles.textinfo}>Email</Text>
         <TextInput
           style={styles.inputstyle}
           value={email}
@@ -72,7 +74,7 @@ const LoginScreen = (props) => {
           onChangeText={handleOnChange('email')}
         />
 
-        <Text style={styles.textinfo}>Password :</Text>
+        <Text style={styles.textinfo}>Password</Text>
         <TextInput
           style={styles.inputstyle}
           value={password}
@@ -122,7 +124,7 @@ const styles = StyleSheet.create({
   },
   imagestyle: {
     alignSelf: 'center',
-    marginBottom: 44,
+    marginBottom: 30,
   },
   blockcontainer: {
     backgroundColor: '#cef5ff',

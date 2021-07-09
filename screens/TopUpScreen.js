@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import Dialog from "react-native-dialog";
 import {
   Text,
   View,
@@ -21,18 +22,54 @@ import { navigate, navigateReplace } from '../utils/navigationRef';
 
 import BankItem from '../components/BankItem';
 
+import apiHelper from '../utils/apiHelper'
+
 const TopUpScreen = (props) => {
   const { sourceId } = props.route.params;
 
+  const [confirmValue, setConfirmValue] = useState('')
+  const [visible, setVisible] = useState(false);
   const [inputData, setInputData] = useState({
     amount: '',
   });
-
+  
   const { amount } = inputData;
+
+
+  const showDialog = () => {
+    setVisible(true)
+  };
+
+  const handleCancel = () => {
+    setVisible(false)
+    setConfirmValue('')
+  };
+
+  const handleConfirm = async () => {
+    const { data } = await apiHelper.post('/users/moneysource/confirm', {
+      userId: user._id,
+      password: confirmValue
+    })
+
+    if (data.success) {
+      const cleanData = trimData(inputData);
+      setInputData(cleanData);
+      clearError();
+      setAppLoading();
+      topUp({ sourceId, amount });
+    } else {
+      console.log('Topup failed')
+    }
+    setVisible(false);
+  };
 
   const handleOnChange = (key) => (text) => {
     setInputData({ ...inputData, [key]: text });
   };
+
+  const onChange = (text) => {
+    setConfirmValue(text)
+  }
 
   const {
     getMe,
@@ -47,11 +84,7 @@ const TopUpScreen = (props) => {
   } = useContext(UserContext);
 
   const handleOnSubmit = () => {
-    const cleanData = trimData(inputData);
-    setInputData(cleanData);
-    clearError();
-    setAppLoading();
-    topUp({ sourceId, amount });
+    showDialog()
   };
 
   if (error !== '' && error) {
@@ -73,12 +106,12 @@ const TopUpScreen = (props) => {
             end={{ x: 1, y: 0.25 }}
           >
             <View>
-              <Text style={styles.subtext}>YOUR BALANCE:</Text>
+              <Text style={styles.subtext}>YOUR BALANCE</Text>
               <Text style={styles.balance}>{user.balance} VNĐ</Text>
             </View>
           </LinearGradient>
 
-          <Text style={styles.recentext}>Add top-up value:</Text>
+          <Text style={styles.recentext}>Add top-up value</Text>
           <TextInput
             style={styles.inputstyle}
             value={amount}
@@ -91,6 +124,16 @@ const TopUpScreen = (props) => {
           <TouchableOpacity style={styles.buttonstyle} onPress={handleOnSubmit}>
             <Text style={styles.buttontext}>CONFIRM</Text>
           </TouchableOpacity>
+
+          <Dialog.Container visible={visible}>
+          <Dialog.Title>Confirm password</Dialog.Title>
+          <Dialog.Description>
+            Please enter your password to resume the process.
+          </Dialog.Description>
+          <Dialog.Input value={confirmValue} secureTextEntry={true} onChangeText={onChange}/>
+          <Dialog.Button label="Cancel" onPress={handleCancel} />
+          <Dialog.Button label="Confirm" onPress={handleConfirm} />
+        </Dialog.Container>
         </View>
       </ScrollView>
     </LinearGradient>

@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import Dialog from "react-native-dialog";
 import {
   Text,
   View,
@@ -19,11 +20,39 @@ import { navigate, navigateReplace } from '../utils/navigationRef';
 const WithDrawScreen = (props) => {
   const { sourceId } = props.route.params;
 
+  const [visible, setVisible] = useState(false);
   const [inputData, setInputData] = useState({
     amount: '',
   });
 
   const { amount } = inputData;
+
+  const showDialog = () => {
+    setVisible(true)
+  };
+
+  const handleCancel = () => {
+    setVisible(false)
+    // setConfirmValue('')
+  };
+
+  const handleConfirm = async () => {
+    // const { data } = await apiHelper.post('/users/moneysource/confirm', {
+    //   userId: user._id,
+    //   password: confirmValue
+    // })
+
+    // if (data.success) {
+    //   const cleanData = trimData(inputData);
+    //   setInputData(cleanData);
+    //   clearError();
+    //   setAppLoading();
+    //   topUp({ sourceId, amount });
+    // } else {
+    //   console.log('Topup failed')
+    // }
+    setVisible(false);
+  };
 
   const handleOnChange = (key) => (text) => {
     setInputData({ ...inputData, [key]: text });
@@ -43,11 +72,12 @@ const WithDrawScreen = (props) => {
   } = useContext(UserContext);
 
   const handleOnSubmit = () => {
-    const cleanData = trimData(inputData);
-    setInputData(cleanData);
-    clearError();
-    setAppLoading();
-    withDraw({ sourceId, amount });
+    showDialog()
+    // const cleanData = trimData(inputData);
+    // setInputData(cleanData);
+    // clearError();
+    // setAppLoading();
+    // withDraw({ sourceId, amount });
   };
 
   if (error !== '' && error) {
@@ -85,6 +115,16 @@ const WithDrawScreen = (props) => {
           <TouchableOpacity style={styles.buttonstyle} onPress={handleOnSubmit}>
             <Text style={styles.buttontext}>CONFIRM</Text>
           </TouchableOpacity>
+
+          <Dialog.Container visible={visible}>
+          <Dialog.Title>Confirm password</Dialog.Title>
+          <Dialog.Description>
+            Please enter your password to resume the process.
+          </Dialog.Description>
+          <Dialog.Input secureTextEntry={true}/>
+          <Dialog.Button label="Cancel" onPress={handleCancel} />
+          <Dialog.Button label="Confirm" onPress={handleConfirm} />
+        </Dialog.Container>
         </View>
       </ScrollView>
     </LinearGradient>

@@ -68,10 +68,10 @@ const SignUpScreen = () => {
 
         <Text style={styles.titlestyle}>LET'S GET STARTED!</Text>
 
-        <Image source={avatar} style={styles.imagestyle} />
+        {/* <Image source={avatar} style={styles.imagestyle} /> */}
 
         <View style={styles.blockcontainer}>
-          <Text style={styles.textinfo}>Username :</Text>
+          <Text style={styles.textinfo}>Username</Text>
           <TextInput
             style={styles.inputstyle}
             value={username}
@@ -80,7 +80,7 @@ const SignUpScreen = () => {
             onChangeText={handleOnChange('username')}
           />
 
-          <Text style={styles.textinfo}>Password :</Text>
+          <Text style={styles.textinfo}>Password</Text>
           <TextInput
             style={styles.inputstyle}
             value={password}
@@ -90,7 +90,7 @@ const SignUpScreen = () => {
             onChangeText={handleOnChange('password')}
           />
 
-          <Text style={styles.textinfo}>You are a :</Text>
+          <Text style={styles.textinfo}>You are a</Text>
           <View style={styles.pickerstyle}>
             <Picker
               mode="dialog"
@@ -102,7 +102,7 @@ const SignUpScreen = () => {
             </Picker>
           </View>
 
-          <Text style={styles.textinfo}>Your ID number :</Text>
+          <Text style={styles.textinfo}>Your ID number</Text>
           <TextInput
             style={styles.inputstyle}
             value={ID}
@@ -112,7 +112,7 @@ const SignUpScreen = () => {
             onChangeText={handleOnChange('ID')}
           />
 
-          <Text style={styles.textinfo}>Email :</Text>
+          <Text style={styles.textinfo}>Email</Text>
           <TextInput
             style={styles.inputstyle}
             value={email}
@@ -122,7 +122,7 @@ const SignUpScreen = () => {
             onChangeText={handleOnChange('email')}
           />
 
-          <Text style={styles.textinfo}>Plate :</Text>
+          <Text style={styles.textinfo}>Plate</Text>
           <TextInput
             style={styles.inputstyle}
             value={plate}
@@ -161,10 +161,10 @@ const styles = StyleSheet.create({
   },
   titlestyle: {
     color: '#fff',
-    fontSize: 26,
+    fontSize: 23,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginBottom: 8,
+    marginBottom: 30,
   },
   imagestyle: {
     alignSelf: 'center',

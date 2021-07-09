@@ -16,11 +16,11 @@ import { Context as UserContext } from '../context/userContext';
 import LoadingComponent from '../components/LoadingComponent';
 import { navigate, navigateReplace } from '../utils/navigationRef';
 
-import avatar from '../assets/profileavatar.png';
 import bikepic from '../assets/bikeprofile.png';
 import qrcodepic from '../assets/qrcode.png';
 import infopic from '../assets/yourpro.png';
 import logoutpic from '../assets/logout.png';
+import mainlogo from '../assets/mainlogo.png';
 
 import socket from '../socketIo'
 
@@ -74,8 +74,8 @@ const ProfileScreen = (props) => {
         <View style={styles.container}>
           <Text style={styles.titlestyle}>MY PROFILE</Text>
 
-          {/* <Image source={avatar} style={styles.imagestyle} /> */}
-
+          <Image source={mainlogo} style={styles.iconstyle} />
+          
           <View style={styles.blockcontainer}>
             <View style={styles.horizontalstyle}>
               <TouchableOpacity
@@ -135,7 +135,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    paddingTop: '40%',
+    alignItems: 'center',
+    paddingTop: '20%',
     paddingBottom: 40
   },
   titlestyle: {

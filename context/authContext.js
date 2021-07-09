@@ -151,13 +151,13 @@ const signOut = (dispatch) => async () => {
 
 const forgotPassword = (dispatch) => async ({ email }) => {
   try {
-    if (!email) {
-      throw new Error('Please enter your email!');
-    }
+    // if (!email) {
+    //   throw new Error('Please enter your email!');
+    // }
 
-    await apiHelper.post('/users/forgotpassword', {
-      email,
-    });
+    // await apiHelper.post('/users/forgotpassword', {
+    //   email,
+    // });
 
     navigateReplace('ResetPassword', { email });
   } catch (error) {

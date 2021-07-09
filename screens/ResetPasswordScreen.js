@@ -16,6 +16,7 @@ import trimData from '../utils/trimData';
 import { navigate, navigateReplace } from '../utils/navigationRef';
 
 import passwordlogo from '../assets/resetpasslogo.png';
+import { useEffect } from 'react/cjs/react.development';
 
 const ResetPasswordScreen = (props) => {
   const { email } = props.route.params;
@@ -61,7 +62,7 @@ const ResetPasswordScreen = (props) => {
 
       <Text style={styles.titlestyle}>Reset Password</Text>
 
-      <Text style={styles.textinfo}>New Password :</Text>
+      <Text style={styles.textinfo}>New Password</Text>
       <TextInput
         style={styles.inputstyle}
         value={newpass}
@@ -71,7 +72,7 @@ const ResetPasswordScreen = (props) => {
         onChangeText={handleOnChange('newpass')}
       />
 
-      <Text style={styles.textinfo}>Re-enter New Password :</Text>
+      <Text style={styles.textinfo}>Re-enter New Password</Text>
       <TextInput
         style={styles.inputstyle}
         value={confirm}
@@ -81,7 +82,7 @@ const ResetPasswordScreen = (props) => {
         onChangeText={handleOnChange('confirm')}
       />
 
-      <Text style={styles.textinfo}>Verification Code :</Text>
+      <Text style={styles.textinfo}>Verification Code</Text>
       <TextInput
         style={styles.inputstyle}
         value={verify}

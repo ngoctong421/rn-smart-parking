@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  ScrollView,
   Image,
   TextInput,
   TouchableOpacity,
@@ -12,11 +11,9 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 
 import { Context as AuthContext } from '../context/authContext';
-import { Context as UserContext } from '../context/userContext';
 
 import LoadingComponent from '../components/LoadingComponent';
 import trimData from '../utils/trimData';
-import { navigate, navigateReplace } from '../utils/navigationRef';
 
 import passwordlogo from '../assets/resetpasslogo.png';
 
@@ -27,21 +24,15 @@ const ChangePasswordScreen = (props) => {
     updatePassword,
     clearError,
     setLoading,
-    isSignIn,
-    token,
     authError,
     loading,
-  } = useContext(AuthContext);
-
-  const { getMe, setAppLoading, clearUser, user, appLoading } = useContext(
-    UserContext
-  );
+  } = useContext(AuthContext)
 
   const [inputData, setInputData] = useState({
     oldpass: '',
     newpass: '',
     reenterpass: '',
-  });
+  })
 
   const { oldpass, newpass, reenterpass } = inputData;
 
@@ -57,10 +48,12 @@ const ChangePasswordScreen = (props) => {
     updatePassword({ userId, oldpass, newpass, reenterpass });
   };
 
-  if (authError !== '' && authError) {
-    ToastAndroid.show(authError, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
-    clearError();
-  }
+  useEffect(() => {
+    if (authError !== '' && authError) {
+      ToastAndroid.show(authError, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+      clearError();
+    }
+  }, [authError])
 
   return (
     <LinearGradient style={{ flex: 1 }} colors={['#a2ecff', '#ffffff']}>
@@ -119,10 +112,7 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
   imagestyle: {
-    //width: 120,
-    //height: 120,
     alignSelf: 'center',
-    //borderRadius: 100,
     marginTop: 40,
     marginBottom: 20,
   },

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
   Text,
   View,
@@ -7,12 +7,12 @@ import {
   StyleSheet,
   TextInput,
   Image,
+  ToastAndroid
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import LoadingComponent from '../components/LoadingComponent';
 
-import { Context as AuthContext } from '../context/authContext';
 import { Context as UserContext } from '../context/userContext';
 
 import bikes from '../assets/bikes.png';
@@ -22,20 +22,10 @@ const AddVehicleScreen = (props) => {
   const { userId } = props.route.params
 
   const {
-    clearError,
-    setLoading,
-    isSignIn,
-    token,
-    error,
-    loading,
-  } = useContext(AuthContext);
-
-  const {
-    getMe,
-    updateMe,
     setAppLoading,
-    clearUser,
     user,
+    error,
+    clearError,
     appLoading,
     changePlate
   } = useContext(UserContext);
@@ -57,6 +47,13 @@ const AddVehicleScreen = (props) => {
     setAppLoading()
     changePlate({ userId, plate: plateNumber });
   }
+
+  useEffect(() => {
+    if (error !== '' && error) {
+      ToastAndroid.show(error, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+      clearError();
+    }
+  }, [error])
 
   return (
     <LinearGradient style={{ flex: 1 }} colors={['#a2ecff', '#ffffff']}>

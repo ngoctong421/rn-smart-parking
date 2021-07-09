@@ -16,10 +16,8 @@ import { Context as AuthContext } from '../context/authContext';
 
 import LoadingComponent from '../components/LoadingComponent';
 import trimData from '../utils/trimData';
-import { navigate, navigateReplace } from '../utils/navigationRef';
-
-import avatar from '../assets/profileavatar.png';
-import { TouchableHighlight } from 'react-native-gesture-handler';
+import { navigateReplace } from '../utils/navigationRef';
+import { useEffect } from 'react/cjs/react.development';
 
 const SignUpScreen = () => {
   const [inputData, setInputData] = useState({
@@ -53,13 +51,15 @@ const SignUpScreen = () => {
     setInputData(cleanData);
     clearError();
     setLoading();
-    signUp({ username, password, position, ID, email, plate });
+    signUp({ ...cleanData, position });
   };
 
-  if (error !== '' && error) {
-    ToastAndroid.show(error, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
-    clearError();
-  }
+  useEffect(() => {
+    if (error !== '' && error) {
+      ToastAndroid.show(error, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+      clearError();
+    }
+  }, [error])
 
   return (
     <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
@@ -67,8 +67,6 @@ const SignUpScreen = () => {
         {loading && <LoadingComponent />}
 
         <Text style={styles.titlestyle}>LET'S GET STARTED!</Text>
-
-        {/* <Image source={avatar} style={styles.imagestyle} /> */}
 
         <View style={styles.blockcontainer}>
           <Text style={styles.textinfo}>Username</Text>

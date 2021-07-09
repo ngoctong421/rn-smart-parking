@@ -39,12 +39,12 @@ const LoginScreen = (props) => {
     loading,
   } = useContext(AuthContext);
 
-  const handleOnSubmit = () => {
+  const handleOnSubmit = async () => {
     const cleanData = trimData(inputData);
     setInputData(cleanData);
     clearError();
     setLoading();
-    signIn({ email, password });
+    signIn(cleanData);
   };
 
   useEffect(() => {

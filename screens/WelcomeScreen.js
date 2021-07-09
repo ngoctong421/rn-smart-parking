@@ -8,7 +8,7 @@ import {
   Dimensions,
 } from 'react-native';
 
-import { navigate, navigateReplace } from '../utils/navigationRef';
+import { navigateReplace } from '../utils/navigationRef';
 
 import mainlogo from '../assets/mainlogo.png';
 

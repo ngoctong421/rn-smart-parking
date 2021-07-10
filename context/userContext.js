@@ -27,6 +27,7 @@ const userReducer = (state, action) => {
       return { ...state, user: action.payload, appLoading: false };
     case 'GET_MONEYSOURCE':
       console.log('Get moneysource');
+      return { ...state, moneySource: action.payload, appLoading: false };
     case 'CREATE_MONEYSOURCE':
       console.log('Create moneysource');
     case 'GET_HISTORY':
@@ -135,12 +136,11 @@ const changePlate = (dispatch) => async ({ userId, plate }) => {
   }
 }
 
-const getMoneySource = (dispatch) => async ({ userId }) => {
+const getMoneySource = (dispatch) => async (userId) => {
   try {
     const { data } = await apiHelper.get(`/users/moneysource/${userId}`);
 
     dispatch({ type: 'GET_MONEYSOURCE', payload: data.moneySource });
-    navigate('MyInfo');
   } catch (error) {
     const payload = error.response
       ? error.response.data.message
@@ -287,6 +287,7 @@ export const { Provider, Context } = contextFactory(
   {
     user: null,
     ticketList: [],
+    moneySource: [],
     history: null,
     error: '',
     appLoading: false,

@@ -28,7 +28,9 @@ const screenwidth = Dimensions.get('window').width;
 
 const ActivedPaymentScreen = () => {
   const {
-    user
+    user,
+    getMoneySource,
+    moneySource
   } = useContext(UserContext);
 
   const userId = user?._id;
@@ -51,6 +53,7 @@ const ActivedPaymentScreen = () => {
   useEffect(() => {
     setIsLoading(true);
     fetchData();
+    getMoneySource(user._id)
   }, []);
 
   return (
@@ -63,10 +66,18 @@ const ActivedPaymentScreen = () => {
             start={{ x: 0, y: 0.75 }}
             end={{ x: 1, y: 0.25 }}
           >
-            <View>
-              <Text style={styles.subtext}>YOUR BALANCE</Text>
-              <NumberFormat value={user?.balance} displayType={'text'} thousandSeparator={true} prefix={''} renderText={(value, props) => <Text style={styles.balance}>{value} VND</Text>} />
-            </View>
+            {
+              moneySource.length === 0 ? (
+                <View>
+                  <Text style={styles.subtext}>YOU HAVE NO MONEY SOURCE</Text>
+                </View>
+              ) : (
+                <View>
+                  <Text style={styles.subtext}>YOUR BALANCE</Text>
+                  <NumberFormat value={user?.balance} displayType={'text'} thousandSeparator={true} prefix={''} renderText={(value, props) => <Text style={styles.balance}>{value} VND</Text>} />
+                </View>
+              )
+            }
           </LinearGradient>
 
           <TouchableOpacity

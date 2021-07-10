@@ -2,16 +2,16 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import ContentLoader from '@sarmad1995/react-native-content-loader';
 
-import { navigate, navigateReplace } from '../utils/navigationRef';
+import { navigateReplace } from '../utils/navigationRef';
 
 import vp from '../assets/vp.png';
 
-const BankItem = ({ item, isLoading }) => {
+const BankItem = ({ item }) => {
   return (
     <TouchableOpacity
       onPress={() => navigateReplace('TopUp', { sourceId: item._id })}
     >
-      <ContentLoader active title={false} loading={isLoading} avatar pRows={1}>
+      <ContentLoader active title={false} avatar pRows={1}>
         <View style={styles.boxstyle}>
           <View style={{ alignItems: 'center', padding: 10 }}>
             <Image source={vp} />

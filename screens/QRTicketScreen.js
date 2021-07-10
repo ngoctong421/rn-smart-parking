@@ -13,12 +13,11 @@ import { Context as UserContext } from '../context/userContext'
 
 import ticket from '../assets/packin.png';
 import heretk from '../assets/here.png';
-import qrcodeimg from '../assets/yourqrcode.png';
 import QRCode from 'react-native-qrcode-svg';
 
 const box_width = Dimensions.get('window').width / 2;
 
-const QRTicketScreen = (props) => {
+const QRTicketScreen = () => {
   const { user, ticketList } = useContext(UserContext)
 
   return (
@@ -30,7 +29,7 @@ const QRTicketScreen = (props) => {
           <Text style={styles.subtext}>YOUR OWN OR CODE!HOW COOL IS THIS!</Text>
           <View style={styles.qrbackground}>
             <QRCode
-              value={`${user.plate}-${user.ID}-${ticketList[0].randomCheck}`}
+              value={`${ticketList[0].plate}-${user.ID}-${ticketList[0].randomCheck}`}
               size={(Dimensions.get('window').width / 5) * 3}
             />
           </View>

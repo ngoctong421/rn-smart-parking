@@ -12,33 +12,25 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import { Context as AuthContext } from '../context/authContext';
 import { Context as UserContext } from '../context/userContext';
 
-import LoadingComponent from '../components/LoadingComponent';
 import apiHelper from '../utils/apiHelper';
-import { navigate, navigateReplace } from '../utils/navigationRef';
+import { navigate } from '../utils/navigationRef';
 
 import RecentActItem from '../components/RecentActItem';
 
 import topup from '../assets/topup.png';
 import withdraw from '../assets/wd.png';
+import HistoryTicketItem from '../components/HistoryTicketItem';
 
 const screenwidth = Dimensions.get('window').width;
 
-const ActivedPaymentScreen = (props) => {
+const ActivedPaymentScreen = () => {
   const {
-    getMe,
-    getMoneySource,
-    getHistory,
-    setAppLoading,
-    clearUser,
-    user,
-    history,
-    appLoading,
+    user
   } = useContext(UserContext);
 
-  const userId = user._id;
+  const userId = user?._id;
 
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -50,6 +42,10 @@ const ActivedPaymentScreen = (props) => {
     setIsLoading(false);
   };
 
+  const getPadding = () => {
+    return <Text>{''}</Text>;
+  };
+
   useEffect(() => {
     setIsLoading(true);
     fetchData();
@@ -57,7 +53,6 @@ const ActivedPaymentScreen = (props) => {
 
   return (
     <LinearGradient style={{ flex: 1 }} colors={['#a2ecff', '#ffffff']}>
-      <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
         <View style={styles.container}>
           <Text style={styles.titlestyle}>PAYMENT</Text>
           <LinearGradient
@@ -68,7 +63,7 @@ const ActivedPaymentScreen = (props) => {
           >
             <View>
               <Text style={styles.subtext}>YOUR BALANCE</Text>
-              <Text style={styles.balance}>{user.balance} VNĐ</Text>
+              <Text style={styles.balance}>{user?.balance} VNĐ</Text>
             </View>
           </LinearGradient>
 
@@ -104,31 +99,20 @@ const ActivedPaymentScreen = (props) => {
           </View>
 
           <Text style={styles.recentext}>Recent activities</Text>
-          <SafeAreaView style={{flex: 1}}>
-            <FlatList
-              style={styles.flatstyle}
-              data={items}
-              renderItem={({ item }) => {
-                return <RecentActItem item={item} isLoading={isLoading} />;
-              }}
-              keyExtractor={(item) => item._id}
-            />
-            {/* <FlatList
-              style={styles.flatstyle}
-              data={items}
-              keyExtractor={(item) => item._id}
-              initialNumToRender={3}
-              showsHorizontalScrollIndicator={false}
-              horizontal={false}
-              scrollEnabled={false}
-              nestedScrollEnabled={false}
-              renderItem={({ item }) => {
-                return <RecentActItem item={item} isLoading={isLoading} />;
-              }}
-            /> */}
-          </SafeAreaView>
+          <FlatList
+            style={styles.flatstyle}
+            data={items}
+            keyExtractor={(item) => item._id}
+            initialNumToRender={3}
+            showsHorizontalScrollIndicator={false}
+            scrollEnabled={true}
+            renderItem={({ item }) => {
+              return <RecentActItem item={item} isLoading={isLoading} />;
+            }}
+            ListHeaderComponent={getPadding}
+            ListFooterComponent={getPadding}
+          />
         </View>
-      </ScrollView>
     </LinearGradient>
   );
 };

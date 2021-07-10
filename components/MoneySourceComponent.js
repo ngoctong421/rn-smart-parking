@@ -30,6 +30,10 @@ const MoneySourceComponent = (props) => {
     setIsLoading(false);
   };
 
+  const getPadding = () => {
+    return <Text>{''}</Text>;
+  };
+
   useEffect(() => {
     setIsLoading(true);
     fetchData();
@@ -41,12 +45,13 @@ const MoneySourceComponent = (props) => {
       data={items}
       keyExtractor={(item) => item._id}
       showsHorizontalScrollIndicator={false}
-      horizontal={false}
-      scrollEnabled={false}
+      scrollEnabled={true}
       nestedScrollEnabled={false}
       renderItem={({ item }) => {
         return <BankItem item={item} isLoading={isLoading} />;
       }}
+      ListHeaderComponent={getPadding}
+      ListFooterComponent={getPadding}
     />
   );
 };

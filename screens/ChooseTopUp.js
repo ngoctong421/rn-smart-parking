@@ -1,60 +1,24 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import {
   Text,
   View,
-  ScrollView,
-  TouchableOpacity,
-  StyleSheet,
-  Image,
-  FlatList,
-  Dimensions,
-  TextInput,
+  StyleSheet
 } from 'react-native';
+
 import { LinearGradient } from 'expo-linear-gradient';
 
-import { Context as AuthContext } from '../context/authContext';
 import { Context as UserContext } from '../context/userContext';
 
-import LoadingComponent from '../components/LoadingComponent';
-import { navigate, navigateReplace } from '../utils/navigationRef';
-
 import MoneySourceComponent from '../components/MoneySourceComponent';
-import BankItem from '../components/BankItem';
 
-const ChooseTopUp = (props) => {
-  const [inputData, setInputData] = useState({
-    amount: '',
-  });
-
-  const { amount } = inputData;
-
-  const handleOnChange = (key) => (text) => {
-    setInputData({ ...inputData, [key]: text });
-  };
+const ChooseTopUp = () => {
 
   const {
-    getMe,
-    getMoneySource,
-    setAppLoading,
-    clearUser,
-    user,
-    appLoading,
+    user
   } = useContext(UserContext);
-
-  const dataTemp = [
-    {
-      id: 1,
-      cardnumber: '010101010311',
-    },
-    {
-      id: 2,
-      cardnumber: '291291313131',
-    },
-  ];
 
   return (
     <LinearGradient style={{ flex: 1 }} colors={['#a2ecff', '#ffffff']}>
-      <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
         <View style={styles.container}>
           <Text style={styles.titlestyle}>TOP UP</Text>
 
@@ -73,7 +37,6 @@ const ChooseTopUp = (props) => {
           <Text style={styles.recentext}>Choose your money source</Text>
           <MoneySourceComponent />
         </View>
-      </ScrollView>
     </LinearGradient>
   );
 };

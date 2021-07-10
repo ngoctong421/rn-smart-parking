@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import {
   View,
   Text,
@@ -20,7 +20,7 @@ import LoadingComponent from '../components/LoadingComponent';
 import { convertToDate, convertToTime } from '../utils/formatDateTime';
 
 const TicketScreen = (props) => {
-  const { user, ticketList, appLoading, setAppLoading } = useContext(UserContext)
+  const { user, ticketList, appLoading } = useContext(UserContext)
 
   const getOutdatedTicket = (tickets) => {
     let outdatedTicket = [...tickets]

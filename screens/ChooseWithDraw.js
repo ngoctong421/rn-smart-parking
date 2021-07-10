@@ -1,69 +1,42 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import {
   Text,
   View,
-  ScrollView,
-  TouchableOpacity,
-  StyleSheet,
-  Image,
-  FlatList,
-  Dimensions,
-  TextInput,
+  StyleSheet
 } from 'react-native';
+
 import { LinearGradient } from 'expo-linear-gradient';
 
-import { Context as AuthContext } from '../context/authContext';
 import { Context as UserContext } from '../context/userContext';
 
-import LoadingComponent from '../components/LoadingComponent';
-import { navigate, navigateReplace } from '../utils/navigationRef';
-
 import MoneySourceComponent from '../components/MoneySourceComponentWD';
-import BankItem from '../components/BankItemWD';
 
-const ChooseWithDraw = (props) => {
-  const [inputData, setInputData] = useState({
-    amount: '',
-  });
-
-  const { amount } = inputData;
-
-  const handleOnChange = (key) => (text) => {
-    setInputData({ ...inputData, [key]: text });
-  };
+const ChooseWithDraw = () => {
 
   const {
-    getMe,
-    getMoneySource,
-    setAppLoading,
-    clearUser,
-    user,
-    moneysource,
-    appLoading,
+    user
   } = useContext(UserContext);
 
   return (
     <LinearGradient style={{ flex: 1 }} colors={['#a2ecff', '#ffffff']}>
-      <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
-        <View style={styles.container}>
-          <Text style={styles.titlestyle}>WITHDRAW</Text>
+      <View style={styles.container}>
+        <Text style={styles.titlestyle}>WITHDRAW</Text>
 
-          <LinearGradient
-            style={styles.paymentboxstyle}
-            colors={['#FFED78', '#ffffff']}
-            start={{ x: 0, y: 0.75 }}
-            end={{ x: 1, y: 0.25 }}
-          >
-            <View>
-              <Text style={styles.subtext}>YOUR BALANCE</Text>
-              <Text style={styles.balance}>{user.balance} VNĐ</Text>
-            </View>
-          </LinearGradient>
+        <LinearGradient
+          style={styles.paymentboxstyle}
+          colors={['#FFED78', '#ffffff']}
+          start={{ x: 0, y: 0.75 }}
+          end={{ x: 1, y: 0.25 }}
+        >
+          <View>
+            <Text style={styles.subtext}>YOUR BALANCE</Text>
+            <Text style={styles.balance}>{user.balance} VNĐ</Text>
+          </View>
+        </LinearGradient>
 
-          <Text style={styles.recentext}>Choose your money source</Text>
-          <MoneySourceComponent />
-        </View>
-      </ScrollView>
+        <Text style={styles.recentext}>Choose your money source</Text>
+        <MoneySourceComponent />
+      </View>
     </LinearGradient>
   );
 };

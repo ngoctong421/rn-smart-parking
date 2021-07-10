@@ -6,61 +6,70 @@ import {
   ScrollView,
   TouchableOpacity,
   StyleSheet,
-  Image,
-  FlatList,
-  Dimensions,
   TextInput,
+  ToastAndroid
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import { Context as AuthContext } from '../context/authContext';
 import { Context as UserContext } from '../context/userContext';
 
 import LoadingComponent from '../components/LoadingComponent';
 import trimData from '../utils/trimData';
-import { navigate, navigateReplace } from '../utils/navigationRef';
-
-import BankItem from '../components/BankItem';
 
 import apiHelper from '../utils/apiHelper'
+import { useEffect } from 'react';
 
 const TopUpScreen = (props) => {
   const { sourceId } = props.route.params;
 
   const [confirmValue, setConfirmValue] = useState('')
-  const [visible, setVisible] = useState(false);
+  const [dialog, setDialog] = useState(false);
   const [inputData, setInputData] = useState({
     amount: '',
   });
   
   const { amount } = inputData;
 
+  const {
+    topUp,
+    setAppLoading,
+    setUserError,
+    clearError,
+    user,
+    error,
+    appLoading,
+  } = useContext(UserContext);
+
 
   const showDialog = () => {
-    setVisible(true)
+    setDialog(true)
   };
 
   const handleCancel = () => {
-    setVisible(false)
+    setDialog(false)
     setConfirmValue('')
   };
 
   const handleConfirm = async () => {
-    const { data } = await apiHelper.post('/users/moneysource/confirm', {
-      userId: user._id,
-      password: confirmValue
-    })
+    try {
+      const { data } = await apiHelper.post('/users/moneysource/confirm', {
+        userId: user._id,
+        password: confirmValue
+      })
 
-    if (data.success) {
       const cleanData = trimData(inputData);
       setInputData(cleanData);
       clearError();
       setAppLoading();
       topUp({ sourceId, amount });
-    } else {
-      console.log('Topup failed')
+      setDialog(false);
+    } catch (error) {
+      const payload = error.response
+      ? error.response.data.message
+      : error.message;
+
+      setUserError(payload)
     }
-    setVisible(false);
   };
 
   const handleOnChange = (key) => (text) => {
@@ -71,26 +80,16 @@ const TopUpScreen = (props) => {
     setConfirmValue(text)
   }
 
-  const {
-    getMe,
-    getMoneySource,
-    topUp,
-    setAppLoading,
-    clearError,
-    user,
-    moneysource,
-    error,
-    appLoading,
-  } = useContext(UserContext);
-
   const handleOnSubmit = () => {
     showDialog()
-  };
-
-  if (error !== '' && error) {
-    ToastAndroid.show(error, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
-    clearError();
   }
+
+  useEffect(() => {
+    if (error !== '' && error) {
+      ToastAndroid.show(error, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+      clearError();
+    }
+  }, [error]) 
 
   return (
     <LinearGradient style={{ flex: 1 }} colors={['#a2ecff', '#ffffff']}>
@@ -125,7 +124,7 @@ const TopUpScreen = (props) => {
             <Text style={styles.buttontext}>CONFIRM</Text>
           </TouchableOpacity>
 
-          <Dialog.Container visible={visible}>
+          <Dialog.Container visible={dialog}>
           <Dialog.Title>Confirm password</Dialog.Title>
           <Dialog.Description>
             Please enter your password to resume the process.

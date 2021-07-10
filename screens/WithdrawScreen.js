@@ -15,75 +15,80 @@ import { Context as UserContext } from '../context/userContext';
 
 import LoadingComponent from '../components/LoadingComponent';
 import trimData from '../utils/trimData';
-import { navigate, navigateReplace } from '../utils/navigationRef';
+
+import apiHelper from '../utils/apiHelper'
+import { useEffect } from 'react';
 
 const WithDrawScreen = (props) => {
   const { sourceId } = props.route.params;
 
-  const [visible, setVisible] = useState(false);
+  const [confirmValue, setConfirmValue] = useState('')
+  const [dialog, setDialog] = useState(false);
   const [inputData, setInputData] = useState({
     amount: '',
   });
 
   const { amount } = inputData;
 
+  const {
+    withDraw,
+    setAppLoading,
+    setUserError,
+    clearError,
+    user,
+    error,
+    appLoading
+  } = useContext(UserContext);
+
   const showDialog = () => {
-    setVisible(true)
+    setDialog(true)
   };
 
   const handleCancel = () => {
     setVisible(false)
-    // setConfirmValue('')
+    setConfirmValue('')
   };
 
   const handleConfirm = async () => {
-    // const { data } = await apiHelper.post('/users/moneysource/confirm', {
-    //   userId: user._id,
-    //   password: confirmValue
-    // })
+    try {
+      const { data } = await apiHelper.post('/users/moneysource/confirm', {
+        userId: user._id,
+        password: confirmValue
+      })
 
-    // if (data.success) {
-    //   const cleanData = trimData(inputData);
-    //   setInputData(cleanData);
-    //   clearError();
-    //   setAppLoading();
-    //   topUp({ sourceId, amount });
-    // } else {
-    //   console.log('Topup failed')
-    // }
-    setVisible(false);
+      const cleanData = trimData(inputData);
+      setInputData(cleanData);
+      clearError();
+      setAppLoading();
+      withDraw({ sourceId, amount });
+      setDialog(false);
+    } catch (error) {
+      const payload = error.response
+      ? error.response.data.message
+      : error.message;
+
+      setUserError(payload)
+    }
   };
 
   const handleOnChange = (key) => (text) => {
     setInputData({ ...inputData, [key]: text });
-  };
+  }
 
-  const {
-    getMe,
-    getMoneySource,
-    topUp,
-    withDraw,
-    setAppLoading,
-    clearError,
-    user,
-    moneysource,
-    error,
-    appLoading,
-  } = useContext(UserContext);
+  const onChange = (text) => {
+    setConfirmValue(text)
+  }
 
   const handleOnSubmit = () => {
     showDialog()
-    // const cleanData = trimData(inputData);
-    // setInputData(cleanData);
-    // clearError();
-    // setAppLoading();
-    // withDraw({ sourceId, amount });
-  };
-
-  if (error !== '' && error) {
-    ToastAndroid.show(error, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
-    clearError();
   }
+
+  useEffect(() => {
+    if (error !== '' && error) {
+      ToastAndroid.show(error, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+      clearError();
+    }
+  }, [error])
 
   return (
     <LinearGradient style={{ flex: 1 }} colors={['#a2ecff', '#ffffff']}>
@@ -116,12 +121,12 @@ const WithDrawScreen = (props) => {
             <Text style={styles.buttontext}>CONFIRM</Text>
           </TouchableOpacity>
 
-          <Dialog.Container visible={visible}>
+          <Dialog.Container visible={dialog}>
           <Dialog.Title>Confirm password</Dialog.Title>
           <Dialog.Description>
             Please enter your password to resume the process.
           </Dialog.Description>
-          <Dialog.Input secureTextEntry={true}/>
+          <Dialog.Input value={confirmValue} secureTextEntry={true} onChangeText={onChange}/>
           <Dialog.Button label="Cancel" onPress={handleCancel} />
           <Dialog.Button label="Confirm" onPress={handleConfirm} />
         </Dialog.Container>

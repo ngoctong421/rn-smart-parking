@@ -80,6 +80,10 @@ const setTickets = (dispatch) => async (tickets) => {
   dispatch({ type: 'GET_TICKET', payload: tickets })
 };
 
+const setUserError = (dispatch) => async (payload) => {
+  dispatch({ type: 'SET_USER_ERROR', payload: payload })
+}
+
 const updateMe = (dispatch) => async ({
   userId,
   username,
@@ -191,7 +195,6 @@ const getAllTickets = (dispatch) => async (userId) => {
 const getHistory = (dispatch) => async ({ userId }) => {
   try {
     const { data } = await apiHelper.get(`/users/history/${userId}`);
-    console.log(data);
     dispatch({ type: 'GET_HISTORY', payload: data.transaction });
   } catch (error) {
     const payload = error.response
@@ -216,7 +219,7 @@ const topUp = (dispatch) => async ({ sourceId, amount }) => {
 
     dispatch({ type: 'TOPUP', payload: data.user });
 
-    navigateReplace('ActivedPayment');
+    navigateReplace('ChooseTopUp');
   } catch (error) {
     const payload = error.response
       ? error.response.data.message
@@ -240,7 +243,7 @@ const withDraw = (dispatch) => async ({ sourceId, amount }) => {
 
     dispatch({ type: 'WITHDRAW', payload: data.user });
 
-    navigateReplace('ActivedPayment');
+    navigateReplace('ChooseWithDraw');
   } catch (error) {
     const payload = error.response
       ? error.response.data.message
@@ -272,6 +275,7 @@ export const { Provider, Context } = contextFactory(
     getHistory,
     topUp,
     withDraw,
+    setUserError,
     clearError,
     setAppLoading,
     clearUser,

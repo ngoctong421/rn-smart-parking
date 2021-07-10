@@ -36,6 +36,7 @@
     "react-native-vector-icons": "^8.1.0",
     "react-native-walkthrough-tooltip": "^1.2.0",
     "react-native-web": "~0.13.12",
+    "react-number-format": "^4.6.4",
     "socket.io-client": "^4.1.2"
   },
   "devDependencies": {

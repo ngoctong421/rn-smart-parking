@@ -5,6 +5,8 @@ import {
   StyleSheet
 } from 'react-native';
 
+import NumberFormat from 'react-number-format';
+
 import { LinearGradient } from 'expo-linear-gradient';
 
 import { Context as UserContext } from '../context/userContext';
@@ -30,7 +32,7 @@ const ChooseTopUp = () => {
           >
             <View>
               <Text style={styles.subtext}>YOUR BALANCE</Text>
-              <Text style={styles.balance}>{user.balance} VNĐ</Text>
+              <NumberFormat value={user?.balance} displayType={'text'} thousandSeparator={true} prefix={''} renderText={(value, props) => <Text style={styles.balance}>{value} VND</Text>} />
             </View>
           </LinearGradient>
 

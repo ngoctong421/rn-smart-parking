@@ -1,13 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import {
-  View,
   Text,
   FlatList,
-  StyleSheet,
-  TouchableOpacity,
+  StyleSheet
 } from 'react-native';
 
-import { Context as AuthContext } from '../context/authContext';
 import { Context as UserContext } from '../context/userContext';
 
 import BankItem from '../components/BankItem';

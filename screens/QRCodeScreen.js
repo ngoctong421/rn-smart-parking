@@ -5,9 +5,10 @@ import {
   View,
   StyleSheet,
   ScrollView,
-  Dimensions,
-  Button
+  Dimensions
 } from 'react-native';
+
+import Constants from 'expo-constants'
 import{ LinearGradient } from 'expo-linear-gradient';
 import * as Notifications from 'expo-notifications'
 
@@ -68,6 +69,14 @@ const QRCodeScreen = () => {
   const updateApp = (user, ticketList) => {
     setUser(user)
     setTickets(ticketList)
+
+    if (user.parkingStatus) {
+      handleNotifications().then((response) =>{
+        console.log(response)
+      }).catch((error) => {
+        console.log(error)
+      })
+    }
   }
 
   useEffect(() => {
@@ -80,13 +89,13 @@ const QRCodeScreen = () => {
     }
   }, [user, ticketList]);
 
-  useEffect(() => {
-    console.log('Status: ', user.parkingStatus)
+  // useEffect(() => {
+  //   console.log('Status: ', user.parkingStatus)
 
-    if (user.parkingStatus) {
-      handleNotifications()
-    }
-  }, [user.parkingStatus])
+  //   if (user.parkingStatus) {
+  //     handleNotifications()
+  //   }
+  // }, [user.parkingStatus])
 
   async function schedulePushNotification() {
     const date = convertToDate(ticketList[0].createdAt)

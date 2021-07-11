@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import {
   Text,
   View,
@@ -9,6 +9,8 @@ import {
   Image,
   ToastAndroid
 } from 'react-native';
+import { Tooltip } from 'react-native-elements'
+
 import { LinearGradient } from 'expo-linear-gradient';
 
 import LoadingComponent from '../components/LoadingComponent';
@@ -19,6 +21,7 @@ import bikes from '../assets/bikes.png';
 import trimData from '../utils/trimData';
 
 const AddVehicleScreen = (props) => {
+  const tooltipRef = useRef(null);
   const { userId } = props.route.params
 
   const {
@@ -71,14 +74,17 @@ const AddVehicleScreen = (props) => {
           <Text style={styles.normaltextStyle}>
             VEHICLE REGISTRATION NUMBER
           </Text>
+          <Tooltip ref={tooltipRef} width={200} height={50} popover={<Text>Please enter your license number with following format:
+                                                    63B4 12345</Text>}>
           <TextInput
             style={styles.inputstyle}
             value={plateNumber}
             autoCapitalize="none"
             autoCorrect={false}
+            onFocus={() => tooltipRef.current.toggleTooltip()}
             onChangeText={handleOnChange('plateNumber')}
           />
-
+          </Tooltip>
           <TouchableOpacity style={styles.buttonstyle} onPress={handleOnSubmit}>
             <Text style={styles.buttontext}>CHANGE</Text>
           </TouchableOpacity>

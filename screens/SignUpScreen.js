@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useRef, useEffect } from 'react';
 import {
   View,
   Text,
@@ -9,16 +9,18 @@ import {
   Picker,
   ToastAndroid,
 } from 'react-native';
-import Tooltip from 'react-native-walkthrough-tooltip'
+
+import { Tooltip } from 'react-native-elements'
 
 import { Context as AuthContext } from '../context/authContext';
 
 import LoadingComponent from '../components/LoadingComponent';
 import trimData from '../utils/trimData';
 import { navigateReplace } from '../utils/navigationRef';
-import { useEffect } from 'react/cjs/react.development';
 
 const SignUpScreen = () => {
+  const tooltipRef = useRef(null);
+
   const [inputData, setInputData] = useState({
     username: '',
     password: '',
@@ -117,14 +119,18 @@ const SignUpScreen = () => {
             onChangeText={handleOnChange('email')}
           />
 
-          <Text style={styles.textinfo}>Plate</Text>
-          <TextInput
-            style={styles.inputstyle}
-            value={plate}
-            autoCapitalize="none"
-            autoCorrect={false}
-            onChangeText={handleOnChange('plate')}
-          />
+          <Tooltip ref={tooltipRef} width={200} height={50} popover={<Text>Please enter your license number with following format:
+                                                    63B4 12345</Text>}>
+            <Text style={styles.textinfo}>Plate</Text>
+            <TextInput
+              style={styles.inputstyle}
+              value={plate}
+              onFocus={() => tooltipRef.current.toggleTooltip()}
+              autoCapitalize="none"
+              autoCorrect={false}
+              onChangeText={handleOnChange('plate')}
+            />
+          </Tooltip>
         </View>
 
         <TouchableOpacity style={styles.buttonstyle} onPress={handleOnSubmit}>

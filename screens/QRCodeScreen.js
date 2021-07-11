@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';
 import {
   Text,
   Image,
@@ -6,23 +6,133 @@ import {
   StyleSheet,
   ScrollView,
   Dimensions,
+  Button
 } from 'react-native';
 import{ LinearGradient } from 'expo-linear-gradient';
+import * as Notifications from 'expo-notifications'
+
 import QRCode from 'react-native-qrcode-svg';
 
+import socket from '../socketIo'
+
 import { Context as UserContext } from '../context/userContext';
+
+import { convertToDate, convertToTime } from '../utils/formatDateTime'
 
 import qrcodebar from '../assets/qrcodebar.png';
 import hereqr from '../assets/hereqr.png';
 
 const box_width = Dimensions.get('window').width / 2;
 
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
+
 const QRCodeScreen = () => {
 
   const {
-    user
+    user, ticketList, setUser, setTickets
   } = useContext(UserContext);
+  const [expoPushToken, setExpoPushToken] = useState('');
+  const [notification, setNotification] = useState(false);
+  const notificationListener = useRef();
+  const responseListener = useRef();
 
+  useEffect(() => {
+    socket.on("updateApp", updateApp)
+
+    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      setNotification(notification);
+    });
+
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log(response);
+    });
+
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener.current);
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
+
+  const handleNotifications = async () => {
+    await schedulePushNotification();
+  }
+
+  const updateApp = (user, ticketList) => {
+    setUser(user)
+    setTickets(ticketList)
+  }
+
+  useEffect(() => {
+    if (!user) {
+      getMe(userId);
+    }
+
+    if (ticketList.length == 0) {
+      getAllTickets(userId)
+    }
+  }, [user, ticketList]);
+
+  useEffect(() => {
+    console.log('Status: ', user.parkingStatus)
+
+    if (user.parkingStatus) {
+      handleNotifications()
+    }
+  }, [user.parkingStatus])
+
+  async function schedulePushNotification() {
+    const date = convertToDate(ticketList[0].createdAt)
+    const time = convertToTime(ticketList[0].createdAt)
+  
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "Check-in notification 📬",
+        body: `It's seem that you have entered on ${date} at ${time}`,
+        data: { data: 'goes here' },
+      },
+      trigger: { seconds: 2 },
+    });
+  }
+
+  async function registerForPushNotificationsAsync() {
+    let token;
+    if (Constants.isDevice) {
+      const { status: existingStatus } = await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+      if (existingStatus !== 'granted') {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+      if (finalStatus !== 'granted') {
+        alert('Failed to get push token for push notification!');
+        return;
+      }
+      token = (await Notifications.getExpoPushTokenAsync()).data;
+      console.log(token);
+    } else {
+      alert('Must use physical device for Push Notifications');
+    }
+  
+    if (Platform.OS === 'android') {
+      Notifications.setNotificationChannelAsync('default', {
+        name: 'default',
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: '#FF231F7C',
+      });
+    }
+  
+    return token;
+  }
+  
   return (
     <LinearGradient style={{ flex: 1 }} colors={['#FFEEA4', '#ffffff']}>
       <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>

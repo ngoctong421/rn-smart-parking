@@ -5,7 +5,6 @@ import RootStackNavigator from './navigation/RootStackNavigator';
 import { navigationRef } from './utils/navigationRef';
 import { Provider as AuthProvider } from './context/authContext';
 import { Provider as UserProvider } from './context/userContext';
-import { SafeAreaView } from 'react-native';
 
 export default function App() {
   return (

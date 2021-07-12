@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
+import NumberFormat from 'react-number-format'
+
 import { Context as UserContext } from '../context/userContext';
 
 import LoadingComponent from '../components/LoadingComponent';
@@ -104,11 +106,11 @@ const WithDrawScreen = (props) => {
             end={{ x: 1, y: 0.25 }}
           >
             <View>
-              <Text style={styles.subtext}>YOUR BALANCE:</Text>
-              <Text style={styles.balance}>{user.balance} VNĐ</Text>
+              <Text style={styles.subtext}>YOUR BALANCE</Text>
+              <NumberFormat value={user?.balance} displayType={'text'} thousandSeparator={true} prefix={''} renderText={(value, props) => <Text style={styles.balance}>{value} VND</Text>} />
             </View>
           </LinearGradient>
-          <Text style={styles.recentext}>Withdraw value:</Text>
+          <Text style={styles.recentext}>Withdraw value</Text>
           <TextInput
             style={styles.inputstyle}
             value={amount}

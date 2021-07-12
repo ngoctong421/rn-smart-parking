@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
+import NumberFormat from 'react-number-format'
+
 import { Context as UserContext } from '../context/userContext';
 
 import LoadingComponent from '../components/LoadingComponent';
@@ -106,7 +108,7 @@ const TopUpScreen = (props) => {
           >
             <View>
               <Text style={styles.subtext}>YOUR BALANCE</Text>
-              <Text style={styles.balance}>{user.balance} VNĐ</Text>
+              <NumberFormat value={user?.balance} displayType={'text'} thousandSeparator={true} prefix={''} renderText={(value, props) => <Text style={styles.balance}>{value} VND</Text>} />
             </View>
           </LinearGradient>
 

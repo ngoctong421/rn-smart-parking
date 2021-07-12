@@ -23,6 +23,7 @@ import RecentActItem from '../components/RecentActItem';
 
 import topup from '../assets/topup.png';
 import withdraw from '../assets/wd.png';
+import LoadingComponent from '../components/LoadingComponent';
 
 const screenwidth = Dimensions.get('window').width;
 
@@ -112,37 +113,25 @@ const ActivedPaymentScreen = () => {
           </View>
 
           <Text style={styles.recentext}>Recent activities</Text>
-          {/* <SafeAreaView style={{flex: 1}}> */}
-            {/* <Animated.FlatList
-              scrollEventThrottle={1}
-              onScroll={Animated.event(
-                [{ nativeEvent: { contentOffset: { y: anim } } }],
-                { useNativeDriver: true } // Add this line
-              )}
-              style={styles.flatstyle}
-              data={items}
-              keyExtractor={(item) => item._id}
-              initialNumToRender={3}
-              showsHorizontalScrollIndicator={false}
-              scrollEnabled={true}
-              renderItem={({ item }) => {
-                return <RecentActItem item={item} isLoading={isLoading} />;
-              }}
-              ListHeaderComponent={getPadding}
-              ListFooterComponent={getPadding}
-            /> */}
-          {/* </SafeAreaView> */}
-          {/* <Animated.ScrollView
-                scrollEventThrottle={1}
-              onScroll={Animated.event(
-                [{ nativeEvent: { contentOffset: { y: anim } } }],
-                { useNativeDriver: false } // Add this line
-              )}
-              >
-            {items.map((item, index) => (
-              <RecentActItem item={item} isLoading={isLoading} />
-            ))}
-          </Animated.ScrollView> */}
+          <SafeAreaView style={{flex: 1}}>
+            {
+              isLoading ? <LoadingComponent /> : (
+                <FlatList
+                  style={styles.flatstyle}
+                  data={items}
+                  keyExtractor={(item) => item._id}
+                  initialNumToRender={3}
+                  showsHorizontalScrollIndicator={false}
+                  scrollEnabled={true}
+                  renderItem={({ item }) => {
+                    return <RecentActItem item={item}/>;
+                  }}
+                  ListHeaderComponent={getPadding}
+                  ListFooterComponent={getPadding}
+                />
+              )
+            }
+          </SafeAreaView>
         </View>
     </LinearGradient>
   );

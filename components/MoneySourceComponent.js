@@ -1,22 +1,18 @@
 import React, { useState, useEffect, useContext } from 'react';
 import {
   Text,
-  FlatList,
-  StyleSheet
+  StyleSheet,
+  FlatList
 } from 'react-native';
 
 import { Context as UserContext } from '../context/userContext';
 
 import BankItem from '../components/BankItem';
 
-const MoneySourceComponent = (props) => {
+const MoneySourceComponent = () => {
   const {
     moneySource
   } = useContext(UserContext);
-
-  const getPadding = () => {
-    return <Text>{''}</Text>;
-  };
 
   return (
     <FlatList
@@ -27,10 +23,8 @@ const MoneySourceComponent = (props) => {
       scrollEnabled={true}
       nestedScrollEnabled={false}
       renderItem={({ item }) => {
-        return <BankItem item={item} />;
+        return <BankItem item={item}/>;
       }}
-      ListHeaderComponent={getPadding}
-      ListFooterComponent={getPadding}
     />
   );
 };

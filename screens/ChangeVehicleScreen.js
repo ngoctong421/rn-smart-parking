@@ -74,17 +74,16 @@ const AddVehicleScreen = (props) => {
           <Text style={styles.normaltextStyle}>
             VEHICLE REGISTRATION NUMBER
           </Text>
-          <Tooltip ref={tooltipRef} width={200} height={50} popover={<Text>Please enter your license number with following format:
-                                                    63B4 12345</Text>}>
+          {/* <Tooltip ref={tooltipRef} width={200} height={50} popover={<Text>Please enter your license number with following format: 63B4 12345</Text>}> */}
           <TextInput
             style={styles.inputstyle}
             value={plateNumber}
             autoCapitalize="none"
             autoCorrect={false}
-            onFocus={() => tooltipRef.current.toggleTooltip()}
+            // onFocus={() => tooltipRef.current.toggleTooltip()}
             onChangeText={handleOnChange('plateNumber')}
           />
-          </Tooltip>
+          {/* </Tooltip> */}
           <TouchableOpacity style={styles.buttonstyle} onPress={handleOnSubmit}>
             <Text style={styles.buttontext}>CHANGE</Text>
           </TouchableOpacity>

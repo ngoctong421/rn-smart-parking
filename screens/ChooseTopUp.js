@@ -37,7 +37,7 @@ const ChooseTopUp = () => {
           </LinearGradient>
 
           <Text style={styles.recentext}>Choose your money source</Text>
-          {/* <MoneySourceComponent /> */}
+          <MoneySourceComponent />
         </View>
     </LinearGradient>
   );

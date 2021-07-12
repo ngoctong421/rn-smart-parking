@@ -11,7 +11,7 @@ const BankItem = ({ item }) => {
     <TouchableOpacity
       onPress={() => navigateReplace('TopUp', { sourceId: item._id })}
     >
-      <ContentLoader active title={false} avatar pRows={1}>
+      {/* <ContentLoader active title={false} avatar pRows={1}> */}
         <View style={styles.boxstyle}>
           <View style={{ alignItems: 'center', padding: 10 }}>
             <Image source={vp} />
@@ -20,7 +20,7 @@ const BankItem = ({ item }) => {
             ************{item.cardnumbersliced}
           </Text>
         </View>
-      </ContentLoader>
+      {/* </ContentLoader> */}
     </TouchableOpacity>
   );
 };

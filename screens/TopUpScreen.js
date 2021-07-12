@@ -58,13 +58,14 @@ const TopUpScreen = (props) => {
         userId: user._id,
         password: confirmValue
       })
-
+      
       const cleanData = trimData(inputData);
       setInputData(cleanData);
       clearError();
       setAppLoading();
       topUp({ sourceId, amount });
       setDialog(false);
+      setConfirmValue('')
     } catch (error) {
       const payload = error.response
       ? error.response.data.message

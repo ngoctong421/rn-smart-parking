@@ -1,6 +1,6 @@
 import io from 'socket.io-client'
 
-const ENDPOINT = 'http://1a4fce565254.ngrok.io'
+const ENDPOINT = 'http://800c22876f35.ngrok.io'
 // const ENDPOINT = 'https://votan-sparking.herokuapp.com/'
 var connectionOptions =  {
   "force new connection" : true,

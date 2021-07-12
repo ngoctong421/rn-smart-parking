@@ -40,6 +40,7 @@ const userReducer = (state, action) => {
       console.log('Withdraw');
       return { ...state, user: action.payload, appLoading: false };
     case 'SET_USER_ERROR':
+      console.log('Set error')
       return {
         ...state,
         error: action.payload,

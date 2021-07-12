@@ -31,16 +31,10 @@ const ProfileScreen = (props) => {
   const { userId } = props.route.params;
 
   const {
-    signOut,
-    clearError,
-    setLoading,
-    isSignIn,
-    token,
-    error,
-    loading,
+    signOut
   } = useContext(AuthContext);
 
-  const { getMe, getAllTickets, setAppLoading, setUser, setTickets, clearUser, user, ticketList, appLoading } = useContext(
+  const { getMe, getAllTickets, setUser, setTickets, clearUser, user, ticketList, setUserError } = useContext(
     UserContext
   );
 
@@ -49,8 +43,14 @@ const ProfileScreen = (props) => {
     setTickets(ticketList)
   }
 
+  const setPaymentError = (error) => {
+    const payload = error
+    setUserError(payload)
+  }
+
   useEffect(() => {
     socket.on("updateApp", updateApp)
+    socket.on("paymentError", setPaymentError)
 
     // return () => {
     //   socket.disconnect()

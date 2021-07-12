@@ -59,7 +59,7 @@ const TicketScreen = (props) => {
                   <View>
                     <Text style={styles.tickettext}>Ticket Id: { ticketList && `****${ticketList[0]?._id.slice(-4)}`}</Text>
                     <Text style={styles.tickettext}>Date: { ticketList && convertToDate(ticketList[0]?.createdAt)}</Text>
-                    <Text style={styles.tickettext}>Arrival time: { ticketList && convertToTime(ticketList[0].createdAt)}</Text>
+                    <Text style={styles.tickettext}>Arrival time: { ticketList && convertToTime(ticketList[0]?.createdAt)}</Text>
                     <Text style={styles.tickettext}>Vehicle plate: { ticketList && ticketList[0]?.plate}</Text>
                   </View>
                 ) : (

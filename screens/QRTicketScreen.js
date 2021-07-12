@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
   Text,
   Image,
@@ -6,8 +6,12 @@ import {
   ScrollView,
   View,
   Dimensions,
+  ToastAndroid
 } from 'react-native';
+
 import { LinearGradient } from 'expo-linear-gradient';
+
+import Dialog from "react-native-dialog";
 
 import { Context as UserContext } from '../context/userContext'
 
@@ -18,7 +22,23 @@ import QRCode from 'react-native-qrcode-svg';
 const box_width = Dimensions.get('window').width / 2;
 
 const QRTicketScreen = () => {
-  const { user, ticketList } = useContext(UserContext)
+  const { user, error, clearError, ticketList } = useContext(UserContext)
+  const [dialog, setDialog] = useState(false)
+
+  const openDialog = () => {
+    setDialog(true)
+  }
+
+  const closeDialog = () => {
+    setDialog(false)
+    clearError()
+  }
+
+  useEffect(() => {
+    if (error !== '' && error) {
+      openDialog()
+    }
+  }, [error]) 
 
   return (
     <LinearGradient style={{ flex: 1 }} colors={['#FFEE97', '#ffffff']}>
@@ -37,6 +57,14 @@ const QRTicketScreen = () => {
             Scan this as a ticket on the device at the checkout.
           </Text>
           <Image source={heretk} />
+
+          <Dialog.Container visible={dialog}>
+          <Dialog.Title>Payment Notification</Dialog.Title>
+          <Dialog.Description>
+            {error}
+          </Dialog.Description>
+          <Dialog.Button label="OK" onPress={closeDialog} />
+        </Dialog.Container>
         </View>
       </ScrollView>
     </LinearGradient>

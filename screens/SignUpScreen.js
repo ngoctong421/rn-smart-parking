@@ -10,9 +10,7 @@ import {
   ToastAndroid,
 } from 'react-native';
 
-// import { Tooltip } from 'react-native-elements'
-import ToolTip from 'react-native-tooltip';
-
+import Tooltip from 'rn-tooltip'
 
 import { Context as AuthContext } from '../context/authContext';
 
@@ -46,22 +44,6 @@ const SignUpScreen = () => {
     authError,
     loading,
   } = useContext(AuthContext);
-
-  const handleCopyPress = () => {
-      console.log(`Copy has been pressed!`);
-  };
-
-  const handleOtherPress = () => {
-      console.log(`Other has been pressed!`);
-  };
-
-  const handleHide = () => {
-      console.log('Tooltip did hide');
-  };
-
-  const handleShow = () => {
-      console.log('tooltip did show');
-  };
 
   const handleOnSubmit = () => {
     const cleanData = trimData(inputData);
@@ -137,28 +119,17 @@ const SignUpScreen = () => {
             onChangeText={handleOnChange('email')}
           />
 
-          {/* <Tooltip ref={tooltipRef} width={200} height={50} popover={<Text>Please enter your license number with following format: 63B4 12345</Text>}> */}
-          <ToolTip
-              ref={tooltipRef}
-              actions={[
-                {text: 'Copy'},
-              ]}
-              onHide={handleHide}
-              onShow={handleShow}
-              underlayColor={'blue'}
-              // style={styles.selectedName}
-            >
-              <Text style={styles.textinfo}>Plate</Text>
-            </ToolTip>
+          <Text style={styles.textinfo}>Plate</Text>
+          <Tooltip ref={tooltipRef} width={200} height={50} popover={<Text>Please enter your license number with following format: 63B4 12345</Text>}>
             <TextInput
               style={styles.inputstyle}
               value={plate}
-              // onFocus={() => tooltipRef.current.toggleTooltip()}
               autoCapitalize="none"
               autoCorrect={false}
+              onFocus={() => tooltipRef.current.toggleTooltip()}
               onChangeText={handleOnChange('plate')}
             />
-          {/* </Tooltip> */}
+          </Tooltip>
         </View>
 
         <TouchableOpacity style={styles.buttonstyle} onPress={handleOnSubmit}>

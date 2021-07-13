@@ -104,6 +104,7 @@ const ProfileScreen = (props) => {
             <View style={styles.horizontalstyle}>
               <TouchableOpacity
                 style={styles.blockstyle}
+                disabled={user?.parkingStatus}
                 onPress={() => {
                   navigate('QRInden', { userId });
                 }}

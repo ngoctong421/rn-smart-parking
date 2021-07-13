@@ -1,19 +1,26 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import {
   Text,
   Image,
   StyleSheet,
   ScrollView,
   View,
-  Dimensions,
-  ToastAndroid
+  Dimensions
 } from 'react-native';
 
-import { LinearGradient } from 'expo-linear-gradient';
+import Constants from 'expo-constants'
+import{ LinearGradient } from 'expo-linear-gradient'
+import * as Notifications from 'expo-notifications'
 
 import Dialog from "react-native-dialog";
 
 import { Context as UserContext } from '../context/userContext'
+
+import socket from '../socketIo'
+
+import apiHelper from '../utils/apiHelper';
+
+import { convertToDate, convertToTime } from '../utils/formatDateTime'
 
 import ticket from '../assets/packin.png';
 import heretk from '../assets/here.png';
@@ -22,8 +29,12 @@ import QRCode from 'react-native-qrcode-svg';
 const box_width = Dimensions.get('window').width / 2;
 
 const QRTicketScreen = () => {
-  const { user, error, clearError, ticketList } = useContext(UserContext)
+  const { user, error, clearError, ticketList, setUser, setTickets } = useContext(UserContext)
   const [dialog, setDialog] = useState(false)
+  const [expoPushToken, setExpoPushToken] = useState('');
+  const [notification, setNotification] = useState(false);
+  const notificationListener = useRef();
+  const responseListener = useRef();
 
   const openDialog = () => {
     setDialog(true)
@@ -34,11 +45,112 @@ const QRTicketScreen = () => {
     clearError()
   }
 
+  const updateApp = (user, ticketList) => {
+    setUser(user)
+    setTickets(ticketList)
+
+    // if (user.parkingStatus) {
+    //   handleNotifications().then((response) =>{
+    //     console.log(response)
+    //   }).catch((error) => {
+    //     console.log(error)
+    //   })
+    // }
+  }
+
+  useEffect(() => {
+    socket.on("updateApp", updateApp)
+
+    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      setNotification(notification);
+    });
+
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log(response);
+    });
+
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener.current);
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, [])
+
+  const handleNotifications = async () => {
+    await schedulePushNotification();
+  }
+
+  useEffect(() => {
+    const run = async () => {
+      const { data } = await apiHelper.get(`tickets/${user._id}/gettickets`)
+      const tickets = data.tickets
+
+      if (!user?.parkingStatus && tickets[0].createdAt !== tickets[0].updatedAt) {
+        handleNotifications().then((response) =>{
+          console.log(response)
+        }).catch((error) => {
+          console.log(error)
+        })
+      }
+    }
+
+    run()
+  }, [user.parkingStatus])
+
   useEffect(() => {
     if (error !== '' && error) {
       openDialog()
     }
-  }, [error]) 
+  }, [error])
+
+  async function schedulePushNotification() {
+
+    const { data } = await apiHelper.get(`tickets/${user._id}/gettickets`)
+    const tickets = data.tickets
+    const date = convertToDate(tickets[0].updatedAt)
+    const time = convertToTime(tickets[0].updatedAt)
+  
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "Check-out notification 📬",
+        body: `It's seem that you have just left on ${date} at ${time}`,
+        data: { data: 'goes here' },
+      },
+      trigger: { seconds: 2 },
+    });
+  }
+
+  async function registerForPushNotificationsAsync() {
+    let token;
+    if (Constants.isDevice) {
+      const { status: existingStatus } = await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+      if (existingStatus !== 'granted') {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+      if (finalStatus !== 'granted') {
+        alert('Failed to get push token for push notification!');
+        return;
+      }
+      token = (await Notifications.getExpoPushTokenAsync()).data;
+      console.log(token);
+    } else {
+      alert('Must use physical device for Push Notifications');
+    }
+  
+    if (Platform.OS === 'android') {
+      Notifications.setNotificationChannelAsync('default', {
+        name: 'default',
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: '#FF231F7C',
+      });
+    }
+  
+    return token;
+  }
 
   return (
     <LinearGradient style={{ flex: 1 }} colors={['#FFEE97', '#ffffff']}>

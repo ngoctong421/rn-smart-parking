@@ -16,6 +16,8 @@ import QRCode from 'react-native-qrcode-svg';
 
 import socket from '../socketIo'
 
+import apiHelper from '../utils/apiHelper';
+
 import { Context as UserContext } from '../context/userContext';
 
 import { convertToDate, convertToTime } from '../utils/formatDateTime'
@@ -70,13 +72,13 @@ const QRCodeScreen = () => {
     setUser(user)
     setTickets(ticketList)
 
-    if (user.parkingStatus) {
-      handleNotifications().then((response) =>{
-        console.log(response)
-      }).catch((error) => {
-        console.log(error)
-      })
-    }
+    // if (user.parkingStatus) {
+    //   handleNotifications().then((response) =>{
+    //     console.log(response)
+    //   }).catch((error) => {
+    //     console.log(error)
+    //   })
+    // }
   }
 
   useEffect(() => {
@@ -89,22 +91,35 @@ const QRCodeScreen = () => {
     }
   }, [user, ticketList]);
 
-  // useEffect(() => {
-  //   console.log('Status: ', user.parkingStatus)
 
-  //   if (user.parkingStatus) {
-  //     handleNotifications()
-  //   }
-  // }, [user.parkingStatus])
+  useEffect(() => {
+    const run = async () => {
+      const { data } = await apiHelper.get(`tickets/${user._id}/gettickets`)
+      const tickets = data.tickets
+
+      if (user?.parkingStatus && tickets[0].createdAt === tickets[0].updatedAt) {
+        handleNotifications().then((response) =>{
+          console.log(response)
+        }).catch((error) => {
+          console.log(error)
+        })
+      }
+    }
+
+    run()
+  }, [user.parkingStatus])
 
   async function schedulePushNotification() {
-    const date = convertToDate(ticketList[0].createdAt)
-    const time = convertToTime(ticketList[0].createdAt)
+
+    const { data } = await apiHelper.get(`tickets/${user._id}/gettickets`)
+    const tickets = data.tickets
+    const date = convertToDate(tickets[0].createdAt)
+    const time = convertToTime(tickets[0].createdAt)
   
     await Notifications.scheduleNotificationAsync({
       content: {
         title: "Check-in notification 📬",
-        body: `It's seem that you have entered on ${date} at ${time}`,
+        body: `It's seem that you have just entered on ${date} at ${time}`,
         data: { data: 'goes here' },
       },
       trigger: { seconds: 2 },

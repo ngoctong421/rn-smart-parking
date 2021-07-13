@@ -47,7 +47,7 @@ const AddMoneysourceScreen = (props) => {
     setInputData({ ...inputData, [key]: text });
   };
 
-  const [bank, selectedBank] = useState('BIDV');
+  const [bank, selectedBank] = useState('VCB');
 
   const handleOnSubmit = () => {
     const cleanData = trimData(inputData);
@@ -57,10 +57,12 @@ const AddMoneysourceScreen = (props) => {
     createMoneySource({ userId, bank, cardnumber, validfrom });
   };
 
-  if (error !== '' && error) {
-    ToastAndroid.show(error, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
-    clearError();
-  }
+  useEffect(() => {
+    if (error !== '' && error) {
+      ToastAndroid.show(error, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+      clearError();
+    }
+  }, [error])
 
   return (
     <LinearGradient style={{ flex: 1 }} colors={['#a2ecff', '#ffffff']}>
@@ -72,7 +74,7 @@ const AddMoneysourceScreen = (props) => {
 
           <Image source={credit} />
 
-          <Text style={styles.normaltextStyle}>Card Number:</Text>
+          <Text style={styles.normaltextStyle}>Card Number</Text>
           <TextInput
             style={styles.inputstyle}
             value={cardnumber}
@@ -90,7 +92,7 @@ const AddMoneysourceScreen = (props) => {
               onValueChange={(itemValue) => selectedBank(itemValue)}
             >
               <Picker.Item label="Vietcombank" value="VCB" color="#0090fe" />
-              <Picker.Item label="BIDV" value="BIDV" color="#0090fe" />
+              <Picker.Item label="VP Bank" value="VPB" color="#0090fe" />
             </Picker>
           </View>
 

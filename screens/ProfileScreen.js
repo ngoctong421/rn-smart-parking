@@ -59,14 +59,9 @@ const ProfileScreen = (props) => {
   }, [])
 
   useEffect(() => {
-    if (!user) {
-      getMe(userId);
-    }
-
-    if (ticketList.length == 0) {
-      getAllTickets(userId)
-    }
-  }, [user, ticketList]);
+    getMe(userId);
+    getAllTickets(userId)
+  }, []);
 
   return (
     <LinearGradient style={{ flex: 1 }} colors={['#a2ecff', '#ffffff']}>

@@ -6,6 +6,8 @@ import { navigate, navigateReplace } from '../utils/navigationRef';
 
 import vp from '../assets/vp.png';
 
+import vc from '../assets/vc.png'
+
 const BankItem = ({ item, isLoading }) => {
   return (
     <TouchableOpacity
@@ -14,7 +16,7 @@ const BankItem = ({ item, isLoading }) => {
       {/* <ContentLoader active title={false} loading={isLoading} avatar pRows={1}> */}
         <View style={styles.boxstyle}>
           <View style={{ alignItems: 'center', padding: 10 }}>
-            <Image source={vp} />
+            <Image source={item.bank === 'VCB' ? vc : vp} />
           </View>
           <Text style={styles.numbertext}>
             ************{item.cardnumbersliced}

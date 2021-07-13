@@ -44,6 +44,7 @@ const LoginScreen = (props) => {
     setInputData(cleanData);
     clearError();
     setLoading();
+    console.log(cleanData)
     signIn(cleanData);
   };
 

@@ -54,7 +54,7 @@ const ActivedPaymentScreen = () => {
   useEffect(() => {
     setIsLoading(true);
     fetchData();
-    getMoneySource(user._id)
+    getMoneySource(user?._id)
   }, []);
 
   return (
@@ -92,6 +92,7 @@ const ActivedPaymentScreen = () => {
 
           <View style={{ flexDirection: 'row' }}>
             <TouchableOpacity
+              disabled={moneySource.length === 0}
               style={styles.blockcontainer}
               onPress={() => {
                 navigate('ChooseTopUp');
@@ -102,6 +103,7 @@ const ActivedPaymentScreen = () => {
             </TouchableOpacity>
 
             <TouchableOpacity
+              disabled={moneySource.length === 0}
               style={styles.blockcontainer}
               onPress={() => {
                 navigate('ChooseWithDraw');

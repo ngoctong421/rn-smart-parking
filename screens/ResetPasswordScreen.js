@@ -37,10 +37,7 @@ const ResetPasswordScreen = (props) => {
     resetPassword,
     clearError,
     setLoading,
-    isSignIn,
-    token,
     authError,
-    loading,
   } = useContext(AuthContext);
 
   const handleOnSubmit = () => {
@@ -51,10 +48,12 @@ const ResetPasswordScreen = (props) => {
     resetPassword({ email, newpass, confirm, verify });
   };
 
-  if (authError !== '' && authError) {
-    ToastAndroid.show(authError, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
-    clearError();
-  }
+  useEffect(() => {
+    if (authError !== '' && authError) {
+      ToastAndroid.show(authError, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+      clearError();
+    }
+  }, [authError])
 
   return (
     <View style={styles.container}>

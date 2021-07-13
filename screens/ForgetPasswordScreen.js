@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
   View,
   Text,
@@ -13,7 +13,6 @@ import { Context as AuthContext } from '../context/authContext';
 
 import LoadingComponent from '../components/LoadingComponent';
 import trimData from '../utils/trimData';
-import { navigate, navigateReplace } from '../utils/navigationRef';
 
 import passwordlogo from '../assets/resetpasslogo.png';
 
@@ -32,8 +31,6 @@ const ForgetPasswordScreen = (props) => {
     forgotPassword,
     clearError,
     setLoading,
-    isSignIn,
-    token,
     authError,
     loading,
   } = useContext(AuthContext);
@@ -46,10 +43,12 @@ const ForgetPasswordScreen = (props) => {
     forgotPassword({ email });
   };
 
-  if (authError !== '' && authError) {
-    ToastAndroid.show(authError, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
-    clearError();
-  }
+  useEffect(() => {
+    if (authError !== '' && authError) {
+      ToastAndroid.show(authError, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+      clearError();
+    }
+  }, [authError])
 
   return (
     <View style={styles.container}>

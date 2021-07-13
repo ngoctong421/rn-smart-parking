@@ -49,9 +49,13 @@ const userReducer = (state, action) => {
     case 'CLEAR_USER_ERROR':
       return { ...state, error: '', appLoading: false };
     case 'CLEAR_USER':
+      console.log('Clear user')
       return {
         ...state,
         user: null,
+        ticketList: [],
+        moneySource: [],
+        history: null,
         error: '',
         appLoading: false,
       };

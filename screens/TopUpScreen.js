@@ -63,7 +63,7 @@ const TopUpScreen = (props) => {
       setInputData(cleanData);
       clearError();
       setAppLoading();
-      topUp({ sourceId, amount });
+      topUp({ sourceId, amount, user });
       setDialog(false);
       setConfirmValue('')
     } catch (error) {

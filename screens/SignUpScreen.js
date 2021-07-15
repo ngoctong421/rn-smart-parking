@@ -94,7 +94,7 @@ const SignUpScreen = () => {
               selectedValue={position}
               onValueChange={(itemValue) => setPosition(itemValue)}
             >
-              <Picker.Item label="Teacher" value="teacher" color="#0090fe" />
+              <Picker.Item label="Lecturer" value="lecturer" color="#0090fe" />
               <Picker.Item label="Student" value="student" color="#0090fe" />
             </Picker>
           </View>

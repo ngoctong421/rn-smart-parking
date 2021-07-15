@@ -62,7 +62,7 @@ const WithDrawScreen = (props) => {
       setInputData(cleanData);
       clearError();
       setAppLoading();
-      withDraw({ sourceId, amount });
+      withDraw({ sourceId, amount, user });
       setDialog(false);
       setConfirmValue('')
     } catch (error) {

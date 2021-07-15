@@ -28,6 +28,9 @@ const userReducer = (state, action) => {
     case 'GET_MONEYSOURCE':
       console.log('Get moneysource');
       return { ...state, moneySource: action.payload, appLoading: false };
+    case 'GET_TRANSACTION':
+      console.log('Get transaction');
+      return { ...state, transaction: action.payload, appLoading: false };
     case 'CREATE_MONEYSOURCE':
       console.log('Create moneysource');
     case 'GET_HISTORY':
@@ -155,6 +158,20 @@ const getMoneySource = (dispatch) => async (userId) => {
   }
 };
 
+const getTransaction = (dispatch) => async (userId) => {
+  try {
+    const { data } = await apiHelper.get(`/users/history/${userId}`);
+
+    dispatch({ type: 'GET_TRANSACTION', payload: data.transaction });
+  } catch (error) {
+    const payload = error.response
+      ? error.response.data.message
+      : error.message;
+
+    dispatch({ type: 'SET_USER_ERROR', payload });
+  }
+};
+
 const createMoneySource = (dispatch) => async ({
   userId,
   bank,
@@ -210,7 +227,7 @@ const getHistory = (dispatch) => async ({ userId }) => {
   }
 };
 
-const topUp = (dispatch) => async ({ sourceId, amount }) => {
+const topUp = (dispatch) => async ({ sourceId, amount, user }) => {
   try {
     if (!amount) {
       throw new Error('Please enter all required fields!');
@@ -222,7 +239,11 @@ const topUp = (dispatch) => async ({ sourceId, amount }) => {
       }
     );
 
+    const response = await apiHelper.get(`/users/history/${user?._id}`);
+
     dispatch({ type: 'TOPUP', payload: data.user });
+    
+    dispatch({ type: 'GET_TRANSACTION', payload: response.data.transaction });
 
     navigateReplace('ChooseTopUp');
   } catch (error) {
@@ -234,7 +255,7 @@ const topUp = (dispatch) => async ({ sourceId, amount }) => {
   }
 };
 
-const withDraw = (dispatch) => async ({ sourceId, amount }) => {
+const withDraw = (dispatch) => async ({ sourceId, amount, user }) => {
   try {
     if (!amount) {
       throw new Error('Please enter all required fields!');
@@ -246,7 +267,11 @@ const withDraw = (dispatch) => async ({ sourceId, amount }) => {
       }
     );
 
+    const response = await apiHelper.get(`/users/history/${user?._id}`);
+
     dispatch({ type: 'WITHDRAW', payload: data.user });
+
+    dispatch({ type: 'GET_TRANSACTION', payload: response.data.transaction });
 
     navigateReplace('ChooseWithDraw');
   } catch (error) {
@@ -277,6 +302,7 @@ export const { Provider, Context } = contextFactory(
     updateMe,
     getMoneySource,
     createMoneySource,
+    getTransaction,
     getHistory,
     topUp,
     withDraw,
@@ -293,6 +319,7 @@ export const { Provider, Context } = contextFactory(
     user: null,
     ticketList: [],
     moneySource: [],
+    transaction: [],
     history: null,
     error: '',
     appLoading: false,

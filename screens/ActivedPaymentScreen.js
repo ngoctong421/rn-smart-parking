@@ -16,7 +16,6 @@ import NumberFormat from 'react-number-format';
 
 import { Context as UserContext } from '../context/userContext';
 
-import apiHelper from '../utils/apiHelper';
 import { navigate } from '../utils/navigationRef';
 
 import RecentActItem from '../components/RecentActItem';
@@ -30,31 +29,24 @@ const screenwidth = Dimensions.get('window').width;
 const ActivedPaymentScreen = () => {
   const {
     user,
+    transaction,
     getMoneySource,
-    moneySource
+    getTransaction,
+    moneySource,
+    isLoading,
+    setAppLoading
   } = useContext(UserContext);
 
   const userId = user?._id;
-
-  const anim = useRef(new Animated.Value(0)).current;
-  const [items, setItems] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  const fetchData = async () => {
-    console.log('GET TRANSACTION')
-    const { data } = await apiHelper.get(`/users/history/${userId}`);
-    setItems(data.transaction);
-    setIsLoading(false);
-  };
 
   const getPadding = () => {
     return <Text>{''}</Text>;
   };
 
   useEffect(() => {
-    setIsLoading(true);
-    fetchData();
-    getMoneySource(user?._id)
+    setAppLoading();
+    getMoneySource(userId)
+    getTransaction(userId)
   }, []);
 
   return (
@@ -120,7 +112,7 @@ const ActivedPaymentScreen = () => {
               isLoading ? <LoadingComponent /> : (
                 <FlatList
                   style={styles.flatstyle}
-                  data={items}
+                  data={transaction}
                   keyExtractor={(item) => item._id}
                   initialNumToRender={3}
                   showsHorizontalScrollIndicator={false}

@@ -14,10 +14,6 @@ const MoneySourceComponent = () => {
     moneySource
   } = useContext(UserContext);
 
-  useEffect(() => {
-    console.log('moneySource', moneySource)
-  }, [moneySource])
-
   return (
     <FlatList
       style={styles.flatstyle}

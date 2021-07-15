@@ -82,7 +82,7 @@ const EditInfoScreen = (props) => {
               selectedValue={position}
               onValueChange={(itemValue) => setPosition(itemValue)}
             >
-              <Picker.Item label="Teacher" value="teacher" color="#6b6b6b" />
+              <Picker.Item label="Lecturer" value="lecturer" color="#6b6b6b" />
               <Picker.Item label="Student" value="student" color="#6b6b6b" />
             </Picker>
           </View>

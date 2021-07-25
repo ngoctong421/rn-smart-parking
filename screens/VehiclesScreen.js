@@ -27,7 +27,7 @@ const VehiclesScreen = (props) => {
           <Text style={styles.subtext}>MANAGING YOUR VEHICLES</Text>
           <View style={styles.blockcontainer}>
             <Image source={bikes} />
-            <Text style={styles.platetextstyle}>{user.plate}</Text>
+            <Text style={styles.platetextstyle}>{user?.plate}</Text>
           </View>
           <TouchableOpacity
             style={styles.buttonstyle}

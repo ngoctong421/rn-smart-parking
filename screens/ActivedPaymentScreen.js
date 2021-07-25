@@ -2,14 +2,12 @@ import React, { useContext, useEffect, useState, useRef } from 'react';
 import {
   Text,
   View,
-  ScrollView,
   TouchableOpacity,
   StyleSheet,
   Image,
   FlatList,
   Dimensions,
-  SafeAreaView,
-  Animated
+  SafeAreaView
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import NumberFormat from 'react-number-format';

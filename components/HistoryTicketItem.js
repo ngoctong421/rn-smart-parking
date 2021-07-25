@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, Image, StyleSheet } from 'react-native';
+import NumberFormat from 'react-number-format';
 
 import history from '../assets/tickin.png';
 import { convertToDate, convertToTime } from '../utils/formatDateTime';
@@ -13,6 +14,8 @@ const HistoryTicketItem = ({ item, user }) => {
           <Text style={styles.tickettext}>Ticket Id: {`****${item._id.slice(-4)}`}</Text>
           <Text style={styles.tickettext}>Date: {convertToDate(item.createdAt)}</Text>
           <Text style={styles.tickettext}>Arrival time: {convertToTime(item.createdAt)}</Text>
+          <Text style={styles.tickettext}>Time to leave: {convertToTime(item.updatedAt)}</Text>
+          <NumberFormat value={item.price} displayType={'text'} thousandSeparator={true} prefix={''} renderText={(value, props) => <Text style={styles.tickettext}>Price: {value} VND</Text>} />
           <Text style={styles.tickettext}>Vehicle plate: {item.plate}</Text>
         </View>
       </View>

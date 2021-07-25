@@ -38,7 +38,7 @@ Notifications.setNotificationHandler({
 const QRCodeScreen = () => {
 
   const {
-    user, ticketList, setUser, setTickets
+    user, ticketList, setUser, setTickets, getAllTickets
   } = useContext(UserContext);
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
@@ -80,17 +80,6 @@ const QRCodeScreen = () => {
     //   })
     // }
   }
-
-  useEffect(() => {
-    if (!user) {
-      getMe(userId);
-    }
-
-    if (ticketList.length == 0) {
-      getAllTickets(userId)
-    }
-  }, [user, ticketList]);
-
 
   useEffect(() => {
     const run = async () => {

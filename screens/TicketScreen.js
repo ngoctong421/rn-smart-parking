@@ -73,8 +73,17 @@ const TicketScreen = (props) => {
 
           <View style={styles.historycontainer}>
             <Text style={styles.historyheader}>RECENT HISTORY</Text>
+
             {
-              getOutdatedTicket(ticketList).length > 0 ? (
+              ((user?.parkingStatus && getOutdatedTicket(ticketList).length === 0) || (!user?.parkingStatus && ticketList.length === 0)) && (
+                <View style={styles.nohistorylist}>
+                    <Text style={styles.tickettext}>No last tickets</Text>
+                </View>
+              )
+            }
+
+            {
+              user?.parkingStatus && (
                 <FlatList
                   style={styles.flatstyle}
                   data={getOutdatedTicket(ticketList)}
@@ -87,10 +96,22 @@ const TicketScreen = (props) => {
                     return <HistoryTicketItem item={item} user={user} />;
                   }}
                 />
-              ) : (
-                <View style={styles.nohistorylist}>
-                    <Text style={styles.tickettext}>No last tickets</Text>
-                </View>
+              )
+            }
+            {
+              !user?.parkingStatus && (
+                <FlatList
+                  style={styles.flatstyle}
+                  data={ticketList}
+                  keyExtractor={(data) => data._id.toString()}
+                  showsHorizontalScrollIndicator={false}
+                  horizontal
+                  scrollEnabled={true}
+                  nestedScrollEnabled={true}
+                  renderItem={({ item }) => {
+                    return <HistoryTicketItem item={item} user={user} />;
+                  }}
+                />
               )
             }
           </View>

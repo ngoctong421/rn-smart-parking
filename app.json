@@ -10,7 +10,7 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/applogo.png",
     "splash": {
       "image": "./assets/loadingscreen.png",
       "resizeMode": "contain",
@@ -26,7 +26,8 @@
       "supportsTablet": true
     },
     "android": {
-      "useNextNotificationsApi": true
+      "useNextNotificationsApi": true,
+      "package": "com.sparking"
     }
   }
 }
